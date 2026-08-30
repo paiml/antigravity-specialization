@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/course-image.png" width="160" alt="The Antigravity Platform"></p>
+
 # The Antigravity Platform
 
 Worked examples from the first course of the specialization
