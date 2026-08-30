@@ -1,0 +1,14 @@
+# Generated READMEs are built from this file. Edit it, not README.md.
+#
+# The renderer refuses a value over its cap, a `dir` that does not exist, and a
+# course listed here without its own course.toml — so a broken link cannot be
+# committed by rendering.
+
+[specialization]
+slug        = "antigravity"
+title       = "Antigravity Specialization"
+tagline     = "Code from the Coursera specialization on Google Antigravity"
+description = "Each course directory holds that course's worked examples together with the commands to run them."
+
+[[courses]]
+dir = "courses/c01-the-antigravity-platform"

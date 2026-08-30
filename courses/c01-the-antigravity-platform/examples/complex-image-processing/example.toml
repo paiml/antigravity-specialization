@@ -1,0 +1,24 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Complex image processing"
+summary     = "removing an object from an image with ImageMagick"
+description = "Removes the star and its shadow from an image, filling both with the background colour."
+run         = "./remove_star.sh pyramid-star.png out.png"
+requires    = "Requires ImageMagick 6 (`convert`). On ImageMagick 7, use `magick`."
+
+[[files]]
+path = "remove_star.sh"
+note = "the script"
+
+[[files]]
+path = "pyramid-star.png"
+note = "input, 502×460"
+
+[[files]]
+path = "pyramid_no_star.png"
+note = "expected output"
+
+[[files]]
+path = "star-square-1920x1080.png"
+note = "a second still"

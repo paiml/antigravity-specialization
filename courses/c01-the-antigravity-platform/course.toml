@@ -1,0 +1,14 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[course]
+slug           = "c01-the-antigravity-platform"
+number         = 1
+title          = "The Antigravity Platform"
+tagline        = "Worked examples from the first course of the specialization"
+description    = "The code for this course's examples, with the commands to run them. Each example directory is self-contained."
+specialization = "antigravity"
+
+[[examples]]
+dir     = "examples/complex-image-processing"
+title   = "Complex image processing"
+summary = "removing an object from an image with ImageMagick"
