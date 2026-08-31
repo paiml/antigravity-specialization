@@ -41,3 +41,8 @@ summary = "packaging the pipeline so the CLI can invoke it by name"
 dir     = "examples/batch-runner"
 title   = "Batch the pipeline"
 summary = "a Rust orchestrator that runs the pipeline over many files in parallel"
+
+[[examples]]
+dir     = "examples/pmat-review-agent"
+title   = "A review agent that runs pmat"
+summary = "an Antigravity agent that reviews code by running pmat, not by reading the diff"

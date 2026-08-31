@@ -1,0 +1,16 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "A review agent that runs pmat"
+summary     = "an Antigravity agent that reviews code by running pmat, not by reading the diff"
+description = "An agent is one markdown file: frontmatter naming it, then the persona. This one reviews by running pmat's quality gate and reporting what it measured. verify.sh plants a defect and proves the gate reports it, including the case where pmat finds something and still exits zero."
+run         = "./verify.sh"
+requires    = "Requires `pmat`. The agent itself needs the Antigravity CLI (`agy`) and is installed globally, not from this directory."
+
+[[files]]
+path = "agents/pmat-review.md"
+note = "the agent: frontmatter plus persona"
+
+[[files]]
+path = "verify.sh"
+note = "proves the review can fail"
