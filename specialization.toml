@@ -12,3 +12,6 @@ description = "Each course directory holds that course's worked examples togethe
 
 [[courses]]
 dir = "courses/c01-the-antigravity-platform"
+
+[[courses]]
+dir = "courses/c02-antigravity-internals"

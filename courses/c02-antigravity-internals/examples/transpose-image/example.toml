@@ -1,0 +1,20 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Transpose an image"
+summary     = "one standalone ImageMagick operation, and why it is not a rotation"
+description = "Mirrors an image across the diagonal from its top-left corner, turning 502x460 into 460x502. Not a rotation: -rotate 90 gives the same dimensions and a different picture, differing in 97024 pixels."
+run         = "./transpose.sh nostar.png out.png"
+requires    = "Requires ImageMagick 6 (`convert`) or 7 (`magick`). The script picks whichever is installed."
+
+[[files]]
+path = "transpose.sh"
+note = "the script"
+
+[[files]]
+path = "nostar.png"
+note = "input, 502x460, the course 1 output"
+
+[[files]]
+path = "transposed.png"
+note = "expected output, 460x502"

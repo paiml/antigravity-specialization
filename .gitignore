@@ -1,1 +1,56 @@
+# Nothing compiled or rendered belongs in a course code repository. The
+# examples are read, run and re-run by learners; a committed build artifact is
+# stale the moment the source beside it changes, and a 187 MB target/ tree is
+# how that mistake actually happens.
+#
+# NOTE ON THE README GATE, before you add a line here.
+# .github/scripts/check-readme-consistency.sh reads THIS FILE to decide which
+# files may sit in an example directory without a [[files]] entry -- and it
+# keeps only lines containing no slash, star or question mark. So every pattern
+# below that carries a slash or a star is invisible to that gate and widens
+# nothing. `out.png` is deliberately the only bare filename in this file. Add a
+# bare name here and you silently grant it "may go unlisted" in every example.
+
+# The one generated file the examples are allowed to leave behind.
 out.png
+
+# Rust build output
+target/
+**/target/
+*.rlib
+*.rmeta
+*.pdb
+
+# Compiled objects, libraries and executables
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Rendered media. Course video and audio live on the NAS and are cited from
+# the catalogue, never stored here.
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.m4a
+
+# Logs and local scratch
+*.log
+test_dummy/
+.DS_Store
+
+# Batch-runner outputs, written beside their inputs.
+*.t.png

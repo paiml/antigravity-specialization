@@ -1,0 +1,43 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[course]
+slug           = "c02-antigravity-internals"
+number         = 2
+title          = "Antigravity Internals"
+tagline        = "Worked examples from the second course of the specialization"
+description    = "The code for this course's examples, with the commands to run them. Each example directory is self-contained."
+specialization = "antigravity"
+
+# The examples are one ladder, in order: be interviewed, ask, plan, build one
+# thing, compose them, package the result, then run it over a whole directory.
+# Each directory is a rung and stands on its own.
+
+[[examples]]
+dir     = "examples/grill-me-first"
+title   = "Interview before you plan"
+summary = "an interview that settles design decisions one at a time, and the plan it produced"
+
+[[examples]]
+dir     = "examples/explore-and-plan"
+title   = "Explore and plan"
+summary = "asking the CLI what a repo does, and for a plan, before changing anything"
+
+[[examples]]
+dir     = "examples/transpose-image"
+title   = "Transpose an image"
+summary = "one standalone ImageMagick operation, and why it is not a rotation"
+
+[[examples]]
+dir     = "examples/image-pipeline"
+title   = "The whole pipeline in one script"
+summary = "composing the two scripts, with a verification loop that can fail"
+
+[[examples]]
+dir     = "examples/image-pipeline-skill"
+title   = "The pipeline as a skill"
+summary = "packaging the pipeline so the CLI can invoke it by name"
+
+[[examples]]
+dir     = "examples/batch-runner"
+title   = "Batch the pipeline"
+summary = "a Rust orchestrator that runs the pipeline over many files in parallel"

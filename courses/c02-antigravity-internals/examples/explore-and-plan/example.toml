@@ -1,0 +1,20 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Explore and plan"
+summary     = "asking the CLI what a repo does, and for a plan, before changing anything"
+description = "Two rungs that write no files. The first asks what this repository is and what enforces its layout; the second asks for a plan. transpose-plan.md is the real artifact the second one produced, and the skill at the repository root is what got built from it."
+run         = "./explore.sh"
+requires    = "Requires the Antigravity CLI (`agy`). Both scripts pass `--mode plan`, so neither writes a file."
+
+[[files]]
+path = "explore.sh"
+note = "rung 1, asks what the repo does"
+
+[[files]]
+path = "plan.sh"
+note = "rung 2, asks for a plan"
+
+[[files]]
+path = "transpose-plan.md"
+note = "the plan rung 2 produced"

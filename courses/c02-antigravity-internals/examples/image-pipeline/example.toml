@@ -1,0 +1,28 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "The whole pipeline in one script"
+summary     = "composing the two scripts, with a verification loop that can fail"
+description = "Runs both stages in order: remove the star, then transpose what is left. The intermediate goes to a temp directory. verify.sh then proves the result is a transpose and not a rotation, which a dimension check alone cannot do."
+run         = "./pipeline.sh pyramid-star.png out.png && ./verify.sh"
+requires    = "Requires ImageMagick 6 (`convert`) or 7 (`magick`). The script picks whichever is installed."
+
+[[files]]
+path = "pipeline.sh"
+note = "both stages, one command"
+
+[[files]]
+path = "remove_star.sh"
+note = "stage 1, from course 1"
+
+[[files]]
+path = "transpose.sh"
+note = "stage 2"
+
+[[files]]
+path = "verify.sh"
+note = "the verification loop"
+
+[[files]]
+path = "pyramid-star.png"
+note = "input, 502x460"

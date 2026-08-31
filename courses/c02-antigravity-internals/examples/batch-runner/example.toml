@@ -1,0 +1,32 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Batch the pipeline"
+summary     = "a Rust orchestrator that runs the pipeline over many files in parallel"
+description = "The plan from the interview, built. It replaces a bash loop with a concurrent runner: a thread pool, a progress bar, one aggregated log, and a batch that survives a bad file instead of stopping on it. It is an orchestrator, not an image processor; ImageMagick still does the pixels."
+run         = "cargo run -- --dir images --cmd 'convert {} -transpose +repage {}.t.png'"
+requires    = "Requires Rust (`cargo`) and ImageMagick. On ImageMagick 7 put `magick` in the command template instead of `convert`."
+
+[[files]]
+path = "Cargo.toml"
+note = "clap, rayon, indicatif, walkdir, shell-words"
+
+[[files]]
+path = "Cargo.lock"
+note = "pinned dependency versions"
+
+[[files]]
+path = "src/main.rs"
+note = "argument parsing, thread pool, progress bar, exit code"
+
+[[files]]
+path = "src/worker.rs"
+note = "one task, plus the unit tests"
+
+[[files]]
+path = "images/pyramid-a.png"
+note = "sample input, 502x460"
+
+[[files]]
+path = "images/pyramid-b.png"
+note = "a second one, so the batch has something to parallelise"

@@ -1,0 +1,32 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "The pipeline as a skill"
+summary     = "packaging the pipeline so the CLI can invoke it by name"
+description = "The same scripts, moved under .agents/skills/image-pipeline/ with a SKILL.md that says when to use them. The CLI reads the description to decide whether the skill applies, so the description is the part that has to be right."
+run         = "agy -p 'use the image-pipeline skill on pyramid-star.png'"
+requires    = "Requires the Antigravity CLI (`agy`) and ImageMagick. Run it from this directory so `.agents/skills` is in scope."
+
+[[files]]
+path = ".agents/skills/image-pipeline/SKILL.md"
+note = "the skill, name and description in frontmatter"
+
+[[files]]
+path = ".agents/skills/image-pipeline/scripts/pipeline.sh"
+note = "what the skill runs"
+
+[[files]]
+path = ".agents/skills/image-pipeline/scripts/remove_star.sh"
+note = "stage 1"
+
+[[files]]
+path = ".agents/skills/image-pipeline/scripts/transpose.sh"
+note = "stage 2"
+
+[[files]]
+path = ".agents/skills/image-pipeline/scripts/verify.sh"
+note = "the verification loop"
+
+[[files]]
+path = "pyramid-star.png"
+note = "input, 502x460"

@@ -1,0 +1,16 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Interview before you plan"
+summary     = "an interview that settles design decisions one at a time, and the plan it produced"
+description = "Rung zero. The interview asks one question at a time, each with a recommended answer, and reads the repository instead of asking whenever the repository can answer. implementation_plan.md is a real artifact from one of these sessions, kept with its open questions still in it."
+run         = "./grill.sh"
+requires    = "Requires the Antigravity CLI (`agy`). The interview is interactive, so this example does not run headless."
+
+[[files]]
+path = "grill.sh"
+note = "starts the interview"
+
+[[files]]
+path = "implementation_plan.md"
+note = "a real plan an interview produced"
