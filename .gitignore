@@ -10,6 +10,7 @@
 # below that carries a slash or a star is invisible to that gate and widens
 # nothing. `out.png` is deliberately the only bare filename in this file. Add a
 # bare name here and you silently grant it "may go unlisted" in every example.
+# That is why the scope-marker line below is anchored with a leading slash.
 
 # The one generated file the examples are allowed to leave behind.
 out.png
@@ -54,3 +55,10 @@ test_dummy/
 
 # Batch-runner outputs, written beside their inputs.
 *.t.png
+
+# The scope lint's extra marker list. It names internal hosts, paths and
+# private repos that must never appear in this PUBLIC repository -- so
+# committing the list would disclose exactly what it exists to prevent. The
+# leading slash anchors it to the repository root and keeps it out of the
+# gate's bare-name allowance.
+/.repo-scope-markers.local
