@@ -1,0 +1,13 @@
+[package]
+name = "m4"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+license = "MIT"
+publish = false
+
+[lints.rust]
+unsafe_code = "forbid"
+
+# Its own workspace: each module keeps its own Cargo.lock, so module PRs never conflict.
+[workspace]

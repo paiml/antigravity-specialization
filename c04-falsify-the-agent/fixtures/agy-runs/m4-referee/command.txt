@@ -1,0 +1,1 @@
+cd <arena> && agy --sandbox --model gemini-4-neon-high --print "$(cat prompt.md)" </dev/null
