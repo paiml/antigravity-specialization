@@ -4,12 +4,13 @@
 #   scripts/gate.sh m1 m3      just those modules
 # Each module mN/ is its own cargo workspace with its own Cargo.lock.
 # It checks for its tools and goes red when one is missing. It installs nothing.
-#   scripts/gate.sh --self-test  feed the gate known-bad input; every one must be refused
+#   scripts/gate.sh --self-test  feed its checks known-bad input, then plant each defect in a
+#                                copy of the course (scripts/self-test.sh): every one must be refused
 set -euo pipefail
 cd "$(dirname "$0")/.."
 # shellcheck source=lib.sh
 . scripts/lib.sh
-if [ "${1-}" = --self-test ]; then self_test_lib; exit $?; fi
+if [ "${1-}" = --self-test ]; then self_test_lib && exec bash scripts/self-test.sh gate; exit 1; fi
 
 for tool in cargo rustfmt pv; do
   command -v "$tool" >/dev/null || { echo "gate: missing tool: $tool" >&2; exit 1; }
@@ -74,22 +75,19 @@ for m in "${mods[@]}"; do
       pv obligations --gate .
       pv extract contracts --check
     )
-    # Every contract cites at least one falsification test, and each one is run:
-    # it must pass and must select a subset of the suite (a bare `cargo test`
-    # that runs everything proves nothing about the named rule).
+    # Every contract cites at least one falsification test, each a different test
+    # named last on a `cargo test` line, and each one is run: it must pass and run
+    # exactly that one test. This proves the named test exists, runs and passes;
+    # whether it exercises the rule it is cited for is for review to judge.
     for f in "${contracts[@]}"; do
       seen=0
       cmds=$(cited_commands "$f") || exit 1
       while IFS= read -r cmd; do
         read -ra argv <<<"$cmd"
         (cd "$m" && cargo test --locked "${argv[@]:2}" 2>&1) >"$log" || { cat "$log" >&2; echo "gate: $f: $cmd failed" >&2; exit 1; }
-        n=$(sum_passed "$log")
-        out=$(sum_filtered "$log")
-        require_positive "$n" "$f: $cmd ran no test (the cited test does not exist)" || exit 1
-        require_positive "$out" "$f: $cmd selects no subset of the suite; name the test" || exit 1
+        require_one_named "$log" "${argv[${#argv[@]}-1]}" || { echo "gate: $f: $cmd" >&2; exit 1; }
         seen=$((seen + 1))
       done <<<"$cmds"
-      [ "$seen" -gt 0 ] || { echo "gate: $f cites no falsification test" >&2; exit 1; }
       cited=$((cited + seen))
     done
     dirs=1
