@@ -14,10 +14,3 @@ test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 
 error: test failed, to rerun pass `--lib`
 exit=101
-tests::parses_hours: test
-tests::parses_minutes: test
-tests::parses_mixed: test
-tests::parses_seconds: test
-tests::rejects_empty_and_malformed: test
-exit=0
-exit=0

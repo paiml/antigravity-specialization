@@ -7,7 +7,7 @@ test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 Filename                                               Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/tmp/tmp.3ORzsLcrbk/vacuous-suite-after/src/lib.rs          48                 0   100.00%           6                 0   100.00%          40                 0   100.00%           0                 0         -
+vacuous-suite-after/src/lib.rs          48                 0   100.00%           6                 0   100.00%          40                 0   100.00%           0                 0         -
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 TOTAL                                                       48                 0   100.00%           6                 0   100.00%          40                 0   100.00%           0                 0         -
 exit=0
