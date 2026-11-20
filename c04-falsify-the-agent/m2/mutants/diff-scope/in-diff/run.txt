@@ -1,0 +1,5 @@
+Found 7 mutants to test
+ok       Unmutated baseline in 0s build + 0s test
+MISSED   src/bulk.rs:9:12: replace > with >= in bulk_dozens in 0s build + 0s test
+7 mutants tested in 3s: 1 missed, 6 caught
+exit=2

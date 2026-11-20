@@ -1,0 +1,32 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "kill_rate(caught, missed) is caught / (caught + missed), and has no value for an empty run"
+  references:
+    - "m2/src/score.rs (kill_rate)"
+equations:
+  kill_rate:
+    formula: "kill_rate(caught, missed) = caught / (caught + missed)"
+    domain: "caught, missed: usize with caught + missed > 0"
+    codomain: "f64 in [0, 1]"
+    preconditions:
+      - "caught + missed > 0"
+    postconditions:
+      - "IN_UNIT: 0 <= kill_rate(caught, missed) <= 1"
+      - "EMPTY_IS_NONE: caught + missed = 0 gives no score"
+    invariants:
+      - "kill_rate(caught, missed) >= 0"
+      - "kill_rate(caught, missed) <= 1"
+proof_obligations:
+  - type: invariant
+    property: "an empty mutation run has no score, so it cannot pass as 100%"
+    formal: "caught + missed = 0 implies kill_rate(caught, missed) is None"
+    applies_to: kill_rate
+falsification_tests:
+  - id: FALSIFY-KILLRATE-001
+    rule: EMPTY_IS_NONE
+    prediction: "zero caught and zero missed gives None, not Some(1.0)"
+    test: "cargo test --lib kill_rate_has_no_score_for_an_empty_run"
+    if_fails: "an empty run would read as a perfect score"

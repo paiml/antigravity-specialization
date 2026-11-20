@@ -1,0 +1,11 @@
+Found 10 mutants to test
+ok       Unmutated baseline in 0s build + 0s test
+MISSED   src/price.rs:8:5: replace line_total -> u32 with 1 in 0s build + 0s test
+MISSED   src/price.rs:8:28: replace * with + in line_total in 0s build + 0s test
+MISSED   src/price.rs:8:28: replace * with / in line_total in 0s build + 0s test
+MISSED   src/price.rs:9:15: replace && with || in line_total in 0s build + 0s test
+MISSED   src/price.rs:9:24: replace >= with < in line_total in 0s build + 0s test
+MISSED   src/price.rs:10:15: replace - with + in line_total in 0s build + 0s test
+MISSED   src/price.rs:10:23: replace / with % in line_total in 0s build + 0s test
+10 mutants tested in 4s: 7 missed, 3 caught
+exit=2

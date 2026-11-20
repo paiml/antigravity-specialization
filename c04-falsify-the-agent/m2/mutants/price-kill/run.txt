@@ -1,0 +1,4 @@
+Found 10 mutants to test
+ok       Unmutated baseline in 0s build + 0s test
+10 mutants tested in 4s: 10 caught
+exit=0

@@ -1,0 +1,1 @@
+cargo mutants --no-shuffle --timeout 300 -o <tmpdir> --in-diff mutants/diff-scope/change.diff -- --lib

@@ -1,0 +1,25 @@
+//! The `m2_diff_scope` demo: a new function that arrives in a diff.
+//!
+//! Written for the demo (not by an agent). It counts whole dozens, and it has
+//! a bug at exactly 12 that its test never reaches. The mutation run scoped to
+//! the diff finds the survivor that points at it.
+
+/// Whole dozens in `qty` units.
+pub fn bulk_dozens(qty: u32) -> u32 {
+    if qty > 12 {
+        qty / 12
+    } else {
+        0
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::bulk_dozens;
+
+    #[test]
+    fn counts_dozens() {
+        assert_eq!(bulk_dozens(24), 2);
+        assert_eq!(bulk_dozens(3), 0);
+    }
+}
