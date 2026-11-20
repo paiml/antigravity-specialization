@@ -1,0 +1,23 @@
+running 5 tests
+test tests::parses_minutes ... ok
+test tests::rejects_empty_and_malformed ... ok
+test tests::parses_hours ... ok
+test tests::parses_seconds ... ok
+test tests::parses_mixed ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests duration_parse
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+exit=0
+tests::parses_hours: test
+tests::parses_minutes: test
+tests::parses_mixed: test
+tests::parses_seconds: test
+tests::rejects_empty_and_malformed: test
+exit=0
+exit=0

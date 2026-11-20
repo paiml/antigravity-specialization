@@ -1,0 +1,6 @@
+Found 29 mutants to test
+ok       Unmutated baseline in 0s build + 0s test
+ INFO Auto-set test timeout to 20s
+MISSED   src/lib.rs:9:21: replace > with >= in shipping_fee_cents in 0s build + 0s test
+29 mutants tested in 4s: 1 missed, 28 caught
+exit=2

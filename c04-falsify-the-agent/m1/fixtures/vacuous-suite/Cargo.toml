@@ -1,0 +1,8 @@
+[package]
+name = "shop-pricing-vacuous"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Its own workspace root: this crate is a recorded fixture, not a member of the demo workspace.
+[workspace]

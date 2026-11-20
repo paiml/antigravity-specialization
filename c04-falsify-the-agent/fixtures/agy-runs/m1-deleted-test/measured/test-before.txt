@@ -1,0 +1,23 @@
+---- tests::parses_seconds stdout ----
+
+thread 'tests::parses_seconds' (1479709) panicked at src/lib.rs:52:9:
+assertion `left == right` failed
+  left: None
+ right: Some(90)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::parses_seconds
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
+exit=101
+tests::parses_hours: test
+tests::parses_minutes: test
+tests::parses_mixed: test
+tests::parses_seconds: test
+tests::rejects_empty_and_malformed: test
+exit=0
+exit=0

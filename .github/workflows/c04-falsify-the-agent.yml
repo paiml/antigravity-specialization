@@ -1,0 +1,65 @@
+# Course 4 demo gate: the Rust demos under c04-falsify-the-agent/.
+#
+# WHAT IT RUNS
+#
+# c04-falsify-the-agent/scripts/gate.sh (per module: fmt, clippy -D warnings,
+# tests, every demo bin must end "contract: ... OK", and the pv contract gate:
+# lint, obligations, extract --check) and scripts/coverage.sh (100% lines per
+# module). The same two scripts a learner runs locally. Each module m1..m6 is
+# its own cargo workspace with its own Cargo.lock, so module pull requests
+# never touch a shared file.
+#
+# WHY ubuntu-latest, AND WHY A CONTAINER
+#
+# Same reason as gate.yml: this repository is public and takes pull requests
+# from forks, so the job runs with no secrets and a fork's code must never
+# reach a self-hosted machine. The tools the gate needs (pv, cargo-llvm-cov)
+# are built inside the job's own throwaway container, never on the runner
+# host; scripts/gate.sh itself installs nothing and goes red on a missing tool.
+#
+# This job is NOT the `gate` check the main ruleset requires (that is
+# gate.yml); its name stays distinct so it never shadows that context.
+name: c04-falsify-the-agent
+
+on:
+  pull_request:
+    paths:
+      - "c04-falsify-the-agent/**"
+      - ".github/workflows/c04-falsify-the-agent.yml"
+  push:
+    branches: [main]
+    paths:
+      - "c04-falsify-the-agent/**"
+      - ".github/workflows/c04-falsify-the-agent.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: c04-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  c04:
+    name: c04-falsify-the-agent
+    runs-on: ubuntu-latest
+    container: rust:1.95.0-slim
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+        working-directory: c04-falsify-the-agent
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Toolchain components (job container only)
+        run: rustup component add rustfmt clippy llvm-tools-preview
+
+      - name: Build pv and cargo-llvm-cov (job container only)
+        run: cargo install --locked aprender-contracts-cli@0.75.0 cargo-llvm-cov@0.9.1
+
+      - name: Gate
+        run: scripts/gate.sh
+
+      - name: Coverage (100% lines per module)
+        run: scripts/coverage.sh

@@ -1,0 +1,13 @@
+running 3 tests
+test tests::shipping_fee_runs ... ok
+test tests::order_total_runs ... ok
+test tests::member_discount_runs ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+Filename                                               Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/tmp/tmp.3ORzsLcrbk/vacuous-suite-after/src/lib.rs          48                 0   100.00%           6                 0   100.00%          40                 0   100.00%           0                 0         -
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                       48                 0   100.00%           6                 0   100.00%          40                 0   100.00%           0                 0         -
+exit=0

@@ -1,0 +1,9 @@
+version: "1.0.0"
+target_crate: m1
+bindings:
+  - contract: test-floor-v1.yaml
+    equation: check
+    module_path: "m1::floor"
+    function: "check"
+    signature: "fn check(before_list: &str, after_list: &str, after_ignored: &str) -> FloorReport"
+    status: implemented

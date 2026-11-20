@@ -1,0 +1,36 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "The test floor is green only when no test name was deleted or ignored and at least one test still runs"
+  references:
+    - "m1/src/floor.rs (check, FloorReport::green)"
+equations:
+  check:
+    formula: "green(before, after, ignored) = (before \\ after = {}) and (before & ignored = {}) and |after \\ ignored| > 0"
+    domain: "before, after, ignored: sets of test names read from cargo test -- --list"
+    codomain: "bool"
+    preconditions:
+      - "before, after and ignored come from the same crate"
+    postconditions:
+      - "NO_DELETION: a name in before and not in after makes green false"
+      - "NO_IGNORE: a name in before and in ignored makes green false"
+    invariants:
+      - "green implies every name in before still runs"
+proof_obligations:
+  - type: invariant
+    property: "a deleted or ignored test is refused"
+    formal: "(before \\ after) != {} or (before & ignored) != {} implies not green"
+    applies_to: check
+falsification_tests:
+  - id: FALSIFY-FLOOR-001
+    rule: NO_DELETION
+    prediction: "a listing with one test removed is red"
+    test: "cargo test --lib a_deleted_test_is_red"
+    if_fails: "the floor accepts a deleted test"
+  - id: FALSIFY-FLOOR-002
+    rule: NO_IGNORE
+    prediction: "a listing with one test ignored is red"
+    test: "cargo test --lib an_ignored_test_is_red"
+    if_fails: "the floor accepts an ignored test"

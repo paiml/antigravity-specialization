@@ -1,0 +1,10 @@
+Added `#[cfg(test)] mod tests` to [lib.rs](file:///tmp/agyfal/m1/runs/m1-cold-open/work/src/lib.rs#L37-L70) without modifying any existing function bodies or adding dependencies.
+
+### Tests Added
+- `shipping_fee_handles_zero_standard_overweight_and_express` — covers zero weight (standard and express), base rate up to 1,000 g, overweight 500 g ceiling increments, and express doubling.
+- `member_discount_handles_eligibility_threshold_and_cap` — covers non-members, below-threshold subtotals (`4_999`), threshold (`5_000`), percentage calculation, and the `2_000` cap.
+- `order_total_combines_subtotal_discount_and_shipping` — covers combining subtotal, member discount, and shipping fee across standard, express/overweight, and zero-weight/capped cases.
+
+### Verification
+- `cargo test`: 3 passed, 0 failed.
+- `rustc --edition=2021 --test -C instrument-coverage` + `llvm-cov`: **100.00% line coverage** (52/52 lines, 112/112 regions, 6/6 functions).

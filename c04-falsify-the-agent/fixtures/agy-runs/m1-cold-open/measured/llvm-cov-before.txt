@@ -1,0 +1,13 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.26s
+     Running unittests src/lib.rs (target/llvm-cov-target/debug/build/shop-pricing/70ca396c5d959fa5/out/shop_pricing-70ca396c5d959fa5)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+Filename                                                   Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/home/learner/agyfal-m1/kf/m1-cold-open/before/src/lib.rs          28                28     0.00%           3                 3     0.00%          28                28     0.00%           0                 0         -
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                           28                28     0.00%           3                 3     0.00%          28                28     0.00%           0                 0         -
+exit=0

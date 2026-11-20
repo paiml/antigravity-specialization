@@ -1,0 +1,32 @@
+Found 29 mutants to test
+ok       Unmutated baseline in 0s build + 0s test
+ INFO Auto-set test timeout to 20s
+MISSED   src/lib.rs:5:5: replace shipping_fee_cents -> u32 with 0 in 0s build + 0s test
+MISSED   src/lib.rs:5:5: replace shipping_fee_cents -> u32 with 1 in 0s build + 0s test
+MISSED   src/lib.rs:5:21: replace == with != in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:9:21: replace > with == in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:9:21: replace > with >= in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:10:13: replace += with -= in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:10:13: replace += with *= in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:10:53: replace * with + in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:10:53: replace * with / in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:10:30: replace - with + in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:10:30: replace - with / in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:13:13: replace *= with += in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:13:13: replace *= with /= in shipping_fee_cents in 0s build + 0s test
+MISSED   src/lib.rs:20:5: replace member_discount_cents -> u32 with 0 in 0s build + 0s test
+MISSED   src/lib.rs:20:5: replace member_discount_cents -> u32 with 1 in 0s build + 0s test
+MISSED   src/lib.rs:20:16: replace || with && in member_discount_cents in 0s build + 0s test
+MISSED   src/lib.rs:20:8: delete ! in member_discount_cents in 0s build + 0s test
+MISSED   src/lib.rs:20:34: replace < with == in member_discount_cents in 0s build + 0s test
+MISSED   src/lib.rs:20:34: replace < with > in member_discount_cents in 0s build + 0s test
+MISSED   src/lib.rs:20:34: replace < with <= in member_discount_cents in 0s build + 0s test
+MISSED   src/lib.rs:23:21: replace / with % in member_discount_cents in 0s build + 0s test
+MISSED   src/lib.rs:23:21: replace / with * in member_discount_cents in 0s build + 0s test
+MISSED   src/lib.rs:33:5: replace order_total_cents -> u32 with 0 in 0s build + 0s test
+MISSED   src/lib.rs:33:5: replace order_total_cents -> u32 with 1 in 0s build + 0s test
+MISSED   src/lib.rs:34:9: replace + with - in order_total_cents in 0s build + 0s test
+MISSED   src/lib.rs:33:20: replace - with + in order_total_cents in 0s build + 0s test
+MISSED   src/lib.rs:33:20: replace - with / in order_total_cents in 0s build + 0s test
+29 mutants tested in 4s: 27 missed, 2 caught
+exit=2

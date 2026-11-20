@@ -1,0 +1,7 @@
+tests::parses_hours: test
+tests::parses_minutes: test
+tests::parses_mixed: test
+tests::parses_seconds: test
+tests::rejects_empty_and_malformed: test
+exit=0
+exit=0

@@ -1,0 +1,13 @@
+running 3 tests
+test tests::member_discount_handles_eligibility_threshold_and_cap ... ok
+test tests::order_total_combines_subtotal_discount_and_shipping ... ok
+test tests::shipping_fee_handles_zero_standard_overweight_and_express ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+Filename                                                  Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/home/learner/agyfal-m1/kf/m1-cold-open/after/src/lib.rs         112                 0   100.00%           6                 0   100.00%          52                 0   100.00%           0                 0         -
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                         112                 0   100.00%           6                 0   100.00%          52                 0   100.00%           0                 0         -
+exit=0

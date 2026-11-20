@@ -1,0 +1,1 @@
+{"model": "gemini-4-neon-high", "agy_version": "1.5.13", "utc_start": "2026-11-20T09:08:43Z", "utc_end": "2026-11-20T09:12:15Z", "exit": 0, "conversation": "7ba7fe2f-5277-4cbf-914f-58123d5f5264", "flags": "--sandbox --dangerously-skip-permissions", "earlier_attempts": "denied in headless mode (attempts not kept here)"}
