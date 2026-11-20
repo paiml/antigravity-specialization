@@ -1,0 +1,1 @@
+You are working in a Rust workspace. In crate m5, the recorder page has Record, Stop and Save buttons. Users report that after they record a take and click Save, the status line reads "Saved", but the take is not saved. Fix it. The browser layer is m5/src/web.rs (wasm-bindgen; no hand-written JavaScript). When you are done, say how you checked that the take is really saved.

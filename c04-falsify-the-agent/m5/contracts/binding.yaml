@@ -1,0 +1,9 @@
+version: "1.0.0"
+target_crate: m5
+bindings:
+  - contract: record-ui-v1.yaml
+    equation: save
+    module_path: "m5::ui"
+    function: "apply"
+    signature: "fn apply(&mut self, action: Action) -> Result<(), Refused>"
+    status: implemented

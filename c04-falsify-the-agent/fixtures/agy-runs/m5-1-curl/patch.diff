@@ -1,0 +1,364 @@
+diff --git a/m5/src/curl.rs b/m5/src/curl.rs
+index 788171f..cc7084c 100644
+--- a/m5/src/curl.rs
++++ b/m5/src/curl.rs
+@@ -15,22 +15,20 @@ pub fn serve_once(listener: &TcpListener, body: &str) -> io::Result<()> {
+         line.clear();
+     }
+     let mut stream = reader.into_inner();
+-    write!(
+-        stream,
++    let resp = format!(
+         "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
+         body.len(),
+         body
+-    )?;
++    );
++    stream.write_all(resp.as_bytes())?;
+     stream.flush()
+ }
+ 
+ /// GET `/` from `addr`; return the status code and the body.
+ pub fn get(addr: SocketAddr) -> io::Result<(u16, String)> {
+     let mut stream = TcpStream::connect(addr)?;
+-    write!(
+-        stream,
+-        "GET / HTTP/1.1\r\nHost: {addr}\r\nConnection: close\r\n\r\n"
+-    )?;
++    let req = format!("GET / HTTP/1.1\r\nHost: {addr}\r\nConnection: close\r\n\r\n");
++    stream.write_all(req.as_bytes())?;
+     let mut raw = String::new();
+     stream.read_to_string(&mut raw)?;
+     let (head, body) = raw.split_once("\r\n\r\n").unwrap_or((raw.as_str(), ""));
+@@ -70,6 +68,14 @@ mod tests {
+         assert!(curl_says_ok(status, &body, &["save"]));
+         assert!(!curl_says_ok(status, &body, &["stop"]));
+         assert!(!curl_says_ok(404, &body, &["save"]));
++
++        let html = crate::page::Page::recorder().html();
++        let (status, body) = round_trip(&html).unwrap();
++        assert!(curl_says_ok(
++            status,
++            &body,
++            &["record", "stop", "save", "status"]
++        ));
+     }
+ 
+     #[test]
+diff --git a/m5/src/driver.rs b/m5/src/driver.rs
+index f68ec35..282e405 100644
+--- a/m5/src/driver.rs
++++ b/m5/src/driver.rs
+@@ -13,6 +13,8 @@ pub enum Expect {
+     Phase(Phase),
+     /// This many takes are recorded.
+     Takes(u32),
++    /// This many takes are saved.
++    Saved(u32),
+     /// The status line reads exactly this. A label, not state.
+     Status(&'static str),
+ }
+@@ -53,6 +55,7 @@ pub fn drive(page: &mut Page, steps: &[Step]) -> Result<usize, Failure> {
+         let held = match step.expect {
+             Expect::Phase(phase) => ui.phase == phase,
+             Expect::Takes(n) => ui.takes == n,
++            Expect::Saved(n) => ui.saved == n,
+             Expect::Status(text) => ui.status == text,
+         };
+         if !held {
+@@ -76,6 +79,10 @@ pub fn recorder_script() -> Vec<Step> {
+             control: "stop",
+             expect: Expect::Takes(1),
+         },
++        Step {
++            control: "save",
++            expect: Expect::Saved(1),
++        },
+     ]
+ }
+ 
+@@ -87,7 +94,16 @@ mod tests {
+     #[test]
+     fn the_recorder_script_passes_on_the_wired_page() {
+         let mut page = Page::recorder();
+-        assert_eq!(drive(&mut page, &recorder_script()), Ok(2));
++        assert_eq!(drive(&mut page, &recorder_script()), Ok(3));
++        assert_eq!(
++            (
++                page.ui.phase,
++                page.ui.takes,
++                page.ui.saved,
++                page.ui.status.as_str(),
++            ),
++            (Phase::Saved, 1, 1, "Saved")
++        );
+     }
+ 
+     #[test]
+@@ -100,6 +116,15 @@ mod tests {
+             "{}",
+             err.reason
+         );
++
++        let mut dead_save = Page::recorder().with_handler("save", Handler::Dead);
++        let err = drive(&mut dead_save, &recorder_script()).unwrap_err();
++        assert_eq!((err.step, err.control), (2, "save"));
++        assert!(
++            err.reason.starts_with("expected Saved(1)"),
++            "{}",
++            err.reason
++        );
+     }
+ 
+     #[test]
+@@ -121,15 +146,33 @@ mod tests {
+             drive(&mut page, &early).unwrap_err().reason,
+             "Stop refused in Idle"
+         );
++        let early_save = [Step {
++            control: "save",
++            expect: Expect::Saved(1),
++        }];
++        assert_eq!(
++            drive(&mut page, &early_save).unwrap_err().reason,
++            "Save refused in Idle"
++        );
+     }
+ 
+     #[test]
+     fn a_status_check_reads_the_label() {
+         let mut page = Page::recorder();
+-        let steps = [Step {
+-            control: "record",
+-            expect: Expect::Status("Recording"),
+-        }];
+-        assert_eq!(drive(&mut page, &steps), Ok(1));
++        let steps = [
++            Step {
++                control: "record",
++                expect: Expect::Status("Recording"),
++            },
++            Step {
++                control: "stop",
++                expect: Expect::Status("Stopped"),
++            },
++            Step {
++                control: "save",
++                expect: Expect::Status("Saved"),
++            },
++        ];
++        assert_eq!(drive(&mut page, &steps), Ok(3));
+     }
+ }
+diff --git a/m5/src/exports.rs b/m5/src/exports.rs
+index a0e8a6c..4ccc1b2 100644
+--- a/m5/src/exports.rs
++++ b/m5/src/exports.rs
+@@ -57,7 +57,10 @@ mod tests {
+     #[test]
+     fn every_export_in_web_rs_is_driven() {
+         let exports = exported_fns(WEB_RS);
+-        assert!(!exports.is_empty(), "web.rs exports nothing");
++        assert_eq!(
++            exports,
++            vec!["record".to_string(), "stop".to_string(), "save".to_string()]
++        );
+         assert_eq!(
+             unexercised(&exports, &recorder_script()),
+             Vec::<String>::new()
+diff --git a/m5/src/lib.rs b/m5/src/lib.rs
+index 36100fc..2863d3a 100644
+--- a/m5/src/lib.rs
++++ b/m5/src/lib.rs
+@@ -1,6 +1,6 @@
+ //! m5: End to end for agent-built web and WASM.
+ //!
+-//! A recorder page with Record and Stop buttons. The page logic is plain Rust
++//! A recorder page with Record, Stop and Save buttons. The page logic is plain Rust
+ //! ([`ui`], [`page`]); the browser layer is wasm-bindgen ([`web`], wasm32 only).
+ //! The checks are a curl-style GET ([`curl`]), a step driver that reads the
+ //! state back ([`driver`]) and an export list read from `web.rs` ([`exports`]).
+diff --git a/m5/src/page.rs b/m5/src/page.rs
+index ba7d560..6ce500e 100644
+--- a/m5/src/page.rs
++++ b/m5/src/page.rs
+@@ -58,6 +58,11 @@ impl Page {
+                     label: "Stop",
+                     handler: Handler::Wired(Action::Stop),
+                 },
++                Control {
++                    id: "save",
++                    label: "Save",
++                    handler: Handler::Wired(Action::Save),
++                },
+             ],
+             ui: RecordUi::new(),
+         }
+@@ -116,6 +121,7 @@ mod tests {
+         assert!(html.starts_with("<!doctype html>"));
+         assert!(html.contains("<button id=\"record\">Record</button>"));
+         assert!(html.contains("<button id=\"stop\">Stop</button>"));
++        assert!(html.contains("<button id=\"save\">Save</button>"));
+         assert!(html.contains("<p id=\"status\">Ready</p>"));
+     }
+ 
+@@ -125,6 +131,18 @@ mod tests {
+         page.click("record").unwrap();
+         assert_eq!(page.ui.phase, Phase::Recording);
+         assert!(matches!(page.click("record"), Err(ClickError::Refused(_))));
++        page.click("stop").unwrap();
++        page.click("save").unwrap();
++        assert_eq!(
++            (
++                page.ui.phase,
++                page.ui.takes,
++                page.ui.saved,
++                page.ui.status.as_str()
++            ),
++            (Phase::Saved, 1, 1, "Saved")
++        );
++        assert!(page.html().contains("<p id=\"status\">Saved</p>"));
+     }
+ 
+     #[test]
+diff --git a/m5/src/ui.rs b/m5/src/ui.rs
+index 73ff631..e50a3ac 100644
+--- a/m5/src/ui.rs
++++ b/m5/src/ui.rs
+@@ -13,6 +13,8 @@ pub enum Phase {
+     Recording,
+     /// A take has ended.
+     Stopped,
++    /// The take has been saved.
++    Saved,
+ }
+ 
+ /// One thing a control can ask the recorder to do.
+@@ -22,6 +24,8 @@ pub enum Action {
+     Record,
+     /// End the take.
+     Stop,
++    /// Save the take.
++    Save,
+ }
+ 
+ /// Why an action was refused.
+@@ -40,6 +44,8 @@ pub struct RecordUi {
+     pub phase: Phase,
+     /// Takes recorded so far.
+     pub takes: u32,
++    /// Takes saved so far.
++    pub saved: u32,
+     /// The status line the page shows.
+     pub status: String,
+ }
+@@ -60,7 +66,7 @@ impl RecordUi {
+             phase: self.phase,
+         };
+         match (action, self.phase) {
+-            (Action::Record, Phase::Idle | Phase::Stopped) => {
++            (Action::Record, Phase::Idle | Phase::Stopped | Phase::Saved) => {
+                 self.phase = Phase::Recording;
+                 self.status = "Recording".to_string();
+                 Ok(())
+@@ -71,6 +77,12 @@ impl RecordUi {
+                 self.status = "Stopped".to_string();
+                 Ok(())
+             }
++            (Action::Save, Phase::Stopped) => {
++                self.phase = Phase::Saved;
++                self.saved += 1;
++                self.status = "Saved".to_string();
++                Ok(())
++            }
+             _ => Err(refused),
+         }
+     }
+@@ -88,13 +100,43 @@ mod tests {
+         assert_eq!(ui.phase, Phase::Recording);
+         ui.apply(Action::Stop).unwrap();
+         assert_eq!(
+-            (ui.phase, ui.takes, ui.status.as_str()),
+-            (Phase::Stopped, 1, "Stopped")
++            (ui.phase, ui.takes, ui.saved, ui.status.as_str()),
++            (Phase::Stopped, 1, 0, "Stopped")
+         );
+         ui.apply(Action::Record).unwrap();
+         assert_eq!(ui.phase, Phase::Recording);
+     }
+ 
++    #[test]
++    fn save_after_a_take_saves_it_and_sets_status() {
++        let mut ui = RecordUi::new();
++        ui.apply(Action::Record).unwrap();
++        ui.apply(Action::Stop).unwrap();
++        ui.apply(Action::Save).unwrap();
++        assert_eq!(
++            (ui.phase, ui.takes, ui.saved, ui.status.as_str()),
++            (Phase::Saved, 1, 1, "Saved")
++        );
++        // Saving the same take twice is refused and changes nothing.
++        let saved_state = ui.clone();
++        assert_eq!(
++            ui.apply(Action::Save),
++            Err(Refused {
++                action: Action::Save,
++                phase: Phase::Saved,
++            })
++        );
++        assert_eq!(ui, saved_state);
++        // A new take can be recorded and saved after saving.
++        ui.apply(Action::Record).unwrap();
++        ui.apply(Action::Stop).unwrap();
++        ui.apply(Action::Save).unwrap();
++        assert_eq!(
++            (ui.phase, ui.takes, ui.saved, ui.status.as_str()),
++            (Phase::Saved, 2, 2, "Saved")
++        );
++    }
++
+     #[test]
+     fn a_refused_action_changes_nothing() {
+         let mut ui = RecordUi::new();
+@@ -108,7 +150,24 @@ mod tests {
+             }
+         );
+         assert_eq!(ui, before);
++        assert_eq!(
++            ui.apply(Action::Save),
++            Err(Refused {
++                action: Action::Save,
++                phase: Phase::Idle
++            })
++        );
++        assert_eq!(ui, before);
+         ui.apply(Action::Record).unwrap();
++        let recording = ui.clone();
+         assert!(ui.apply(Action::Record).is_err());
++        assert_eq!(
++            ui.apply(Action::Save),
++            Err(Refused {
++                action: Action::Save,
++                phase: Phase::Recording
++            })
++        );
++        assert_eq!(ui, recording);
+     }
+ }
+diff --git a/m5/src/web.rs b/m5/src/web.rs
+index b3ca85c..ccc6769 100644
+--- a/m5/src/web.rs
++++ b/m5/src/web.rs
+@@ -45,6 +45,12 @@ pub fn stop() {
+     act(Action::Stop);
+ }
+ 
++/// Save button.
++#[wasm_bindgen]
++pub fn save() {
++    act(Action::Save);
++}
++
+ /// Draw the page and wire each wired control to its export.
+ #[wasm_bindgen(start)]
+ pub fn start() -> Result<(), JsValue> {

@@ -1,0 +1,36 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "The recorder page's Save control: it runs only after an unsaved take and then every take is saved"
+  references:
+    - "m5/src/ui.rs (RecordUi::apply)"
+    - "m5/src/contract.rs (save_pre, save_post)"
+equations:
+  save:
+    formula: "save(ui) = ui with saved := takes and status := Saved"
+    domain: "ui: RecordUi with phase = Stopped and takes > saved"
+    codomain: "RecordUi"
+    preconditions:
+      - "phase = Stopped and takes > saved"
+    postconditions:
+      - "SAVED_IS_STATE: saved' = takes and takes' = takes and phase' = phase and status' = Saved"
+    invariants:
+      - "saved <= takes"
+proof_obligations:
+  - type: invariant
+    property: "after Save, every take is saved"
+    formal: "save_pre(ui) implies saved'(ui) = takes(ui)"
+    applies_to: save
+falsification_tests:
+  - id: FALSIFY-RECORD-UI-001
+    rule: SAVED_IS_STATE
+    prediction: "a Save that only rewrites the status line to Saved breaks the postcondition"
+    test: "cargo test --lib a_label_without_state_breaks_the_postcondition"
+    if_fails: "the check reads the label, not the saved count"
+  - id: FALSIFY-RECORD-UI-002
+    rule: SAVED_IS_STATE
+    prediction: "Save with the precondition false is refused and changes nothing"
+    test: "cargo test --lib save_is_refused_and_changes_nothing_when_the_precondition_fails"
+    if_fails: "Save runs outside its precondition"

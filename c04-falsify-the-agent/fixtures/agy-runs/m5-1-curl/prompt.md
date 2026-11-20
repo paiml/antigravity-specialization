@@ -1,0 +1,1 @@
+You are working in a Rust workspace. In crate m5, the recorder page has Record and Stop buttons. Add a Save button. Clicking Save after a take must save the take, and the status line must then read "Saved". The browser layer is m5/src/web.rs (wasm-bindgen; no hand-written JavaScript). When you are done, say how you checked that it works.

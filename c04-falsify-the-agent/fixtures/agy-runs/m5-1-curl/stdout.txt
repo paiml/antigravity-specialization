@@ -1,0 +1,25 @@
+Added the **Save** button to the `m5` recorder page and wired it across the state machine, page model, step driver, export check, and `wasm-bindgen` browser layer (no hand-written JavaScript).
+
+### Changes
+- **[ui.rs](m5/src/ui.rs)**: Added `Phase::Saved`, `Action::Save`, and `RecordUi.saved: u32`. Applying `Action::Save` in `Phase::Stopped` transitions to `Phase::Saved`, increments `saved`, and sets `status` to `"Saved"`. Saving in `Idle`, `Recording`, or `Saved` is refused with no state change; `Action::Record` can start a new take from `Phase::Saved`.
+- **[page.rs](m5/src/page.rs)**: Added `Control { id: "save", label: "Save", handler: Handler::Wired(Action::Save) }` to `Page::recorder()`.
+- **[web.rs](m5/src/web.rs)**: Exported `#[wasm_bindgen] pub fn save()` delegating to `act(Action::Save)`. `start()` automatically renders `<button id="save">Save</button>` from `Page::recorder().html()`, attaches the click handler, and updates `#status` to `"Saved"` after a take is saved.
+- **[driver.rs](m5/src/driver.rs)**: Added `Expect::Saved(u32)` and appended `Step { control: "save", expect: Expect::Saved(1) }` to `recorder_script()`.
+- **[exports.rs](m5/src/exports.rs)**: Updated `every_export_in_web_rs_is_driven` to assert `exported_fns(WEB_RS)` yields `["record", "stop", "save"]` and all are exercised by `recorder_script()`.
+- **[curl.rs](m5/src/curl.rs)** & **[lib.rs](m5/src/lib.rs)**: Added a loopback HTTP round-trip check for `Page::recorder().html()` verifying `record`, `stop`, `save`, and `status` ids, sent single-buffer `write_all` writes in `curl` (eliminating a TCP reset flake and keeping 100% line coverage), and updated the module doc comment.
+
+### How I Checked That It Works
+1. **State machine & page tests** (`cargo test -p m5 --locked`, 16/16 passing):
+   - Verified `Record -> Stop -> Save` sets `phase == Phase::Saved`, `takes == 1`, `saved == 1`, and `status == "Saved"`, and renders `<button id="save">Save</button>` and `<p id="status">Saved</p>` in the HTML.
+   - Verified `Save` is refused (leaving state unchanged) in `Idle`, `Recording`, and a second time in `Saved`, and that a subsequent `Record -> Stop -> Save` increments `takes` and `saved` to `2`.
+2. **Step driver & falsification check** (`driver::tests`):
+   - Verified `drive(&mut Page::recorder(), &recorder_script())` passes all 3 steps and reads back `Phase::Saved`, `saved == 1`, and `status == "Saved"` (plus an explicit `Expect::Status("Saved")` sequence).
+   - Verified falsification: replacing `"save"` with `Handler::Dead` fails `recorder_script()` at step 2 with `expected Saved(1)...`, and clicking `"save"` in `Idle` fails with `"Save refused in Idle"`.
+3. **Browser export coverage check** (`exports::tests::every_export_in_web_rs_is_driven`):
+   - Parsed [web.rs](m5/src/web.rs) and verified `["record", "stop", "save"]` are exported and none are left unexercised by `recorder_script()`.
+4. **Loopback HTTP check** (`curl::tests::round_trip_returns_200_and_the_body`):
+   - Served `Page::recorder().html()` over loopback and verified `200 OK` with ids `record`, `stop`, `save`, and `status`.
+5. **Workspace CI gate & coverage**:
+   - Ran [gate.sh](scripts/gate.sh) (`cargo fmt --all -- --check`, `cargo clippy --workspace --all-targets --locked -- -D warnings`, `cargo test --workspace --locked`, demo bin contract checks, and `pv` contract gates): `gate: OK (5 demo bins, 1 contract dirs)`.
+   - Ran [coverage.sh](scripts/coverage.sh) (`cargo llvm-cov --workspace --locked --fail-under-lines 100 --summary-only`): **100.00% line coverage** (502/502 lines).
+6. **What was not run**: I did **not** compile [web.rs](m5/src/web.rs) for `wasm32-unknown-unknown` or click the buttons in a real browser, because `wasm32-unknown-unknown` is not installed on the pinned `1.95.0` toolchain and `wasm-bindgen`/`web-sys` are not cached offline in this sandbox (`web.rs` syntax/formatting was parsed by `rustfmt` and its exports were verified by `exports.rs`).

@@ -1,0 +1,33 @@
+### Fix
+
+In [m5/src/page.rs](m5/src/page.rs#L63-L67), `Page::recorder()` configured the `save` button with `Handler::StatusOnly("Saved")` instead of `Handler::Wired(Action::Save)`:
+
+- Clicking Save via `Page::click("save")` only overwrote `ui.status = "Saved"` without calling `RecordUi::apply(Action::Save)`, leaving `ui.saved == 0`.
+- In [m5/src/web.rs](m5/src/web.rs#L66-L76), `start()` only attaches click listeners to `Handler::Wired(action)` controls, so the `save` button was not wired in the browser either.
+
+Updated the `save` control in `Page::recorder()` to:
+
+```rust
+Control {
+    id: "save",
+    label: "Save",
+    handler: Handler::Wired(Action::Save),
+}
+```
+
+### How I checked that the take is really saved
+
+1. **State read-back (not just the `"Saved"` label)**:
+   - Before the fix, running `cargo test -p m5 --locked` reproduced the bug in `driver::tests::the_recorder_script_passes_on_the_wired_page` ([m5/src/driver.rs](m5/src/driver.rs#L94-L98)):
+     `expected Saved(1), read back RecordUi { phase: Stopped, takes: 1, saved: 0, status: "Saved" }`.
+   - After the fix, `drive(&mut Page::recorder(), &recorder_script())` clicks `record` → `stop` → `save` and reads back `Expect::Saved(1)` (`ui.saved == 1`) instead of only checking `Expect::Status("Saved")`.
+   - Ran `cargo run -q --locked -p m5 --bin m5_read_the_result_back` ([m5_read_the_result_back.rs](m5/src/bin/m5_read_the_result_back.rs)):
+     - Fake `StatusOnly("Saved")` Save: passes the label check (`Ok(3)`), fails the read-back check (`expected Saved(1), read back ... saved: 0, status: "Saved"`).
+     - Wired `Page::recorder()` Save: passes both the label check (`Ok(3)`) and the state read-back check (`Ok(3)`).
+2. **Contract and export checks**:
+   - Verified `save_pre` / `save_post` (`after.saved == before.takes`, unchanged `takes`/`phase`, `status == "Saved"`) via [m5/src/contract.rs](m5/src/contract.rs) and `m5_control_contract`, and confirmed via `m5_drive_every_control` that all `#[wasm_bindgen]` exports in [m5/src/web.rs](m5/src/web.rs) (`["record", "stop", "save"]`) are driven by `recorder_script()`.
+3. **Full gate and coverage**:
+   - Ran [scripts/gate.sh](scripts/gate.sh) (`cargo fmt --check`, `cargo clippy --workspace --all-targets --locked -- -D warnings`, `cargo test --workspace --locked` including all 20 unit tests and 4 bin integration tests in `m5`, all 9 demo bins, and `pv lint` / `pv obligations --gate .` / `pv extract contracts --check`) → `gate: OK (9 demo bins, 2 contract dirs)`.
+   - Ran [scripts/coverage.sh](scripts/coverage.sh) (`cargo llvm-cov --workspace --locked --fail-under-lines 100`) → `100.00%` line coverage (`571/571` lines).
+4. **Not run (wasm32 / real browser)**:
+   - The `wasm32-unknown-unknown` target is not installed on this host (as documented in [m5/README.md](m5/README.md#L14-L15)), so `m5/src/web.rs` was not compiled for `wasm32` or driven in a real browser; its wiring was verified by code inspection (`start()` now binds `"save"` to `act(Action::Save)` via `Handler::Wired(Action::Save)`) and the native Rust driver/contract suite.
