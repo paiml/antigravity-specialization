@@ -1,0 +1,2 @@
+src/lib.rs:9:21: replace > with < in shipping_fee_cents
+src/lib.rs:34:9: replace + with * in order_total_cents

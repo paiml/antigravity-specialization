@@ -1,0 +1,43 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 26f8ce2..7280001 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -33,3 +33,38 @@ pub fn order_total_cents(
+     subtotal_cents - member_discount_cents(subtotal_cents, member)
+         + shipping_fee_cents(weight_grams, express)
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn shipping_fee_handles_zero_standard_overweight_and_express() {
++        assert_eq!(shipping_fee_cents(0, false), 0);
++        assert_eq!(shipping_fee_cents(0, true), 0);
++        assert_eq!(shipping_fee_cents(1, false), 499);
++        assert_eq!(shipping_fee_cents(1_000, false), 499);
++        assert_eq!(shipping_fee_cents(1_001, false), 649);
++        assert_eq!(shipping_fee_cents(1_500, false), 649);
++        assert_eq!(shipping_fee_cents(1_501, false), 799);
++        assert_eq!(shipping_fee_cents(500, true), 998);
++        assert_eq!(shipping_fee_cents(1_501, true), 1_598);
++    }
++
++    #[test]
++    fn member_discount_handles_eligibility_threshold_and_cap() {
++        assert_eq!(member_discount_cents(10_000, false), 0);
++        assert_eq!(member_discount_cents(4_999, true), 0);
++        assert_eq!(member_discount_cents(5_000, true), 500);
++        assert_eq!(member_discount_cents(12_345, true), 1_234);
++        assert_eq!(member_discount_cents(20_000, true), 2_000);
++        assert_eq!(member_discount_cents(50_000, true), 2_000);
++    }
++
++    #[test]
++    fn order_total_combines_subtotal_discount_and_shipping() {
++        assert_eq!(order_total_cents(3_000, 500, false, false), 3_499);
++        assert_eq!(order_total_cents(10_000, 1_501, true, true), 10_598);
++        assert_eq!(order_total_cents(30_000, 0, true, true), 28_000);
++    }
++}

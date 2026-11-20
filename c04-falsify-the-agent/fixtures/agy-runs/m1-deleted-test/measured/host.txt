@@ -1,0 +1,1 @@
+host build-host 2026-11-20T09:13:18Z cargo 1.100.0 (3acc79c0c 2026-11-05) cargo-llvm-cov 0.9.1 cargo-mutants 27.1.0
