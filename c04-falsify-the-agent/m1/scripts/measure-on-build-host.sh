@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Print the coverage, mutant and test-list numbers module 1 shows.
+# Print the coverage, mutant and test-list numbers the m1 demos show.
 # Run on a build host that has cargo-llvm-cov and cargo-mutants (any build host).
 # It installs nothing and writes only under a temporary directory; it prints to stdout.
 set -u

@@ -1,4 +1,4 @@
-//! Runs every module 1 demo bin and reads its output back.
+//! Runs every m1 demo bin and reads its output back.
 
 use std::process::Command;
 

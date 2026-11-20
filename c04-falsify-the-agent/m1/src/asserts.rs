@@ -1,4 +1,4 @@
-//! Lesson 1.3: 100% is a claim, not a fact.
+//! Demo `m1_covered_not_checked`: 100% is a claim, not a fact.
 //!
 //! Line coverage says a line ran. It does not say a test checked the result.
 //! This module finds every `#[test]` fn in a piece of Rust source and counts the

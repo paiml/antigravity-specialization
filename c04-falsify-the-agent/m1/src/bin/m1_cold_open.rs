@@ -1,4 +1,4 @@
-//! Lesson 1.1, cold open: green CI and 100% line coverage, then the mutants.
+//! Demo `m1_cold_open`: green CI and 100% line coverage, then the mutants.
 //!
 //! An agent (agy, gemini-4-neon-high) was asked to bring a crate with no tests
 //! to 100% line coverage. Its run is recorded in `fixtures/agy-runs/m1-cold-open/`

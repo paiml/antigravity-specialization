@@ -1,4 +1,4 @@
-//! Lesson 1.4: the deleted test.
+//! Demo `m1_test_floor`: the deleted test.
 //!
 //! The recorded run (`fixtures/agy-runs/m1-deleted-test/`) asked an agent to
 //! make a red `cargo test` green with the smallest change. It added the missing

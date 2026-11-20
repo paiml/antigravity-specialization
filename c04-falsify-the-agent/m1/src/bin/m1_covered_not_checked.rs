@@ -1,4 +1,4 @@
-//! Lesson 1.3: 100% is a claim, not a fact.
+//! Demo `m1_covered_not_checked`: 100% is a claim, not a fact.
 //!
 //! Two suites for the same crate, both at 100% line coverage (measured on
 //! build-host with `cargo llvm-cov`): the agent's recorded suite and a hand-written

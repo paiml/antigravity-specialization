@@ -34,7 +34,7 @@ pub fn order_total_cents(
         + shipping_fee_cents(weight_grams, express)
 }
 
-// Hand-written for lesson 1.3, NOT an agent run: every line runs, nothing is checked.
+// Hand-written for the `m1_covered_not_checked` demo, NOT an agent run: every line runs, nothing is checked.
 #[cfg(test)]
 mod tests {
     use super::*;

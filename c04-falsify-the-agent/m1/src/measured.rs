@@ -1,4 +1,4 @@
-//! Lesson 1.1: read the numbers measured on a recorded agent run.
+//! Demo `m1_cold_open`: read the numbers measured on a recorded agent run.
 //!
 //! Two tool outputs are recorded beside the agent run, both produced on a
 //! build host (any build host), never typed by hand:

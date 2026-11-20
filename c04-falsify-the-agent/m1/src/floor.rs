@@ -1,4 +1,4 @@
-//! Lesson 1.4: the deleted test.
+//! Demo `m1_test_floor`: the deleted test.
 //!
 //! An agent told to make CI green can delete a failing test or mark it
 //! `#[ignore]`. Both make `cargo test` pass. The floor compares the test names

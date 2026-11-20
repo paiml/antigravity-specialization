@@ -1,4 +1,4 @@
-//! Lesson 1.2: the test that cannot fail.
+//! Demo `m1_vacuous`: the test that cannot fail.
 //!
 //! A check is a function that takes an implementation and says pass or fail.
 //! The vacuous check calls the implementation and asserts nothing, so it passes

@@ -1,4 +1,4 @@
-//! Lesson 1.2: the test that cannot fail.
+//! Demo `m1_vacuous`: the test that cannot fail.
 //!
 //! Two checks run against two bodies of the same function. The vacuous check
 //! has no assertion; the real check states the answers.
