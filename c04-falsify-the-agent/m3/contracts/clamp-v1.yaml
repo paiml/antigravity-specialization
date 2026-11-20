@@ -1,0 +1,38 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "clamp(x, lo, hi) returns a value inside [lo, hi] whenever lo <= hi"
+  references:
+    - "m3/src/lib.rs (clamp)"
+equations:
+  clamp:
+    formula: "clamp(x, lo, hi) = max(lo, min(x, hi))"
+    domain: "x, lo, hi: i64 with lo <= hi"
+    codomain: "i64"
+    preconditions:
+      - "lo <= hi"
+    postconditions:
+      - "IN_RANGE: lo <= clamp(x, lo, hi) <= hi"
+    invariants:
+      - "clamp(x, lo, hi) >= lo"
+      - "clamp(x, lo, hi) <= hi"
+proof_obligations:
+  - type: invariant
+    property: "the result is inside the range"
+    formal: "lo <= clamp(x, lo, hi) and clamp(x, lo, hi) <= hi"
+    applies_to: clamp
+falsification_tests:
+  - id: FALSIFY-CLAMP-001
+    rule: IN_RANGE
+    prediction: "a value above hi comes back as hi"
+    test: "cargo test --lib clamp_stays_in_range"
+    if_fails: "the upper bound is not applied"
+kani_harnesses:
+  - id: KANI-CLAMP-001
+    obligation: "the result is inside the range"
+    harness: clamp_in_range_for_all_ordered_bounds
+    bound: 1
+    strategy: exhaustive
+    solver: cadical

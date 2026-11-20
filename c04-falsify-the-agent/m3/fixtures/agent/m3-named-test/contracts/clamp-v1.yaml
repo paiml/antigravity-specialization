@@ -1,0 +1,42 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "clamp(x, lo, hi) returns a value inside [lo, hi] whenever lo <= hi"
+  references:
+    - "m3/src/lib.rs (clamp)"
+equations:
+  clamp:
+    formula: "clamp(x, lo, hi) = max(lo, min(x, hi))"
+    domain: "x, lo, hi: i64 with lo <= hi"
+    codomain: "i64"
+    preconditions:
+      - "lo <= hi"
+    postconditions:
+      - "IN_RANGE: lo <= clamp(x, lo, hi) <= hi"
+    invariants:
+      - "clamp(x, lo, hi) >= lo"
+      - "clamp(x, lo, hi) <= hi"
+proof_obligations:
+  - type: invariant
+    property: "the result is inside the range"
+    formal: "lo <= clamp(x, lo, hi) and clamp(x, lo, hi) <= hi"
+    applies_to: clamp
+falsification_tests:
+  - id: FALSIFY-CLAMP-001
+    rule: IN_RANGE
+    prediction: "a value above hi comes back as hi"
+    test: "cargo test --lib clamp_stays_in_range"
+    if_fails: "the upper bound is not applied"
+  - id: FALSIFY-CLAMP-002
+    rule: IN_RANGE
+    prediction: "a value below lo comes back as lo"
+    test: "cargo test --lib clamp_stays_in_range"
+    if_fails: "the lower bound is not applied"
+  - id: FALSIFY-CLAMP-003
+    rule: IN_RANGE
+    prediction: "a value inside [lo, hi] comes back unchanged"
+    test: "cargo test --lib clamp_stays_in_range"
+    if_fails: "an in-range value is altered"
+  # Omitted: lo > hi has no backing #[test] in src/lib.rs (clamp_stays_in_range only tests lo=0, hi=5).

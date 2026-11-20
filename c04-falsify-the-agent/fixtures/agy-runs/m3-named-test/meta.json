@@ -1,0 +1,1 @@
+{"model": "gemini-4-neon-high", "cli": "agy", "utc_start": "2026-11-20T09:05:26Z", "utc_end": "2026-11-20T09:08:01Z", "exit": 0, "base": "m3 clamp seed (src/lib.rs, contracts/clamp-v1.yaml, contracts/binding.yaml)"}

@@ -1,0 +1,19 @@
+diff --git a/contracts/clamp-v1.yaml b/contracts/clamp-v1.yaml
+index afede6d..4c57bbe 100644
+--- a/contracts/clamp-v1.yaml
++++ b/contracts/clamp-v1.yaml
+@@ -29,3 +29,14 @@ falsification_tests:
+     prediction: "a value above hi comes back as hi"
+     test: "cargo test --lib clamp_stays_in_range"
+     if_fails: "the upper bound is not applied"
++  - id: FALSIFY-CLAMP-002
++    rule: IN_RANGE
++    prediction: "a value below lo comes back as lo"
++    test: "cargo test --lib clamp_stays_in_range"
++    if_fails: "the lower bound is not applied"
++  - id: FALSIFY-CLAMP-003
++    rule: IN_RANGE
++    prediction: "a value inside [lo, hi] comes back unchanged"
++    test: "cargo test --lib clamp_stays_in_range"
++    if_fails: "an in-range value is altered"
++  # Omitted: lo > hi has no backing #[test] in src/lib.rs (clamp_stays_in_range only tests lo=0, hi=5).
