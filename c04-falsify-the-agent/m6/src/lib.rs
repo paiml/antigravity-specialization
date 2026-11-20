@@ -36,7 +36,7 @@ pub mod fixtures {
         include_str!("../fixtures/agy-runs/m6-review-author/stdout.txt");
     /// Review by a second model family (Claude), patch only.
     pub const REVIEW_SECOND: &str = include_str!("../fixtures/reviews/m6-review-second/stdout.txt");
-    /// Third quorum seat (agy, gemini-4-neon-low), patch only.
+    /// Third review seat (agy, gemini-4-neon-low), patch only.
     pub const REVIEW_THIRD: &str = include_str!("../fixtures/agy-runs/m6-review-third/stdout.txt");
     /// Author model again, handed the mutant list as well.
     pub const REVIEW_WITH_MUTANTS: &str =

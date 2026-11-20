@@ -77,7 +77,7 @@ const SUBJECT_GATES: [Gate; 7] = [
     (
         "review",
         Status::Fail,
-        "quorum: seats=3 accept=0 refuse=3 no_verdict=0 decision=REFUSE (m6_tally)",
+        "panel: seats=3 accept=0 refuse=3 no_verdict=0 decision=REFUSE (m6_tally)",
     ),
 ];
 

@@ -5,7 +5,7 @@
 
 use crate::review::{parse_review, Verdict};
 
-/// The count of one quorum round.
+/// The count of one review round.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct Tally {
     /// Seats that accepted.
@@ -34,7 +34,7 @@ impl Tally {
     /// The one receipt line for this round.
     pub fn receipt_line(&self) -> String {
         format!(
-            "quorum: seats={} accept={} refuse={} no_verdict={} decision={}",
+            "panel: seats={} accept={} refuse={} no_verdict={} decision={}",
             self.seats(),
             self.accept,
             self.refuse,
@@ -72,7 +72,7 @@ mod tests {
         assert_eq!(t.decision(), Verdict::Refuse);
         assert_eq!(
             t.receipt_line(),
-            "quorum: seats=3 accept=1 refuse=2 no_verdict=0 decision=REFUSE"
+            "panel: seats=3 accept=1 refuse=2 no_verdict=0 decision=REFUSE"
         );
     }
 

@@ -6,5 +6,5 @@ gate test: PASS cargo test: 5 passed, 0 failed
 gate contract: NOT_RUN pv was not run against the subject tree
 gate mutants: PASS cargo mutants 27.1.0: 6 tested, 6 caught
 gate coverage: PASS cargo llvm-cov 0.9.1: lines 100.00%
-gate review: FAIL quorum: seats=3 accept=0 refuse=3 no_verdict=0 decision=REFUSE (m6_tally)
+gate review: FAIL panel: seats=3 accept=0 refuse=3 no_verdict=0 decision=REFUSE (m6_tally)
 verdict: REFUSE
