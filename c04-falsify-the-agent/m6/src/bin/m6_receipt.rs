@@ -24,11 +24,7 @@ const AGENT_GATES: [Gate; 7] = [
         Status::Pass,
         "cargo clippy --all-targets -- -D warnings exit 0",
     ),
-    (
-        "test",
-        Status::Pass,
-        "cargo test: 5 passed, 0 failed",
-    ),
+    ("test", Status::Pass, "cargo test: 5 passed, 0 failed"),
     (
         "contract",
         Status::Pass,
@@ -62,11 +58,7 @@ const SUBJECT_GATES: [Gate; 7] = [
         Status::Pass,
         "cargo clippy --all-targets -- -D warnings exit 0",
     ),
-    (
-        "test",
-        Status::Pass,
-        "cargo test: 5 passed, 0 failed",
-    ),
+    ("test", Status::Pass, "cargo test: 5 passed, 0 failed"),
     (
         "contract",
         Status::NotRun,

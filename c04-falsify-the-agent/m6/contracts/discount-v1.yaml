@@ -32,5 +32,5 @@ falsification_tests:
   - id: FALSIFY-DISCOUNT-002
     rule: NEVER_ABOVE_PRICE
     prediction: "every price and percent gives a result at or below the price"
-    test: "cargo test -p m6 --test discount_property never_above_price"
+    test: "cargo test -p m6 never_above_price"
     if_fails: "the discount can raise a price"
