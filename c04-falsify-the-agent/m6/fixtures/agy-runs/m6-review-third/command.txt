@@ -1,0 +1,1 @@
+cd <run dir holding PROMPT.md PATCH.diff> && setsid nohup env -u SSH_CONNECTION -u SSH_CLIENT -u SSH_TTY timeout 1500 agy --sandbox --model gemini-4-neon-low --print "$(cat PROMPT.md)" </dev/null > stdout.txt 2> stderr.txt &

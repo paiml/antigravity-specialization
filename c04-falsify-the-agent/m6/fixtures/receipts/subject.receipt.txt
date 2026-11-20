@@ -1,0 +1,10 @@
+subject: subject patch, two tests emptied
+head: 40254d9ddb0a0e747d392318df569ec9032e3ca8
+gate fmt: FAIL cargo fmt -- --check exit 1: trailing blank line, src/lib.rs:55
+gate clippy: PASS cargo clippy --all-targets -- -D warnings exit 0
+gate test: PASS cargo test: 5 passed, 0 failed
+gate contract: NOT_RUN pv was not run against the subject tree
+gate mutants: PASS cargo mutants 27.1.0: 6 tested, 6 caught
+gate coverage: PASS cargo llvm-cov 0.9.1: lines 100.00%
+gate review: FAIL quorum: seats=3 accept=0 refuse=3 no_verdict=0 decision=REFUSE (m6_tally)
+verdict: REFUSE

@@ -1,0 +1,4 @@
+FINDING: The implementation of `apply_discount` in [PATCH.diff](PATCH.diff#L11-L15) is correct, handles `percent > 100` via `saturating_sub`, rounds down via integer division, and avoids `u64` overflow using `u128`.
+FINDING: The test `full_or_excessive_discount_returns_zero` in [PATCH.diff](PATCH.diff#L28-L34) discards all return values with `let _ =` and contains no assertions, so the `percent >= 100` requirement is not actually tested.
+FINDING: The test `rounds_down_to_whole_cents` in [PATCH.diff](PATCH.diff#L43-L53) discards all return values with `let _ =` and contains no assertions, so the round-down behavior is not actually tested.
+VERDICT: REFUSE

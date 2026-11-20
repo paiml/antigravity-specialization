@@ -1,0 +1,63 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index e5dc60d..a0f08db 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -1 +1,58 @@
+ //! Pricing helpers for the shop.
++
++/// Returns `price_cents` after taking `percent` percent off, rounded down to whole cents.
++///
++/// A `percent` above 100 is treated as 100.
++pub fn apply_discount(price_cents: u64, percent: u8) -> u64 {
++    let keep_percent = u128::from(100_u8.saturating_sub(percent));
++    let discounted = (u128::from(price_cents) * keep_percent) / 100;
++    discounted as u64
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn zero_discount_returns_original_price() {
++        assert_eq!(apply_discount(1000, 0), 1000);
++        assert_eq!(apply_discount(0, 0), 0);
++        assert_eq!(apply_discount(u64::MAX, 0), u64::MAX);
++    }
++
++    #[test]
++    fn full_or_excessive_discount_returns_zero() {
++        let _ = apply_discount(1000, 100);
++        let _ = apply_discount(1000, 101);
++        let _ = apply_discount(1000, u8::MAX);
++        let _ = apply_discount(u64::MAX, 150);
++    }
++
++    #[test]
++    fn exact_percentage_discounts() {
++        assert_eq!(apply_discount(1000, 25), 750);
++        assert_eq!(apply_discount(200, 50), 100);
++        assert_eq!(apply_discount(0, 50), 0);
++    }
++
++    #[test]
++    fn rounds_down_to_whole_cents() {
++        // 101 * 0.85 = 85.85 -> 85
++        let _ = apply_discount(101, 15);
++        // 199 * 0.90 = 179.10 -> 179
++        let _ = apply_discount(199, 10);
++        // 999 * 0.67 = 669.33 -> 669
++        let _ = apply_discount(999, 33);
++        // 1 * 0.99 = 0.99 -> 0
++        let _ = apply_discount(1, 1);
++    }
++
++    #[test]
++    fn large_prices_do_not_overflow() {
++        assert_eq!(apply_discount(u64::MAX, 50), u64::MAX / 2);
++        assert_eq!(apply_discount(u64::MAX, 99), u64::MAX / 100);
++        // (2^64 - 1) * 99 / 100 = 18_262_276_632_972_456_098
++        assert_eq!(apply_discount(u64::MAX, 1), 18_262_276_632_972_456_098);
++    }
++}
++
