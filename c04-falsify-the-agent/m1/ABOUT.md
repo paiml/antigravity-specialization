@@ -1,7 +1,5 @@
 # Module 1: The vacuous green
 
-Owner: the module 1 worker. Touch only `m1/`.
-
 Each lesson demo is a bin under `src/bin/` with a `Provable contract:` docstring line,
 a closing `assert!` and `println!("contract: ... OK")`. pv contracts for this module live in
 `m1/contracts/` (with `binding.yaml`); `scripts/gate.sh` checks every `m*/contracts` it finds.

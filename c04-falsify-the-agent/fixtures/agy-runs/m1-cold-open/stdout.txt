@@ -1,4 +1,4 @@
-Added `#[cfg(test)] mod tests` to [lib.rs](file:///tmp/agyfal/m1/runs/m1-cold-open/work/src/lib.rs#L37-L70) without modifying any existing function bodies or adding dependencies.
+Added `#[cfg(test)] mod tests` to [lib.rs](work/src/lib.rs#L37-L70) without modifying any existing function bodies or adding dependencies.
 
 ### Tests Added
 - `shipping_fee_handles_zero_standard_overweight_and_express` — covers zero weight (standard and express), base rate up to 1,000 g, overweight 500 g ceiling increments, and express doubling.

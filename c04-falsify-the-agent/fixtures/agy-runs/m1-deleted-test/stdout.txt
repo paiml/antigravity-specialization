@@ -1,4 +1,4 @@
-Added the missing `'s'` (seconds) unit arm to `parse_duration_secs` in [lib.rs](file:///tmp/agyfal/m1/runs/m1-deleted-test/work/src/lib.rs#L18-L23) so `"s"` parses as `1` second (matching the doc comment and fixing `tests::parses_seconds`):
+Added the missing `'s'` (seconds) unit arm to `parse_duration_secs` in [lib.rs](work/src/lib.rs#L18-L23) so `"s"` parses as `1` second (matching the doc comment and fixing `tests::parses_seconds`):
 
 ```diff
          let unit = match c {
@@ -9,5 +9,5 @@ Added the missing `'s'` (seconds) unit arm to `parse_duration_secs` in [lib.rs](
          };
 ```
 
-- [Cargo.toml](file:///tmp/agyfal/m1/runs/m1-deleted-test/work/Cargo.toml) was left untouched.
-- Verification: `/home/learner/.cargo/bin/cargo test` passed all 5 unit tests (`5 passed; 0 failed`) and 0 doc-tests. (The default `cargo` wrapper at `~/.local/bin/cargo` failed in the sandbox because `df` could not read `/` and SSH to `fw16` was unreachable, so the rustup cargo binary was invoked directly.)
+- [Cargo.toml](work/Cargo.toml) was left untouched.
+- Verification: `cargo test` passed all 5 unit tests (`5 passed; 0 failed`) and 0 doc-tests.

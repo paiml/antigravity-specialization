@@ -5,4 +5,4 @@ Tool output for the recorded run, produced by `m1/scripts/measure-on-build-host.
 given to the agent; `after` is `crate/` with `../patch.diff` applied. Verbatim tail of
 each command, then `exit=<code>`. Never edited by hand.
 
-`caught.txt` is `mutants.out/caught.txt` from the second run (0917Z) on the `after` crate.
+`caught.txt` is `mutants.out/caught.txt` from the second run on the `after` crate.

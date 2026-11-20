@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# The one gate for course 4. CI runs exactly this; run it before every push.
+# The gate for course 4. CI runs this, then scripts/coverage.sh; `make gate` runs both.
 #   scripts/gate.sh            every module present (m1..m6)
 #   scripts/gate.sh m1 m3      just those modules
 # Each module mN/ is its own cargo workspace with its own Cargo.lock.
@@ -14,6 +14,8 @@ done
 if [ "$#" -gt 0 ]; then mods=("$@"); else mods=(); for d in m*/Cargo.toml; do [ -e "$d" ] && mods+=("${d%/Cargo.toml}"); done; fi
 [ "${#mods[@]}" -gt 0 ] || { echo "gate: no module found; an empty course is refused" >&2; exit 1; }
 
+log="$(mktemp)"
+trap 'rm -f -- "${log:?}"' EXIT
 total_bins=0
 total_dirs=0
 for m in "${mods[@]}"; do
@@ -25,8 +27,10 @@ for m in "${mods[@]}"; do
     cd "$m"
     cargo fmt --all -- --check
     cargo clippy --all-targets --locked -- -D warnings
-    cargo test --locked
+    cargo test --locked 2>&1 | tee "$log"
   )
+  ran=$(sed -nE "s/^test result: ok\. ([0-9]+) passed.*/\1/p" "$log" | awk "{s+=\$1} END {print s+0}")
+  [ "$ran" -gt 0 ] || { echo "gate: $m ran no test; a module with no test is refused" >&2; exit 1; }
 
   # Every demo bin must end with its contract line. A module with no bin is refused.
   bins=0
@@ -45,21 +49,34 @@ for m in "${mods[@]}"; do
 
   # pv ontology gate when the module carries contracts.
   dirs=0
+  cited=0
   if [ -d "$m/contracts" ]; then
     ls "$m"/contracts/*-v*.yaml >/dev/null 2>&1 || { echo "gate: $m/contracts holds no contract" >&2; exit 1; }
     (
       cd "$m"
-      if [ -f contracts/binding.yaml ]; then
-        pv lint contracts --binding contracts/binding.yaml
-      else
-        pv lint contracts
-      fi
+      [ -f contracts/binding.yaml ] || { echo "gate: $m/contracts has no binding.yaml" >&2; exit 1; }
+      pv lint contracts --binding contracts/binding.yaml
+      # The default lint leaves the bindings gate unarmed, so arm it by name.
+      pv lint contracts --binding contracts/binding.yaml --gate bindings
       pv obligations --gate .
       pv extract contracts --check
     )
+    # Every falsification test a contract cites must exist and pass: run it and
+    # require at least one test to run. A contract that cites none is refused.
+    while IFS= read -r cmd; do
+      case "$cmd" in
+        "cargo test "*) ;;
+        *) echo "gate: $m cites a falsification test that is not a cargo test: $cmd" >&2; exit 1 ;;
+      esac
+      (cd "$m" && read -ra argv <<<"$cmd" && "${argv[@]}" --locked 2>&1) >"$log" || { cat "$log" >&2; echo "gate: $m: $cmd failed" >&2; exit 1; }
+      n=$(sed -nE "s/^test result: ok\. ([0-9]+) passed.*/\1/p" "$log" | awk "{s+=\$1} END {print s+0}")
+      [ "$n" -gt 0 ] || { echo "gate: $m: $cmd ran no test (the cited test does not exist)" >&2; exit 1; }
+      cited=$((cited + 1))
+    done < <(sed -nE "s/^[[:space:]]+test:[[:space:]]+\"(.*)\"[[:space:]]*\$/\1/p" "$m"/contracts/*-v*.yaml)
+    [ "$cited" -gt 0 ] || { echo "gate: $m contracts cite no falsification test" >&2; exit 1; }
     dirs=1
   fi
-  echo "gate: $m OK ($bins demo bins, $dirs contract dir)"
+  echo "gate: $m OK ($ran tests, $bins demo bins, $dirs contract dir, $cited falsification tests)"
   total_bins=$((total_bins + bins))
   total_dirs=$((total_dirs + dirs))
 done
