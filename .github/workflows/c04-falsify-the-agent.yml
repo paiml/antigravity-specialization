@@ -5,7 +5,7 @@
 # c04-falsify-the-agent/scripts/gate.sh (per module: fmt, clippy -D warnings,
 # tests, every demo bin must end "contract: ... OK", and the pv contract gate:
 # lint, obligations, extract --check) and scripts/coverage.sh (100% lines per
-# module). The same two scripts a learner runs locally. Each module m1..m6 is
+# module). The same two scripts anyone runs locally. Each module m1..m6 is
 # its own cargo workspace with its own Cargo.lock, so module pull requests
 # never touch a shared file.
 #
