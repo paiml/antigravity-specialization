@@ -58,6 +58,9 @@ jobs:
       - name: Build pv and cargo-llvm-cov (job container only)
         run: cargo install --locked aprender-contracts-cli@0.75.0 cargo-llvm-cov@0.9.1
 
+      - name: Gate self-test (known-bad input must be refused)
+        run: scripts/gate.sh --self-test && scripts/coverage.sh --self-test
+
       - name: Gate
         run: scripts/gate.sh
 

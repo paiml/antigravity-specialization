@@ -4,14 +4,18 @@
 #   scripts/gate.sh m1 m3      just those modules
 # Each module mN/ is its own cargo workspace with its own Cargo.lock.
 # It checks for its tools and goes red when one is missing. It installs nothing.
+#   scripts/gate.sh --self-test  feed the gate known-bad input; every one must be refused
 set -euo pipefail
 cd "$(dirname "$0")/.."
+# shellcheck source=lib.sh
+. scripts/lib.sh
+if [ "${1-}" = --self-test ]; then self_test_lib; exit $?; fi
 
 for tool in cargo rustfmt pv; do
   command -v "$tool" >/dev/null || { echo "gate: missing tool: $tool" >&2; exit 1; }
 done
 
-if [ "$#" -gt 0 ]; then mods=("$@"); else mods=(); for d in m*/Cargo.toml; do [ -e "$d" ] && mods+=("${d%/Cargo.toml}"); done; fi
+if [ "$#" -gt 0 ]; then mods=("$@"); else found=$(discover_mods .) || exit 1; mapfile -t mods <<<"$found"; fi
 [ "${#mods[@]}" -gt 0 ] || { echo "gate: no module found; an empty course is refused" >&2; exit 1; }
 
 log="$(mktemp)"
@@ -29,8 +33,8 @@ for m in "${mods[@]}"; do
     cargo clippy --all-targets --locked -- -D warnings
     cargo test --locked 2>&1 | tee "$log"
   )
-  ran=$(sed -nE "s/^test result: ok\. ([0-9]+) passed.*/\1/p" "$log" | awk "{s+=\$1} END {print s+0}")
-  [ "$ran" -gt 0 ] || { echo "gate: $m ran no test; a module with no test is refused" >&2; exit 1; }
+  ran=$(sum_passed "$log")
+  require_positive "$ran" "$m ran no test; a module with no test is refused" || exit 1
 
   # Every demo bin must end with its contract line. A module with no bin is refused.
   bins=0
@@ -75,20 +79,16 @@ for m in "${mods[@]}"; do
     # that runs everything proves nothing about the named rule).
     for f in "${contracts[@]}"; do
       seen=0
-      while IFS= read -r line; do
-        v=${line#*test:}; v=${v#"${v%%[![:space:]]*}"}
-        if [[ $v =~ ^\"([^\"]*)\"[[:space:]]*(#.*)?$ ]] || [[ $v =~ ^\'([^\']*)\'[[:space:]]*(#.*)?$ ]]; then cmd=${BASH_REMATCH[1]}
-        elif [[ $v =~ ^([^\"\'#][^#]*)(#.*)?$ ]]; then cmd=${BASH_REMATCH[1]}; cmd=${cmd%"${cmd##*[![:space:]]}"}
-        else echo "gate: $f: cannot read test line: $line" >&2; exit 1; fi
+      cmds=$(cited_commands "$f") || exit 1
+      while IFS= read -r cmd; do
         read -ra argv <<<"$cmd"
-        [ "${argv[0]-}" = cargo ] && [ "${argv[1]-}" = test ] || { echo "gate: $f cites a falsification test that is not a cargo test: $cmd" >&2; exit 1; }
         (cd "$m" && cargo test --locked "${argv[@]:2}" 2>&1) >"$log" || { cat "$log" >&2; echo "gate: $f: $cmd failed" >&2; exit 1; }
-        n=$(sed -nE 's/^test result: ok\. ([0-9]+) passed.*/\1/p' "$log" | awk '{s+=$1} END {print s+0}')
-        out=$(sed -nE 's/^test result: ok\..* ([0-9]+) filtered out.*/\1/p' "$log" | awk '{s+=$1} END {print s+0}')
-        [ "$n" -gt 0 ] || { echo "gate: $f: $cmd ran no test (the cited test does not exist)" >&2; exit 1; }
-        [ "$out" -gt 0 ] || { echo "gate: $f: $cmd selects no subset of the suite; name the test" >&2; exit 1; }
+        n=$(sum_passed "$log")
+        out=$(sum_filtered "$log")
+        require_positive "$n" "$f: $cmd ran no test (the cited test does not exist)" || exit 1
+        require_positive "$out" "$f: $cmd selects no subset of the suite; name the test" || exit 1
         seen=$((seen + 1))
-      done < <(grep -E '^[[:space:]]*(-[[:space:]]+)?test:' "$f")
+      done <<<"$cmds"
       [ "$seen" -gt 0 ] || { echo "gate: $f cites no falsification test" >&2; exit 1; }
       cited=$((cited + seen))
     done
