@@ -1,0 +1,1 @@
+{"model": "claude-sonnet-5-5", "tool": "claude", "utc": "2026-11-20T09:10:31Z", "exit": 0, "role": "m6_judge, m6_tally: second model family reviews the subject patch", "inputs": ["prompt.md", "PATCH.diff"], "allowed_tools": ["Read"]}

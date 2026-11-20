@@ -1,0 +1,5 @@
+Added `apply_discount` and its unit tests to [src/lib.rs](src/lib.rs):
+
+- Implemented `pub fn apply_discount(price_cents: u64, percent: u8) -> u64` ([src/lib.rs](src/lib.rs#L6-L10)), clamping discounts above `100` via `100_u8.saturating_sub(percent)` and using `u128` intermediate arithmetic to avoid overflow while rounding down to whole cents.
+- Added unit tests in `mod tests` ([src/lib.rs](src/lib.rs#L12-L57)) covering 0% discounts, 100% and >100% clamping, exact percentages, floor rounding on fractional cents, and `u64::MAX` overflow safety.
+- No dependencies were added and `cargo` was not run.

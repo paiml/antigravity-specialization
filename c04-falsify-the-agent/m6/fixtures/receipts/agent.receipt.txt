@@ -1,0 +1,10 @@
+subject: agent patch, m6-capstone
+head: 4afd7e8eb8a41a923f7169eb88b3b8d246b2b8d8
+gate fmt: FAIL cargo fmt -- --check exit 1: trailing blank line, src/lib.rs:55
+gate clippy: PASS cargo clippy --all-targets -- -D warnings exit 0
+gate test: PASS cargo test: 5 passed, 0 failed
+gate contract: PASS m6/contracts/discount-v1.yaml: pv lint PASS, obligations 0 problems, score 0.65
+gate mutants: PASS cargo mutants 27.1.0: 6 tested, 6 caught
+gate coverage: PASS cargo llvm-cov 0.9.1: lines 100.00%
+gate review: PASS claude-sonnet-5-5: VERDICT: ACCEPT (fixtures/reviews/m6-review-agent-patch)
+verdict: REFUSE

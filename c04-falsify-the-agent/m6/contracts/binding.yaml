@@ -1,0 +1,9 @@
+version: "1.0.0"
+target_crate: m6
+bindings:
+  - contract: discount-v1.yaml
+    equation: apply_discount
+    module_path: "m6::shop"
+    function: "apply_discount"
+    signature: "fn apply_discount(price_cents: u64, percent: u8) -> u64"
+    status: implemented

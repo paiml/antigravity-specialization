@@ -1,0 +1,7 @@
+FINDING: `apply_discount` is correct. It computes `price * (100 - percent) / 100` in u128 with `saturating_sub`, so a percent above 100 gives a keep percentage of 0 and a result of 0, as the task requires. Integer division rounds down, which is the required rounding.
+FINDING: There is no overflow risk. The u128 intermediate holds `u64::MAX * 100`, and the result never exceeds the input price, so the `as u64` cast cannot truncate.
+FINDING: I checked the test expectations by hand and all of them are right. 101×85/100 = 85, 199×90/100 = 179, 999×67/100 = 669, and 1×99/100 = 0. `u64::MAX` at 50% equals `u64::MAX/2`, and at 99% equals `u64::MAX/100`. `u64::MAX` at 1% is 18_262_276_632_972_456_098, which matches the value I worked out by hand.
+FINDING: The tests cover the boundaries: 0%, 100%, 101%, `u8::MAX`, a price of 0, a price of `u64::MAX`, and rounding-down cases. They would catch an off-by-one in the clamp, a round-to-nearest bug, and u64 overflow.
+FINDING: Nit: the doc comment is accurate, and the only change is in `src/lib.rs`. I found no scope creep.
+
+VERDICT: ACCEPT

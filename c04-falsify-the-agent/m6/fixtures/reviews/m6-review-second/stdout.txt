@@ -1,0 +1,8 @@
+FINDING: The implementation is correct. It uses `100.saturating_sub(percent)`, so any percent above 100 is clamped to 100. It multiplies in u128, so there is no overflow even at `u64::MAX`. Integer division rounds down.
+FINDING: `full_or_excessive_discount_returns_zero` has no assertions. Every call is `let _ = apply_discount(...)`. The test passes whatever the function returns, so it doesn't check the "percent above 100 is treated as 100" requirement, and it doesn't check the 100% case.
+FINDING: `rounds_down_to_whole_cents` also has no assertions. The expected values (85, 179, 669, 0) appear only in comments, and the calls discard their results. The rounding-down requirement is therefore untested. A rounding-up or nearest-cent implementation would still pass.
+FINDING: These vacuous tests are named as if they verify behavior, so they give false confidence. Two of the three core requirements (clamping and rounding) have no real coverage.
+FINDING: The assertions that do exist are correct. I checked the `u64::MAX` arithmetic by hand: the `u64::MAX/2`, `u64::MAX/100` and 18_262_276_632_972_456_098 values are all right. The 0%, 25% and 50% cases are also fine.
+FINDING: The fix is small. Replace each `let _ =` with `assert_eq!` against the expected value, for example `assert_eq!(apply_discount(101, 15), 85)` and `assert_eq!(apply_discount(1000, 101), 0)`.
+
+VERDICT: REFUSE

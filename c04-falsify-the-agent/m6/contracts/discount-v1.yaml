@@ -1,0 +1,36 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "apply_discount(price, percent) never exceeds price, and a percent of 100 or more gives 0"
+  references:
+    - "m6/src/shop.rs (apply_discount, written by a recorded agy run)"
+equations:
+  apply_discount:
+    formula: "apply_discount(p, d) = floor(p * (100 - min(d, 100)) / 100)"
+    domain: "p: u64, d: u8"
+    codomain: "u64"
+    preconditions:
+      - "true"
+    postconditions:
+      - "NEVER_ABOVE_PRICE: apply_discount(p, d) <= p"
+      - "CAPPED: d >= 100 implies apply_discount(p, d) = 0"
+    invariants:
+      - "apply_discount(p, d) <= p"
+proof_obligations:
+  - type: invariant
+    property: "the discounted price never exceeds the price"
+    formal: "apply_discount(p, d) <= p"
+    applies_to: apply_discount
+falsification_tests:
+  - id: FALSIFY-DISCOUNT-001
+    rule: CAPPED
+    prediction: "a percent above 100 gives 0, not an underflow"
+    test: "cargo test -p m6 --lib full_or_excessive_discount_returns_zero"
+    if_fails: "the cap at 100 percent is not applied"
+  - id: FALSIFY-DISCOUNT-002
+    rule: NEVER_ABOVE_PRICE
+    prediction: "every price and percent gives a result at or below the price"
+    test: "cargo test -p m6 never_above_price"
+    if_fails: "the discount can raise a price"

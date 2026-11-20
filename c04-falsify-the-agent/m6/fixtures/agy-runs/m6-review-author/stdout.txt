@@ -1,0 +1,5 @@
+FINDING: The implementation of `apply_discount` in [PATCH.diff](PATCH.diff#L11-L15) is correct: it matches the required signature, clamps `percent > 100` via `100_u8.saturating_sub(percent)`, avoids multiplication overflow using `u128`, rounds down via unsigned integer division by 100, and safely casts back to `u64`.
+FINDING: The unit test `full_or_excessive_discount_returns_zero` in [PATCH.diff](PATCH.diff#L28-L34) contains no assertions and discards all return values with `let _ = ...`, leaving 100% and `> 100%` clamping behavior unverified by any assertion in the test suite.
+FINDING: The unit test `rounds_down_to_whole_cents` in [PATCH.diff](PATCH.diff#L43-L53) lists expected values only in comments and discards all return values with `let _ = ...` instead of using `assert_eq!`, making it a vacuous test that does not verify rounding behavior.
+FINDING: Minor formatting issue: [PATCH.diff](PATCH.diff#L62-L63) adds a trailing blank line at the end of `src/lib.rs`.
+VERDICT: REFUSE
