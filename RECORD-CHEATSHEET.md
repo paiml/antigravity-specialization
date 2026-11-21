@@ -6,7 +6,7 @@
   - `RAN` (from the fresh `kfocus` `scripts/record-ready.sh` run at `antigravity-specialization@c29d8a2`),
   - `READ <file:line>` (directly read from the repository files in this worktree), and/or
   - `NOT VERIFIED` (live-only, skipped, blocked before execution, or not run on `kfocus`).
-- **Course Coverage Note**: `c03` is absent (`READ specialization.toml:13-17`; no `c03` directory exists in this repository).
+- **Course Coverage Note**: `c03` is present (`READ specialization.toml:13-17`, `courses/c03-verifying-agent-work/course.toml`): 20 examples, 20 `verify.sh`; a fresh run of every `verify.sh` exited 0 and printed its `contract: <name> OK` line (17 offline-only, 3 live at recording). `scripts/record-ready.sh` does not sweep `c03` (it covers `c01`, `c02`, `c04`), so the `c03` proof below is the direct `verify.sh` run, not the sweep.
 
 ## Per-Chapter Recording Status (`antigravity-specialization@c29d8a2`)
 
@@ -20,7 +20,10 @@
 | `c02/image-pipeline-skill` | yes | `RAN` live 2026-11-21 via `agy -p 'use the image-pipeline skill on pyramid-star.png'` (model `gemini-4-hydrogen-high`): output "Transposed 502x460 -> 460x502", `verify.sh` "OK -- 3 checks passed" (`LIVE-image-pipeline-skill-2026-11-21.txt`); `kfocus` `scripts/record-ready.sh`: `SKIP(live)`; `READ courses/c02-antigravity-internals/examples/image-pipeline-skill/example.toml:7-8` | none |
 | `c02/batch-runner` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/batch-runner/example.toml:7-8`, `scripts/record-ready.sh:153-163` | none |
 | `c02/pmat-review-agent` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`./verify.sh`); `READ courses/c02-antigravity-internals/examples/pmat-review-agent/example.toml:7`, `verify.sh:1-48` | None for `./verify.sh` (live `agy agents` install step is `NOT VERIFIED`) |
-| `c03` | no | `READ specialization.toml:13-17` | `c03` is absent from the repository |
+| `c03/m*` (17 offline examples, see Course 3) | yes | `RAN` 2026-11-21 (`c9b16ff`): each `bash ./verify.sh` exit 0, prints `contract: <example> OK`; `READ courses/c03-verifying-agent-work/course.toml` | none |
+| `c03/m2-create-first-agent` | live | `RAN` 2026-11-21 (`c9b16ff`): offline `bash ./verify.sh` exit 0, `contract: m2-create-first-agent OK`; `./run-agent.sh` is live `agy`, `NOT VERIFIED`; `READ courses/c03-verifying-agent-work/examples/m2-create-first-agent/example.toml:9` | LIVE AT RECORDING (`Live: needs agy.`); not a blocker |
+| `c03/m2-getting-started-antigravity` | live | `RAN` 2026-11-21 (`c9b16ff`): offline `bash ./verify.sh` exit 0, `contract: m2-getting-started-antigravity OK`; `./explore-workspace.sh` is live `agy`, `NOT VERIFIED`; `READ courses/c03-verifying-agent-work/examples/m2-getting-started-antigravity/example.toml:9` | LIVE AT RECORDING (`Live: needs agy.`); not a blocker |
+| `c03/m6-antigravity-analysis` | live | `RAN` 2026-11-21 (`c9b16ff`): offline `bash ./verify.sh` exit 0, `contract: m6-antigravity-analysis OK`; `./analyze.sh` is live `agy`, `NOT VERIFIED`; `READ courses/c03-verifying-agent-work/examples/m6-antigravity-analysis/example.toml:9` | LIVE AT RECORDING (`Live: needs agy.`); not a blocker |
 | `c04/m1` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`gate.sh m1`); `READ c04-falsify-the-agent/scripts/gate.sh:15-101`, `c04-falsify-the-agent/m1/contracts/test-floor-v1.yaml:1-36` | None |
 | `c04/m2` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`gate.sh m2`); `READ c04-falsify-the-agent/scripts/gate.sh:15-101`, `c04-falsify-the-agent/m2/contracts/kill-rate-v1.yaml:1-32` | None |
 | `c04/m3` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`gate.sh m3`); `READ c04-falsify-the-agent/scripts/gate.sh:15-101`, `c04-falsify-the-agent/m3/contracts/clamp-v1.yaml:1-38` | None |
@@ -61,7 +64,7 @@
    ```bash
    bash scripts/record-ready.sh --self-test
    ```
-4. Run the recording-readiness sweep across all chapters (`c01`, `c02`, and `c04/m1..m6`) (`RAN` on `kfocus` 2026-11-21 at `antigravity-specialization@c29d8a2`, ImageMagick 7.1.2: `c01/complex-image-processing`, `c02/transpose-image`, `c02/image-pipeline`, `c02/batch-runner`, `c02/pmat-review-agent`, and `c04/m1..m6` `PASS` (`SWEEP-1700Z.txt`); `c02/grill-me-first`, `c02/explore-and-plan`, `c02/image-pipeline-skill` `SKIP(live)` (`NOT VERIFIED`); `READ scripts/record-ready.sh:5,243-318`):
+4. Run the recording-readiness sweep across all chapters (`c01`, `c02`, and `c04/m1..m6`; `c03` is not in the sweep, run its `verify.sh` files directly) (`RAN` on `kfocus` 2026-11-21 at `antigravity-specialization@c29d8a2`, ImageMagick 7.1.2: `c01/complex-image-processing`, `c02/transpose-image`, `c02/image-pipeline`, `c02/batch-runner`, `c02/pmat-review-agent`, and `c04/m1..m6` `PASS` (`SWEEP-1700Z.txt`); `c02/grill-me-first`, `c02/explore-and-plan`, `c02/image-pipeline-skill` `SKIP(live)` (`NOT VERIFIED`); `READ scripts/record-ready.sh:5,243-318`):
    ```bash
    bash scripts/record-ready.sh
    ```
@@ -177,9 +180,35 @@
 
 ---
 
-## Course 3 — Absent (`c03`)
+## Course 3 — Verifying AI Agent Work (`courses/c03-verifying-agent-work`)
 
-`c03` is absent (`READ specialization.toml:13-17`; no `c03` course directory exists in this repository).
+20 examples across modules `m1..m6`, each with its own `verify.sh` (`READ courses/c03-verifying-agent-work/course.toml`). `RAN` 2026-11-21 at `antigravity-specialization@c9b16ff`: all 20 `verify.sh` exit 0 and print the `contract:` line shown; 17 are offline-only and 3 are flagged Live (`Live: needs agy.`), whose `verify.sh` still passes offline but whose run step needs `agy` at recording (`NOT VERIFIED`).
+
+| # | example | verify command | printed line | live at recording |
+|---|---|---|---|---|
+| 1 | `m1-agentic-coding-evolution` | `cd courses/c03-verifying-agent-work/examples/m1-agentic-coding-evolution && bash ./verify.sh` | `contract: m1-agentic-coding-evolution OK` | no |
+| 2 | `m1-llm-benefits-and-risks` | `cd courses/c03-verifying-agent-work/examples/m1-llm-benefits-and-risks && bash ./verify.sh` | `contract: m1-llm-benefits-and-risks OK` | no |
+| 3 | `m1-what-is-generative-ai` | `cd courses/c03-verifying-agent-work/examples/m1-what-is-generative-ai && bash ./verify.sh` | `contract: m1-what-is-generative-ai OK` | no |
+| 4 | `m2-antigravity-artifacts` | `cd courses/c03-verifying-agent-work/examples/m2-antigravity-artifacts && bash ./verify.sh` | `contract: m2-antigravity-artifacts OK` | no |
+| 5 | `m2-create-first-agent` | `cd courses/c03-verifying-agent-work/examples/m2-create-first-agent && bash ./verify.sh` | `contract: m2-create-first-agent OK` | yes: `./run-agent.sh` needs `agy` (`NOT VERIFIED`) |
+| 6 | `m2-getting-started-antigravity` | `cd courses/c03-verifying-agent-work/examples/m2-getting-started-antigravity && bash ./verify.sh` | `contract: m2-getting-started-antigravity OK` | yes: `./explore-workspace.sh` needs `agy` (`NOT VERIFIED`) |
+| 7 | `m3-mitigating-risks-of-llms` | `cd courses/c03-verifying-agent-work/examples/m3-mitigating-risks-of-llms && bash ./verify.sh` | `contract: m3-mitigating-risks-of-llms OK` | no |
+| 8 | `m3-the-verification-ladder` | `cd courses/c03-verifying-agent-work/examples/m3-the-verification-ladder && bash ./verify.sh` | `contract: m3-the-verification-ladder OK` | no |
+| 9 | `m3-when-agents-fail` | `cd courses/c03-verifying-agent-work/examples/m3-when-agents-fail && bash ./verify.sh` | `contract: m3-when-agents-fail OK` | no |
+| 10 | `m3-which-languages-suit-agentic-coding` | `cd courses/c03-verifying-agent-work/examples/m3-which-languages-suit-agentic-coding && bash ./verify.sh` | `contract: m3-which-languages-suit-agentic-coding OK` | no |
+| 11 | `m4-simplifying-rules-with-automation` | `cd courses/c03-verifying-agent-work/examples/m4-simplifying-rules-with-automation && bash ./verify.sh` | `contract: m4-simplifying-rules-with-automation OK` | no |
+| 12 | `m4-using-advanced-verification-with-pmat` | `cd courses/c03-verifying-agent-work/examples/m4-using-advanced-verification-with-pmat && bash ./verify.sh` | `contract: m4-using-advanced-verification-with-pmat OK` | no |
+| 13 | `m4-using-test-driven-development` | `cd courses/c03-verifying-agent-work/examples/m4-using-test-driven-development && bash ./verify.sh` | `contract: m4-using-test-driven-development OK` | no |
+| 14 | `m5-ci-verifying-agent-work` | `cd courses/c03-verifying-agent-work/examples/m5-ci-verifying-agent-work && bash ./verify.sh` | `contract: m5-ci-verifying-agent-work OK` | no |
+| 15 | `m5-components-of-a-job` | `cd courses/c03-verifying-agent-work/examples/m5-components-of-a-job && bash ./verify.sh` | `contract: m5-components-of-a-job OK` | no |
+| 16 | `m5-dockerfile-linting` | `cd courses/c03-verifying-agent-work/examples/m5-dockerfile-linting && bash ./verify.sh` | `contract: m5-dockerfile-linting OK` | no |
+| 17 | `m5-github-actions-intro` | `cd courses/c03-verifying-agent-work/examples/m5-github-actions-intro && bash ./verify.sh` | `contract: m5-github-actions-intro OK` | no |
+| 18 | `m5-why-ci-is-the-referee` | `cd courses/c03-verifying-agent-work/examples/m5-why-ci-is-the-referee && bash ./verify.sh` | `contract: m5-why-ci-is-the-referee OK` | no |
+| 19 | `m6-anatomy-of-a-verified-repo` | `cd courses/c03-verifying-agent-work/examples/m6-anatomy-of-a-verified-repo && bash ./verify.sh` | `contract: m6-anatomy-of-a-verified-repo OK` | no |
+| 20 | `m6-antigravity-analysis` | `cd courses/c03-verifying-agent-work/examples/m6-antigravity-analysis && bash ./verify.sh` | `contract: m6-antigravity-analysis OK` | yes: `./analyze.sh` needs `agy` (`NOT VERIFIED`) |
+
+Every row is `RAN` (exit 0, line printed). Live rows: only the example's own run script needs `agy`.
+
 
 ---
 
