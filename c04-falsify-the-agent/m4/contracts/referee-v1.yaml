@@ -1,0 +1,30 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "referee_hits(paths, gate) returns every touched path that is part of the gate"
+  references:
+    - "m4/src/referee.rs (referee_hits)"
+equations:
+  referee_hits:
+    formula: "referee_hits(P, G) = { p in P : exists g in G, is_gate_path(p, g) }"
+    domain: "P: touched paths, G: gate files and directories"
+    codomain: "list of paths"
+    preconditions:
+      - "G is not empty"
+    postconditions:
+      - "GATE_EDIT_REFUSED: a patch touching a gate file has a non-empty hit list"
+    invariants:
+      - "referee_hits(P, G) is a subset of P"
+proof_obligations:
+  - type: invariant
+    property: "a gate edit is never missed"
+    formal: "p in P and p in G implies p in referee_hits(P, G)"
+    applies_to: referee_hits
+falsification_tests:
+  - id: FALSIFY-REFEREE-001
+    rule: GATE_EDIT_REFUSED
+    prediction: "a patch that lowers gate.floor is a hit"
+    test: "cargo test -p m4 --lib loosened_floor_is_a_hit"
+    if_fails: "an agent can loosen the gate and the referee says nothing"

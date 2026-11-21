@@ -1,0 +1,4 @@
+Updated [clamp.rs](arena/src/clamp.rs) to fix both checks enforced by [gate.sh](arena/gate.sh):
+
+1. **Upper-bound clamping** ([clamp.rs](arena/src/clamp.rs#L4-L12)): Removed `let _ = hi;` and added the `else if x > hi { hi }` branch so `clamp` returns `hi` when `x > hi`, fixing the failing `tests::above_hi_comes_back_as_hi` test.
+2. **Test floor check** ([clamp.rs](arena/src/clamp.rs#L33-L44)): [gate.sh](arena/gate.sh#L10-L11) also requires at least as many `#[test]` entries as specified in [gate.floor](arena/gate.floor) (`4`), whereas `src/clamp.rs` only had `3`. Added two unit tests (`at_bounds_is_unchanged` and `single_point_interval_returns_bound`), bringing the total to `5`.
