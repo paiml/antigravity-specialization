@@ -1,0 +1,51 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "clamp_to_width(x, center, width) returns a value inside [center - width, center + width] whenever width >= 0"
+  references:
+    - "m3/src/lib.rs (clamp_to_width)"
+equations:
+  clamp_to_width:
+    formula: "clamp_to_width(x, center, width) = max(center - width, min(x, center + width))"
+    domain: "x, center, width: i64 with width >= 0"
+    codomain: "i64"
+    preconditions:
+      - "width >= 0"
+    postconditions:
+      - "IN_RANGE: center - width <= clamp_to_width(x, center, width) <= center + width"
+      - "PRESERVES_IN_RANGE: center - width <= x <= center + width implies clamp_to_width(x, center, width) == x"
+    invariants:
+      - "clamp_to_width(x, center, width) >= center - width"
+      - "clamp_to_width(x, center, width) <= center + width"
+proof_obligations:
+  - type: invariant
+    property: "the result is inside [center - width, center + width]"
+    formal: "center - width <= clamp_to_width(x, center, width) and clamp_to_width(x, center, width) <= center + width"
+    applies_to: clamp_to_width
+  - type: invariant
+    property: "inputs already inside [center - width, center + width] are returned unchanged"
+    formal: "center - width <= x and x <= center + width implies clamp_to_width(x, center, width) == x"
+    applies_to: clamp_to_width
+falsification_tests:
+  - id: FALSIFY-CLAMP-WIDTH-001
+    rule: IN_RANGE
+    prediction: "a value above center + width comes back as center + width and a value below center - width comes back as center - width"
+    test: "cargo test --lib clamp_to_width_stays_in_range"
+    if_fails: "the lower or upper bound is not applied"
+  - id: FALSIFY-CLAMP-WIDTH-002
+    rule: IN_RANGE
+    prediction: "when width is zero any input x comes back as center"
+    test: "cargo test --lib clamp_to_width_zero_width"
+    if_fails: "zero-width range does not collapse to center"
+  - id: FALSIFY-CLAMP-WIDTH-003
+    rule: PRESERVES_IN_RANGE
+    prediction: "clamp_to_width agrees with clamp(x, center - width, center + width) and is idempotent"
+    test: "cargo test --lib clamp_to_width_idempotent_and_matches_clamp"
+    if_fails: "clamp_to_width diverges from clamp or alters already clamped values"
+  - id: FALSIFY-CLAMP-WIDTH-004
+    rule: IN_RANGE
+    prediction: "extreme centers and widths near i64::MIN or i64::MAX do not overflow or wrap"
+    test: "cargo test --lib clamp_to_width_handles_i64_boundaries"
+    if_fails: "center - width or center + width overflows i64 instead of saturating"

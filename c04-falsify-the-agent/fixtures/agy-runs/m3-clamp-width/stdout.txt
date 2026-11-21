@@ -1,0 +1,11 @@
+Added `clamp_to_width`, its unit tests, contract, and contract binding without adding any dependencies:
+
+- **[src/lib.rs](file://<work>/src/lib.rs#L14-L88)**:
+  - Implemented `pub fn clamp_to_width(x: i64, center: i64, width: i64) -> i64` by computing `[center.saturating_sub(width), center.saturating_add(width)]` and delegating to `clamp`, preserving exact mathematical clamping into `[center - width, center + width]` for `width >= 0` without `i64` overflow/wraparound near `i64::MIN` or `i64::MAX`.
+  - Added `clamp_to_width_tests` covering in-range/out-of-range/boundary values (`clamp_to_width_stays_in_range`), zero width (`clamp_to_width_zero_width`), idempotence and agreement with `clamp` (`clamp_to_width_idempotent_and_matches_clamp`), and extreme `i64` bounds (`clamp_to_width_handles_i64_boundaries`).
+- **[clamp_to_width-v1.yaml](file://<work>/contracts/clamp_to_width-v1.yaml)**:
+  - Created the contract in the same schema as [clamp-v1.yaml](file://<work>/contracts/clamp-v1.yaml) with equation `clamp_to_width`, precondition `width >= 0`, postconditions, invariants, proof obligations, and four falsification tests mapped to the unit tests above.
+- **[binding.yaml](file://<work>/contracts/binding.yaml#L10-L15)**:
+  - Added the `clamp_to_width-v1.yaml` binding for `m3::clamp_to_width` with status `implemented`.
+
+*(Validated YAML syntax for all contract files; did not run `cargo`.)*

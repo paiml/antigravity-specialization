@@ -1,0 +1,10 @@
+Updated [clamp-v1.yaml](file://<work>/contracts/clamp-v1.yaml) with two new falsification tests backed by the existing test `clamp_stays_in_range` in [lib.rs](file://<work>/src/lib.rs#L18-L23):
+
+- **`FALSIFY-CLAMP-002`** (item 1 — value below `lo` returns `lo`): bound to `cargo test --lib clamp_stays_in_range` (checked by `assert_eq!(clamp(-3, 0, 5), 0)` at [lib.rs](file://<work>/src/lib.rs#L21)).
+- **`FALSIFY-CLAMP-003`** (item 2 — value inside `[lo, hi]` returns unchanged): bound to `cargo test --lib clamp_stays_in_range` (checked by `assert_eq!(clamp(4, 0, 5), 4)` at [lib.rs](file://<work>/src/lib.rs#L22)).
+
+### Omitted: item 3 (`lo > hi`)
+No falsification test entry was added for `lo > hi` because:
+1. **No cargo test checks `lo > hi`**: [lib.rs](file://<work>/src/lib.rs#L18-L23) only defines `clamp_stays_in_range`, which exclusively calls `clamp` with `lo = 0, hi = 5`. Naming a nonexistent test in `test:` would invent a phantom test, and pointing `test:` to `clamp_stays_in_range` would falsely claim it covers `lo > hi`.
+2. **Rust files could not be edited** to add a `#[test]` for `lo > hi`.
+3. **Contract vs. implementation note**: the contract currently requires `lo <= hi` as a precondition, while `clamp` in [lib.rs](file://<work>/src/lib.rs#L4-L12) does not enforce it (for `lo > hi`, it returns `lo` when `x < lo` and `hi` when `x >= lo`, rather than panicking or matching `max(lo, min(x, hi))`). To cover item 3, add a Rust test in [lib.rs](file://<work>/src/lib.rs) for the intended `lo > hi` behavior and then bind a `FALSIFY-CLAMP-004` entry to that test.

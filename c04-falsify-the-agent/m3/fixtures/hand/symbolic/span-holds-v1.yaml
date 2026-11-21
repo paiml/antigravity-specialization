@@ -1,0 +1,27 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "span(lo, hi) is the distance from lo to hi; hand-written fixture for m3_vacuous_contract"
+  references:
+    - "m3/src/bin/m3_vacuous_contract.rs"
+equations:
+  span:
+    formula: "span(lo, hi) = hi - lo"
+    domain: "lo in R, hi in R"
+    codomain: "R"
+    invariants:
+      - "span(lo, hi) + lo = hi"
+      - "span(lo, lo) = 0"
+proof_obligations:
+  - type: invariant
+    property: "span adds back to hi"
+    formal: "span(lo, hi) + lo = hi"
+    applies_to: span
+falsification_tests:
+  - id: FALSIFY-SPAN-001
+    rule: span
+    prediction: "span(lo, hi) + lo = hi"
+    test: "cargo test --lib span_adds_back"
+    if_fails: "span is not hi - lo"

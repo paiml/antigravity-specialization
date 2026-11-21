@@ -1,0 +1,15 @@
+version: "1.0.0"
+target_crate: m3
+bindings:
+  - contract: clamp-v1.yaml
+    equation: clamp
+    module_path: "m3"
+    function: "clamp"
+    signature: "fn clamp(x: i64, lo: i64, hi: i64) -> i64"
+    status: implemented
+  - contract: clamp_to_width-v1.yaml
+    equation: clamp_to_width
+    module_path: "m3"
+    function: "clamp_to_width"
+    signature: "fn clamp_to_width(x: i64, center: i64, width: i64) -> i64"
+    status: implemented

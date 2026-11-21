@@ -1,0 +1,1 @@
+cd <work> && setsid nohup bash -c 'env -u SSH_CONNECTION -u SSH_CLIENT -u SSH_TTY timeout 1500 agy --sandbox --model gemini-4-neon-high --print "$(cat ../prompt.md)" </dev/null > ../stdout.txt 2> ../stderr.txt; echo $? > ../exit.txt' &
