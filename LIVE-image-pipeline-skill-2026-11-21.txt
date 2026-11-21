@@ -1,0 +1,12 @@
+Ran the `image-pipeline` skill on [pyramid-star.png](file:///mnt/nvme-raid0/tmp/rmedia-cop/agy-w/live-ags/image-pipeline-skill/pyramid-star.png) using [pipeline.sh](file:///mnt/nvme-raid0/tmp/rmedia-cop/agy-w/live-ags/image-pipeline-skill/.agents/skills/image-pipeline/scripts/pipeline.sh) and verified the output with [verify.sh](file:///mnt/nvme-raid0/tmp/rmedia-cop/agy-w/live-ags/image-pipeline-skill/.agents/skills/image-pipeline/scripts/verify.sh).
+
+- **Output:** [out.png](file:///mnt/nvme-raid0/tmp/rmedia-cop/agy-w/live-ags/image-pipeline-skill/out.png) (`Transposed 502x460 -> 460x502: out.png`)
+- **Verification output:**
+```text
+verifying out.png against pyramid-star.png (502x460)
+  PASS  output is the transposed shape
+  PASS  transposing back reproduces stage 1
+  PASS  output is not the -rotate 90 result (97024 pixels differ)
+
+OK -- 3 checks passed.
+```
