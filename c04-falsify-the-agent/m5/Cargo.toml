@@ -1,0 +1,34 @@
+[package]
+name = "m5"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+license = "MIT"
+publish = false
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "=0.2.106"
+web-sys = { version = "=0.3.83", features = ["Window", "Document", "Element", "HtmlElement", "EventTarget"] }
+
+# The probar end-to-end test drives a real headless Chrome. It is off by
+# default: it needs a browser binary and the wasm-bindgen output on disk.
+# Run it with scripts/e2e.sh.
+[features]
+e2e = ["dep:jugar-probar", "dep:tokio"]
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+jugar-probar = { version = "=1.0.4", default-features = false, features = ["browser"], optional = true }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time"], optional = true }
+
+[[test]]
+name = "e2e_probar"
+required-features = ["e2e"]
+
+# Its own workspace: each module keeps its own Cargo.lock, so module PRs never conflict.
+[workspace]

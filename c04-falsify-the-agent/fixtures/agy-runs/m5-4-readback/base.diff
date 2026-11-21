@@ -1,0 +1,13 @@
+diff --git a/m5/src/page.rs b/m5/src/page.rs
+index 8d87c01..abd59da 100644
+--- a/m5/src/page.rs
++++ b/m5/src/page.rs
+@@ -63,7 +63,7 @@ impl Page {
+                 Control {
+                     id: "save",
+                     label: "Save",
+-                    handler: Handler::Wired(Action::Save),
++                    handler: Handler::StatusOnly("Saved"),
+                 },
+             ],
+             ui: RecordUi::new(),

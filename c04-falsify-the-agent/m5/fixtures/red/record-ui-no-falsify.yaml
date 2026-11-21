@@ -1,0 +1,25 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "RED fixture for m5_control_contract: record-ui-v1 with no falsification test"
+  references:
+    - "m5/src/ui.rs (RecordUi::apply)"
+    - "m5/src/contract.rs (save_pre, save_post)"
+equations:
+  save:
+    formula: "save(ui) = ui with saved := takes and status := Saved"
+    domain: "ui: RecordUi with phase = Stopped and takes > saved"
+    codomain: "RecordUi"
+    preconditions:
+      - "phase = Stopped and takes > saved"
+    postconditions:
+      - "SAVED_IS_STATE: saved' = takes and takes' = takes and phase' = phase and status' = Saved"
+    invariants:
+      - "saved <= takes"
+proof_obligations:
+  - type: invariant
+    property: "after Save, every take is saved"
+    formal: "save_pre(ui) implies saved'(ui) = takes(ui)"
+    applies_to: save
