@@ -1,0 +1,30 @@
+metadata:
+  version: "1.0.0"
+  created: "2026-11-20"
+  kind: pattern
+  author: "PAIML Engineering"
+  description: "with_floor(report, min_rate, floor) passes only a report with at least floor tests and a pass rate of at least min_rate"
+  references:
+    - "m4/src/gate.rs (with_floor)"
+equations:
+  with_floor:
+    formula: "with_floor(r, m, f) = total(r) >= f and pass_rate(r) >= m"
+    domain: "r: Report, m: f64 in [0, 1], f: usize"
+    codomain: "bool"
+    preconditions:
+      - "f >= 1"
+    postconditions:
+      - "EMPTY_REFUSED: with_floor(empty, m, f) = false"
+    invariants:
+      - "total(r) < f implies with_floor(r, m, f) = false"
+proof_obligations:
+  - type: invariant
+    property: "an empty report is refused"
+    formal: "f >= 1 implies with_floor(empty, m, f) = false"
+    applies_to: with_floor
+falsification_tests:
+  - id: FALSIFY-FLOOR-001
+    rule: EMPTY_REFUSED
+    prediction: "the empty report is refused by a floor of 1"
+    test: "cargo test -p m4 --lib floor_refuses_an_empty_report"
+    if_fails: "the gate has no floor and cannot say no"

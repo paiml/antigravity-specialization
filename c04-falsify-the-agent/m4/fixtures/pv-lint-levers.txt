@@ -1,0 +1,170 @@
+$ pv lint contracts --binding contracts/binding.yaml --strict-test-binding 
+pv lint — contract quality gate
+================================
+
+  Gate 1: validate             ✓  (2 contracts, 0 errors, 0 warnings) [0ms] → Pass
+  Gate 2: audit                ✓  (2 contracts, 0 findings) [0ms] → Pass
+  Gate 3: score                ✓  (2 contracts, mean=0.65, threshold=0.00) [0ms] → Pass
+  Gate 4: verify               ✓  (0 refs, 0 found, 0 missing) [0ms] → Pass
+  Gate 5: enforce              ✓  (0 eqs, 0 pre, 0 post) [0ms] → Pass
+  Gate 6: enforcement-level    ✓  (skipped: 2 contracts, 0 below level) [0ms] → Pass
+  Gate 7: reverse-coverage     ⏭  (skipped: no --binding or --crate-dir provided) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 8: duplicate-stems      ✓  (0 ambiguous stems, 0 baselined, 0 unbaselined, 0 stale) [0ms] → Pass
+  Gate 9: composition          ✓  (0 edges, 0 satisfied, 0 broken) [0ms] → Pass
+  Gate 10: sigma                ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 11: relations            ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 12: shapes               ⏭  (skipped: no `shape:` block in 2 contracts — R-2: zero is a decline) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 13: valid-under          ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 14: theorem-pairing      ⏭  (skipped: no Lean theorem base (ProvableContracts/Theorems) under .) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 15: depends-on-present   ⏭  (skipped: no kernel-kind contract in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 16: proved-is-derived    ⏭  (2 contracts, 0 errors, 0 warnings) [0ms] → Unknown(NotArmed) [gate: Unknown(Report)]
+  Gate 17: references-resolve   ⏭  (skipped: no repo-path reference in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 18: challenge-fresh      ⏭  (skipped: no Lean theorem base under the repo root) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 19: ont-consistency      ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 20: refines              ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 21: bindings             ⏭  (skipped: not at a workspace root: `contracts` has no [workspace] Cargo.toml beside it, so no binding can be resolved) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 22: refinement           ⏭  (skipped: no crates/aprender-contracts-staging/lean/formalization.yaml beside the corpus) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 23: evidence             ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 24: strict-test-binding  ✓  (2 refs, 1 found, 1 missing) [0ms] → Unknown(NotArmed) [gate: Pass]
+
+Findings:
+
+  contracts/gate-floor-v1.yaml (1 warning)
+    [WARN] PV-VER-002 — Dangling test reference: cited `floor_never_lets_empty_pass` not found in source (falsification_tests[FALSIFY-FLOOR-001].test)  [NEW]
+      fix: Either rename a test fn to `floor_never_lets_empty_pass`, or update the contract `test:` field for FALSIFY-FLOOR-001 to cite the real fn name.
+
+Slowest contracts:
+  gate-floor-v1.yaml                       0ms
+  referee-v1.yaml                          0ms
+
+Summary: 0 errors, 1 warnings, 0 suppressed, 1 new
+Estimated remediation: ~10m
+armed meet: Pass (8 armed; not armed: reverse-coverage, sigma, relations, shapes, valid-under, theorem-pairing, depends-on-present, proved-is-derived, references-resolve, challenge-fresh, ont-consistency, refines, bindings, refinement, evidence, strict-test-binding)
+armed_gates monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+armed_shapes monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+Result: PASS
+[exit 0]
+$ pv lint contracts --binding contracts/binding.yaml --strict-test-binding --severity error
+pv lint — contract quality gate
+================================
+
+  Gate 1: validate             ✓  (2 contracts, 0 errors, 0 warnings) [0ms] → Pass
+  Gate 2: audit                ✓  (2 contracts, 0 findings) [0ms] → Pass
+  Gate 3: score                ✓  (2 contracts, mean=0.65, threshold=0.00) [0ms] → Pass
+  Gate 4: verify               ✓  (0 refs, 0 found, 0 missing) [0ms] → Pass
+  Gate 5: enforce              ✓  (0 eqs, 0 pre, 0 post) [0ms] → Pass
+  Gate 6: enforcement-level    ✓  (skipped: 2 contracts, 0 below level) [0ms] → Pass
+  Gate 7: reverse-coverage     ⏭  (skipped: no --binding or --crate-dir provided) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 8: duplicate-stems      ✓  (0 ambiguous stems, 0 baselined, 0 unbaselined, 0 stale) [0ms] → Pass
+  Gate 9: composition          ✓  (0 edges, 0 satisfied, 0 broken) [0ms] → Pass
+  Gate 10: sigma                ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 11: relations            ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 12: shapes               ⏭  (skipped: no `shape:` block in 2 contracts — R-2: zero is a decline) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 13: valid-under          ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 14: theorem-pairing      ⏭  (skipped: no Lean theorem base (ProvableContracts/Theorems) under .) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 15: depends-on-present   ⏭  (skipped: no kernel-kind contract in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 16: proved-is-derived    ⏭  (2 contracts, 0 errors, 0 warnings) [0ms] → Unknown(NotArmed) [gate: Unknown(Report)]
+  Gate 17: references-resolve   ⏭  (skipped: no repo-path reference in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 18: challenge-fresh      ⏭  (skipped: no Lean theorem base under the repo root) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 19: ont-consistency      ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 20: refines              ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 21: bindings             ⏭  (skipped: not at a workspace root: `contracts` has no [workspace] Cargo.toml beside it, so no binding can be resolved) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 22: refinement           ⏭  (skipped: no crates/aprender-contracts-staging/lean/formalization.yaml beside the corpus) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 23: evidence             ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 24: strict-test-binding  ✓  (2 refs, 1 found, 1 missing) [0ms] → Unknown(NotArmed) [gate: Pass]
+
+Slowest contracts:
+  gate-floor-v1.yaml                       0ms
+  referee-v1.yaml                          0ms
+
+Summary: 0 errors, 0 warnings, 0 suppressed
+armed meet: Pass (8 armed; not armed: reverse-coverage, sigma, relations, shapes, valid-under, theorem-pairing, depends-on-present, proved-is-derived, references-resolve, challenge-fresh, ont-consistency, refines, bindings, refinement, evidence, strict-test-binding)
+armed_gates monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+armed_shapes monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+Result: PASS
+[exit 0]
+$ pv lint contracts --binding contracts/binding.yaml --strict-test-binding --strict
+pv lint — contract quality gate
+================================
+
+  Gate 1: validate             ✓  (2 contracts, 0 errors, 0 warnings) [0ms] → Pass
+  Gate 2: audit                ✓  (2 contracts, 0 findings) [0ms] → Pass
+  Gate 3: score                ✓  (2 contracts, mean=0.65, threshold=0.00) [0ms] → Pass
+  Gate 4: verify               ✓  (0 refs, 0 found, 0 missing) [0ms] → Pass
+  Gate 5: enforce              ✓  (0 eqs, 0 pre, 0 post) [0ms] → Pass
+  Gate 6: enforcement-level    ✓  (skipped: 2 contracts, 0 below level) [0ms] → Pass
+  Gate 7: reverse-coverage     ⏭  (skipped: no --binding or --crate-dir provided) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 8: duplicate-stems      ✓  (0 ambiguous stems, 0 baselined, 0 unbaselined, 0 stale) [0ms] → Pass
+  Gate 9: composition          ✓  (0 edges, 0 satisfied, 0 broken) [0ms] → Pass
+  Gate 10: sigma                ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 11: relations            ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 12: shapes               ⏭  (skipped: no `shape:` block in 2 contracts — R-2: zero is a decline) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 13: valid-under          ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 14: theorem-pairing      ⏭  (skipped: no Lean theorem base (ProvableContracts/Theorems) under .) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 15: depends-on-present   ⏭  (skipped: no kernel-kind contract in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 16: proved-is-derived    ⏭  (2 contracts, 0 errors, 0 warnings) [0ms] → Unknown(NotArmed) [gate: Unknown(Report)]
+  Gate 17: references-resolve   ⏭  (skipped: no repo-path reference in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 18: challenge-fresh      ⏭  (skipped: no Lean theorem base under the repo root) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 19: ont-consistency      ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 20: refines              ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 21: bindings             ⏭  (skipped: not at a workspace root: `contracts` has no [workspace] Cargo.toml beside it, so no binding can be resolved) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 22: refinement           ⏭  (skipped: no crates/aprender-contracts-staging/lean/formalization.yaml beside the corpus) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 23: evidence             ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 24: strict-test-binding  ✗  (2 refs, 1 found, 1 missing) [0ms] → Unknown(NotArmed) [gate: Fail]
+
+Findings:
+
+  contracts/gate-floor-v1.yaml (1 error)
+    [ERROR] PV-VER-002 — Dangling test reference: cited `floor_never_lets_empty_pass` not found in source (falsification_tests[FALSIFY-FLOOR-001].test)
+      fix: Either rename a test fn to `floor_never_lets_empty_pass`, or update the contract `test:` field for FALSIFY-FLOOR-001 to cite the real fn name.
+
+Slowest contracts:
+  gate-floor-v1.yaml                       0ms
+  referee-v1.yaml                          0ms
+
+Summary: 1 errors, 0 warnings, 0 suppressed
+Estimated remediation: ~10m
+armed meet: Pass (8 armed; not armed: reverse-coverage, sigma, relations, shapes, valid-under, theorem-pairing, depends-on-present, proved-is-derived, references-resolve, challenge-fresh, ont-consistency, refines, bindings, refinement, evidence, strict-test-binding)
+armed_gates monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+armed_shapes monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+Result: PASS
+[exit 0]
+$ pv lint contracts --binding contracts/binding.yaml --strict-test-binding --suppress-rule PV-VER-002 --strict
+pv lint — contract quality gate
+================================
+
+  Gate 1: validate             ✓  (2 contracts, 0 errors, 0 warnings) [0ms] → Pass
+  Gate 2: audit                ✓  (2 contracts, 0 findings) [0ms] → Pass
+  Gate 3: score                ✓  (2 contracts, mean=0.65, threshold=0.00) [0ms] → Pass
+  Gate 4: verify               ✓  (0 refs, 0 found, 0 missing) [0ms] → Pass
+  Gate 5: enforce              ✓  (0 eqs, 0 pre, 0 post) [0ms] → Pass
+  Gate 6: enforcement-level    ✓  (skipped: 2 contracts, 0 below level) [0ms] → Pass
+  Gate 7: reverse-coverage     ⏭  (skipped: no --binding or --crate-dir provided) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 8: duplicate-stems      ✓  (0 ambiguous stems, 0 baselined, 0 unbaselined, 0 stale) [0ms] → Pass
+  Gate 9: composition          ✓  (0 edges, 0 satisfied, 0 broken) [0ms] → Pass
+  Gate 10: sigma                ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 11: relations            ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 12: shapes               ⏭  (skipped: no `shape:` block in 2 contracts — R-2: zero is a decline) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 13: valid-under          ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 14: theorem-pairing      ⏭  (skipped: no Lean theorem base (ProvableContracts/Theorems) under .) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 15: depends-on-present   ⏭  (skipped: no kernel-kind contract in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 16: proved-is-derived    ⏭  (2 contracts, 0 errors, 0 warnings) [0ms] → Unknown(NotArmed) [gate: Unknown(Report)]
+  Gate 17: references-resolve   ⏭  (skipped: no repo-path reference in 2 contract(s): nothing was measured) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 18: challenge-fresh      ⏭  (skipped: no Lean theorem base under the repo root) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 19: ont-consistency      ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 20: refines              ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(NoCheckable)]
+  Gate 21: bindings             ⏭  (skipped: not at a workspace root: `contracts` has no [workspace] Cargo.toml beside it, so no binding can be resolved) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 22: refinement           ⏭  (skipped: no crates/aprender-contracts-staging/lean/formalization.yaml beside the corpus) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 23: evidence             ⏭  (skipped: no contracts/ontology.yaml) [0ms] → Unknown(NotArmed) [gate: Unknown(Skip)]
+  Gate 24: strict-test-binding  ✗  (2 refs, 1 found, 1 missing) [0ms] → Unknown(NotArmed) [gate: Fail]
+
+Slowest contracts:
+  gate-floor-v1.yaml                       0ms
+  referee-v1.yaml                          0ms
+
+Summary: 0 errors, 0 warnings, 1 suppressed
+armed meet: Pass (8 armed; not armed: reverse-coverage, sigma, relations, shapes, valid-under, theorem-pairing, depends-on-present, proved-is-derived, references-resolve, challenge-fresh, ont-consistency, refines, bindings, refinement, evidence, strict-test-binding)
+armed_gates monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+armed_shapes monotone: NOT CHECKED (no comparand) — contracts is not a directory in a git work tree
+Result: PASS
+[exit 0]

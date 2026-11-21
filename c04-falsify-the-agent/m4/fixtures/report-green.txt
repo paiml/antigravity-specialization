@@ -1,0 +1,10 @@
+
+running 5 tests
+test tests::above_hi_comes_back_as_hi ... ok
+test tests::at_bounds_is_unchanged ... ok
+test tests::inside_is_unchanged ... ok
+test tests::below_lo_comes_back_as_lo ... ok
+test tests::single_point_interval_returns_bound ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,15 @@
+version: "1.0.0"
+target_crate: m4
+bindings:
+  - contract: gate-floor-v1.yaml
+    equation: with_floor
+    module_path: "m4::gate"
+    function: "with_floor"
+    signature: "fn with_floor(report: &Report, min_rate: f64, floor: usize) -> bool"
+    status: implemented
+  - contract: referee-v1.yaml
+    equation: referee_hits
+    module_path: "m4::referee"
+    function: "referee_hits"
+    signature: "fn referee_hits(paths: &[String], gate: &[&str]) -> Vec<String>"
+    status: implemented
