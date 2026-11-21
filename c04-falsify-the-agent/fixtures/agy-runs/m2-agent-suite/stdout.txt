@@ -1,0 +1,9 @@
+Added `shipping_cents` and unit tests to [src/lib.rs](file:///work/agent-crate/src/lib.rs):
+
+- Implemented `pub fn shipping_cents(weight_grams: u32, express: bool) -> u32` ([src/lib.rs](file:///work/agent-crate/src/lib.rs#L9-L26)):
+  - Returns `0` when `weight_grams == 0`.
+  - Charges a base rate of `500` cents for `1..=1000` grams.
+  - Adds `200` cents per started `500` grams above `1000` (`(weight_grams - 1001) / 500 + 1`).
+  - Doubles the total when `express` is `true`.
+- Added unit tests in `#[cfg(test)] mod tests` ([src/lib.rs](file:///work/agent-crate/src/lib.rs#L28-L64)) covering `0` grams, the base tier (`1`, `500`, `1000`), extra weight tier boundaries (`1001`, `1500`, `1501`, `2000`, `2001`), and `express` doubling.
+- Left [Cargo.toml](file:///work/agent-crate/Cargo.toml) unchanged (no dependencies added).

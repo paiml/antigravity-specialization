@@ -1,0 +1,1 @@
+{"model": "gemini-4-neon-high", "utc": "2026-11-20T09:01:34Z", "utc_end": "2026-11-20T09:03:27Z", "exit": "not_measured (run detached; waited with tail --pid)", "base": "Cargo.toml (package shipping, no deps) + src/lib.rs = \"//! Shipping fees for a small shop.\\n\""}

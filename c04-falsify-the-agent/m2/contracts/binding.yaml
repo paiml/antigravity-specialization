@@ -1,0 +1,9 @@
+version: "1.0.0"
+target_crate: m2
+bindings:
+  - contract: kill-rate-v1.yaml
+    equation: kill_rate
+    module_path: "m2::score"
+    function: "kill_rate"
+    signature: "fn kill_rate(caught: usize, missed: usize) -> Option<f64>"
+    status: implemented

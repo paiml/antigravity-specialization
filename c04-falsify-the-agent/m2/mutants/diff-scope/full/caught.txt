@@ -1,0 +1,9 @@
+src/bulk.rs:9:5: replace bulk_dozens -> u32 with 0
+src/bulk.rs:9:5: replace bulk_dozens -> u32 with 1
+src/bulk.rs:9:12: replace > with == in bulk_dozens
+src/bulk.rs:9:12: replace > with < in bulk_dozens
+src/bulk.rs:10:13: replace / with % in bulk_dozens
+src/bulk.rs:10:13: replace / with * in bulk_dozens
+src/price.rs:8:5: replace line_total -> u32 with 0
+src/price.rs:10:15: replace - with / in line_total
+src/price.rs:10:23: replace / with * in line_total

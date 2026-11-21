@@ -1,0 +1,1 @@
+src/cap.rs:14:5: replace cap_is_valid -> bool with true | cap_is_valid runs after p.min(100), so it is already true for all 256 u8 inputs (test the_guard_holds_for_every_input); the mutant returns the same value

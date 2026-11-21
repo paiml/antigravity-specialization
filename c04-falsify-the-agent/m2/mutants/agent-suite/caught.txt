@@ -1,0 +1,16 @@
+src/agent_shipping.rs:10:5: replace shipping_cents -> u32 with 0
+src/agent_shipping.rs:10:5: replace shipping_cents -> u32 with 1
+src/agent_shipping.rs:10:21: replace == with != in shipping_cents
+src/agent_shipping.rs:14:32: replace <= with > in shipping_cents
+src/agent_shipping.rs:17:56: replace + with - in shipping_cents
+src/agent_shipping.rs:17:56: replace + with * in shipping_cents
+src/agent_shipping.rs:17:50: replace / with % in shipping_cents
+src/agent_shipping.rs:17:50: replace / with * in shipping_cents
+src/agent_shipping.rs:17:42: replace - with + in shipping_cents
+src/agent_shipping.rs:17:42: replace - with / in shipping_cents
+src/agent_shipping.rs:18:13: replace + with - in shipping_cents
+src/agent_shipping.rs:18:13: replace + with * in shipping_cents
+src/agent_shipping.rs:18:28: replace * with + in shipping_cents
+src/agent_shipping.rs:18:28: replace * with / in shipping_cents
+src/agent_shipping.rs:22:14: replace * with + in shipping_cents
+src/agent_shipping.rs:22:14: replace * with / in shipping_cents

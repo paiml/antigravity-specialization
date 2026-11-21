@@ -1,0 +1,1 @@
+cargo mutants --no-shuffle --timeout 300 -o <tmpdir> --file src/price.rs --file src/bulk.rs -- --lib

@@ -1,0 +1,18 @@
+[package]
+name = "m2"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+license = "MIT"
+publish = false
+
+[features]
+# The `m2_kill` demo: the one new test that kills the survivors in `price.rs`.
+# Off by default so `cargo mutants` shows the weak suite first.
+kill = []
+
+[lints.rust]
+unsafe_code = "forbid"
+
+# Its own workspace: each module keeps its own Cargo.lock, so module PRs never conflict.
+[workspace]

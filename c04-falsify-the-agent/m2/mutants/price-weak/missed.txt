@@ -1,0 +1,7 @@
+src/price.rs:8:5: replace line_total -> u32 with 1
+src/price.rs:8:28: replace * with + in line_total
+src/price.rs:8:28: replace * with / in line_total
+src/price.rs:9:15: replace && with || in line_total
+src/price.rs:9:24: replace >= with < in line_total
+src/price.rs:10:15: replace - with + in line_total
+src/price.rs:10:23: replace / with % in line_total

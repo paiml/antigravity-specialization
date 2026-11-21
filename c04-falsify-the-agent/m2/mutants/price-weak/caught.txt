@@ -1,0 +1,3 @@
+src/price.rs:8:5: replace line_total -> u32 with 0
+src/price.rs:10:15: replace - with / in line_total
+src/price.rs:10:23: replace / with * in line_total
