@@ -1,0 +1,25 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Create your first agent"
+summary     = "authoring and validating a verification-first Antigravity agent"
+description = "An Antigravity agent is a markdown file with YAML frontmatter declaring its name, description, and execution policy, followed by persona instructions. verify-first.md instructs the agent to run checks before reporting success. verify.sh validates the agent definition offline without invoking agy."
+run         = "./run-agent.sh"
+verify      = "./verify.sh"
+requires    = "Live: needs agy. Requires the Antigravity CLI (`agy`) and global agent install (`~/.gemini/config/agents/`). `verify.sh` checks the agent spec offline without calling `agy`."
+
+[[files]]
+path = "agents/verify-first.md"
+note = "the agent definition: YAML frontmatter plus verification-first persona"
+
+[[files]]
+path = "run-agent.sh"
+note = "live agy -p invocation using --mode plan"
+
+[[files]]
+path = "validate-agent.sh"
+note = "validates agent frontmatter and persona body offline"
+
+[[files]]
+path = "verify.sh"
+note = "proves valid agent passes and empty or malformed agents fail without running agy"

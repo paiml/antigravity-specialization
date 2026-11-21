@@ -1,0 +1,41 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Antigravity analysis on an agentic repo"
+summary     = "running agy --mode plan read-only against a repo and verifying citations against ground truth"
+description = "Uses the Antigravity CLI in read-only --mode plan to audit an agentic repository with planted verification gaps. Because live agy steps are non-deterministic, verify.sh validates the offline citation-and-ground-truth checker instead of calling agy."
+run         = "./analyze.sh"
+verify      = "./verify.sh"
+requires    = "Live: needs agy. Requires the Antigravity CLI (`agy`) for ./analyze.sh. ./verify.sh runs offline using bash and standard POSIX tools only."
+
+[[files]]
+path = "analyze.sh"
+note = "live read-only agy -p ... --mode plan analysis command"
+
+[[files]]
+path = "check-analysis.sh"
+note = "offline checker verifying cited file:line paths and required findings"
+
+[[files]]
+path = "sample-analysis.md"
+note = "reference analysis report citing exact file:line locations in target-repo/"
+
+[[files]]
+path = "target-repo/AGENTS.md"
+note = "fixture agent guide lacking a concrete verification command"
+
+[[files]]
+path = "target-repo/.github/workflows/ci.yml"
+note = "fixture workflow with unpinned @main action and masked exit codes"
+
+[[files]]
+path = "target-repo/scripts/process.sh"
+note = "fixture script missing strict mode and input validation"
+
+[[files]]
+path = "target-repo/tests/test_process.sh"
+note = "fixture vacuous test that ignores failures and exits 0"
+
+[[files]]
+path = "verify.sh"
+note = "offline verification of analyze.sh flags and hallucination rejection"

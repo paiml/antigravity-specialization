@@ -1,0 +1,3 @@
+Total violations: 2
+Quality Gate: PASSED
+Result: SUCCESS

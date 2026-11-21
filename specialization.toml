@@ -15,3 +15,6 @@ dir = "courses/c01-the-antigravity-platform"
 
 [[courses]]
 dir = "courses/c02-antigravity-internals"
+
+[[courses]]
+dir = "courses/c03-verifying-agent-work"

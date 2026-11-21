@@ -1,0 +1,21 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Getting started with Antigravity"
+summary     = "read-only workspace inspection using agy -p with --mode plan"
+description = "Demonstrates the safe starting posture with the Antigravity CLI: running a single non-interactive prompt (`agy -p`) paired with `--mode plan` so the agent inspects files and reports contracts without modifying the working tree."
+run         = "./explore-workspace.sh"
+verify      = "./verify.sh"
+requires    = "Live: needs agy. Requires the Antigravity CLI (`agy`) for live execution. `verify.sh` checks the script contract and session expectations offline without invoking `agy`."
+
+[[files]]
+path = "explore-workspace.sh"
+note = "runs agy -p with --mode plan for read-only inspection"
+
+[[files]]
+path = "expected-session.txt"
+note = "reference record of expected read-only session invariants"
+
+[[files]]
+path = "verify.sh"
+note = "validates the launch script and session record without calling agy"

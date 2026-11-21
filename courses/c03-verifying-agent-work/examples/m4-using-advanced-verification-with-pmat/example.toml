@@ -1,0 +1,25 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Using Advanced Verification with PMAT"
+summary     = "enforcing strict zero-violation and anti-vacuity gates on pmat quality-gate output"
+description = "Automates pmat quality-gate (complexity, satd, dead-code) inside pmat-gate.sh so non-blocking findings and empty scopes cannot masquerade as passes. verify.sh proves a clean Rust fixture passes, a planted TODO leaves raw pmat exiting 0 while pmat-gate.sh fails, and an empty directory is rejected."
+run         = "bash verify.sh"
+verify      = "bash verify.sh"
+requires    = "Requires `pmat` on PATH and standard POSIX utilities (sed, grep, find, mktemp)."
+
+[[files]]
+path = "pmat-gate.sh"
+note = "strict wrapper parsing Total violations and scope rather than trusting exit code"
+
+[[files]]
+path = "fixture/Cargo.toml"
+note = "self-contained Rust crate manifest for pmat analysis"
+
+[[files]]
+path = "fixture/src/lib.rs"
+note = "clean Rust source fixture"
+
+[[files]]
+path = "verify.sh"
+note = "proves clean passes, planted TODO fails strict gate, and empty fails"

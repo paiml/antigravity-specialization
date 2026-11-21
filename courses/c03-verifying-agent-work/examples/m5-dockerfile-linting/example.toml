@@ -1,0 +1,29 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Setting up Dockerfile linting for pull requests"
+summary     = "a pull-request CI gate that rejects unpinned base images, root containers, and bad RUN habits"
+description = "Configures a pull_request workflow filtered to Dockerfile changes and pairs it with a deterministic bash+awk Dockerfile linter enforcing pinned tags, WORKDIR over RUN cd, COPY over ADD, package cache cleanup, and non-root USER."
+run         = "./lint-dockerfile.sh Dockerfile.good"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX tools (awk, grep, mktemp). Runs offline without Docker or hadolint."
+
+[[files]]
+path = ".github/workflows/dockerfile-lint.yml"
+note = "pull_request workflow triggered on Dockerfile paths"
+
+[[files]]
+path = "lint-dockerfile.sh"
+note = "deterministic Dockerfile linter (supports --self-test)"
+
+[[files]]
+path = "Dockerfile.good"
+note = "compliant Dockerfile with pinned tag, WORKDIR, COPY, and non-root USER"
+
+[[files]]
+path = "Dockerfile.bad"
+note = "non-compliant Dockerfile violating 5 rules"
+
+[[files]]
+path = "verify.sh"
+note = "proves Dockerfile.good passes and Dockerfile.bad plus empty/missing files fail"

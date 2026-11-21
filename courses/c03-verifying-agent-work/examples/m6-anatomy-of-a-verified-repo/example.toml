@@ -1,0 +1,41 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Anatomy of a verified repository"
+summary     = "a complete case-study repository tying manifest, AGENTS.md, deterministic scripts, and CI together"
+description = "Inspects every structural invariant of a verified repository: project.toml declares artifacts without dangling links, AGENTS.md and CI agree on the exact verification command, every script enforces strict mode, and the verification script passes in a clean room."
+run         = "./audit-repo.sh sample-verified-repo"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX tools (awk, grep, mktemp). Runs offline."
+
+[[files]]
+path = "audit-repo.sh"
+note = "structural auditor checking manifest, AGENTS.md/CI alignment, and strict mode"
+
+[[files]]
+path = "verify.sh"
+note = "proves sample-verified-repo passes and broken/empty repos fail"
+
+[[files]]
+path = "sample-verified-repo/project.toml"
+note = "declarative manifest listing build, verify, and tracked artifacts"
+
+[[files]]
+path = "sample-verified-repo/AGENTS.md"
+note = "agent instructions referencing the exact verification command"
+
+[[files]]
+path = "sample-verified-repo/.github/workflows/ci.yml"
+note = "CI workflow running the same verification command"
+
+[[files]]
+path = "sample-verified-repo/scripts/build.sh"
+note = "deterministic build script"
+
+[[files]]
+path = "sample-verified-repo/scripts/check.sh"
+note = "verification script with positive and negative checks"
+
+[[files]]
+path = "sample-verified-repo/data/input.txt"
+note = "sample input fixture"

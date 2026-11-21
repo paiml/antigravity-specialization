@@ -1,0 +1,5 @@
+# CONTRACT v1
+ARTIFACT=pyramid-nostar
+LINE_COUNT=5
+HEX_DIGEST=a3f1c9e2b4d807165a9c3e1f2d4b6a80c7e5d3b1a9f8e7d6c5b4a3f2e1d0c9b8
+STATUS=verified

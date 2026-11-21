@@ -1,0 +1,24 @@
+name: Dockerfile Lint
+
+on:
+  pull_request:
+    paths:
+      - "**/Dockerfile*"
+      - ".github/workflows/dockerfile-lint.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  dockerfile-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run local deterministic Dockerfile linter
+        run: bash ./lint-dockerfile.sh Dockerfile.good
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile.good

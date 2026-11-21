@@ -1,0 +1,33 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "When Agents Fail"
+summary     = "auditing four common silent failure modes in completed agent runs"
+description = "Agents fail in repeatable ways while still reporting success: empty deliverables, swallowed pipeline errors, scope drift outside the target directory, and logs that claim success over non-zero violation counts. audit-agent-run.sh catches all four, and verify.sh proves it passes on a clean run and rejects every failure fixture."
+run         = "bash verify.sh"
+verify      = "bash verify.sh"
+requires    = "Requires bash and standard POSIX utilities (grep, awk, mktemp)."
+
+[[files]]
+path = "audit-agent-run.sh"
+note = "post-run auditor checking output, pipefail, scope, and log consistency"
+
+[[files]]
+path = "fixtures/good-run/out/report.txt"
+note = "valid non-empty deliverable"
+
+[[files]]
+path = "fixtures/good-run/run.sh"
+note = "clean script with pipefail"
+
+[[files]]
+path = "fixtures/good-run/modified-files.txt"
+note = "in-scope file manifest"
+
+[[files]]
+path = "fixtures/good-run/agent-log.txt"
+note = "consistent clean log"
+
+[[files]]
+path = "verify.sh"
+note = "tests good-run plus four distinct agent failure fixtures"

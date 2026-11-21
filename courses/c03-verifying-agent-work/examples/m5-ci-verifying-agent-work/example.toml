@@ -1,0 +1,37 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Using CI for verifying agent work"
+summary     = "an agent-PR CI gate checking scope boundaries, hygiene, test integrity, and clean-room execution"
+description = "Verifying an agent's pull request requires more than running unit tests: CI must prove the agent stayed inside allowed paths, left no TODOs or secrets, did not delete or comment out assertions, and passes all tests in a clean workspace."
+run         = "./verify-agent-pr.sh sample-pr"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX tools (awk, grep, mktemp). Runs offline."
+
+[[files]]
+path = ".github/workflows/verify-agent-pr.yml"
+note = "GitHub Actions workflow invoking verify-agent-pr.sh"
+
+[[files]]
+path = "verify-agent-pr.sh"
+note = "agent-PR CI gate (scope, hygiene, test integrity, clean-room test run)"
+
+[[files]]
+path = "sample-pr/allowed-paths.txt"
+note = "allowed path prefixes the agent is permitted to edit"
+
+[[files]]
+path = "sample-pr/changed-files.txt"
+note = "files touched in the agent pull request"
+
+[[files]]
+path = "sample-pr/src/transform.sh"
+note = "agent-written implementation script"
+
+[[files]]
+path = "sample-pr/tests/run_tests.sh"
+note = "unit test suite verifying transform.sh"
+
+[[files]]
+path = "verify.sh"
+note = "proves sample-pr passes and 4 planted agent failure modes fail"

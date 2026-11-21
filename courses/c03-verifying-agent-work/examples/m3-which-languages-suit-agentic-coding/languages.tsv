@@ -1,0 +1,7 @@
+language	static_types	fail_fast_errors	deterministic_tooling	fast_gate_cli
+rust	3	3	3	3
+go	3	2	3	3
+typescript-strict	3	2	2	2
+bash-strict	0	3	2	3
+bash-permissive	0	0	1	2
+untyped-dynamic	0	1	1	2

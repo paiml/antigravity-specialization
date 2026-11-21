@@ -1,0 +1,5 @@
+Here is the generated summary:
+ARTIFACT=pyramid-nostar
+LINE_COUNT=5
+HEX_DIGEST=a3f1c9e2
+STATE=looks good

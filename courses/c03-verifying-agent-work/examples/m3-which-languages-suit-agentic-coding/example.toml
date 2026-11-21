@@ -1,0 +1,25 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Which Languages Suit Agentic Coding?"
+summary     = "contrasting fail-fast strictness against silent permissive execution and scoring language gates"
+description = "Demonstrates why agents thrive in languages and dialects with fast, strict machine-checkable feedback. First runs an identical agent-generated bug (unset variable typo and failed pipe stage) in permissive bash (exits 0 silently) vs strict bash (fails immediately). Then evaluates a rubric table of language verification properties and refuses malformed or empty inputs."
+run         = "bash verify.sh"
+verify      = "bash verify.sh"
+requires    = "Requires bash and standard POSIX utilities (awk, grep, mktemp)."
+
+[[files]]
+path = "strict-vs-permissive.sh"
+note = "runs the same buggy snippet under permissive vs strict mode"
+
+[[files]]
+path = "languages.tsv"
+note = "rubric scoring languages on static types, fail-fast errors, and strict gates"
+
+[[files]]
+path = "evaluate-languages.sh"
+note = "validates and classifies the language rubric table"
+
+[[files]]
+path = "verify.sh"
+note = "verifies strict failure catching, rubric scoring, and bad-input refusal"

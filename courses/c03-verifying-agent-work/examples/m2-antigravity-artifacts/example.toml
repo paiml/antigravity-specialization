@@ -1,0 +1,29 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Antigravity artifacts for granular control"
+summary     = "enforcing plan, task, and walkthrough artifact contracts"
+description = "Antigravity surfaces implementation_plan.md, task.md, and walkthrough.md so humans can gate agent work before edits and audit evidence afterward. check-artifacts.sh verifies that all three artifacts are non-empty, structured, and free of unresolved placeholders."
+run         = "./check-artifacts.sh ."
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX/GNU text utilities (grep)."
+
+[[files]]
+path = "check-artifacts.sh"
+note = "validates plan, task, and walkthrough artifact contracts"
+
+[[files]]
+path = "implementation_plan.md"
+note = "sample plan artifact with review gates and verification plan"
+
+[[files]]
+path = "task.md"
+note = "sample task checklist artifact"
+
+[[files]]
+path = "walkthrough.md"
+note = "sample post-execution walkthrough with observed verification results"
+
+[[files]]
+path = "verify.sh"
+note = "verifies valid artifacts pass and empty or incomplete artifacts fail"
