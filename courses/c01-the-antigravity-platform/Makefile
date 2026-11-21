@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 .PHONY: test coverage pv gate
 
-gate: test coverage
+gate: test coverage pv
 
 test:
 	@set -euo pipefail; \
@@ -121,6 +121,11 @@ coverage:
 		exit 1; \
 	fi
 
+# Provable contracts and the pv ontology (pv = aprender-contracts-cli, on PATH; never installed here).
+# `pv lint` prints PASS even when one gate fails, so each ontology gate's verdict is read on its own.
+PV_GATES := sigma shapes
 pv:
-	@echo "pv: NOT RUN - this chapter has no pv contracts or ontology (no contracts/ dir); gate covers test and coverage only. See RECEIPTS.md." >&2
-	@exit 1
+	@for g in $(PV_GATES); do \
+	  if pv lint contracts --gate $$g --format json | grep -q '^  "verdict": "Pass"'; then \
+	    echo "pv gate $$g: Pass"; else echo "pv gate $$g: FAIL"; exit 1; fi; \
+	done
