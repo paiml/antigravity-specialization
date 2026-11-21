@@ -1,0 +1,19 @@
+[project]
+name   = "word-count-report"
+build  = "./scripts/build.sh"
+verify = "./scripts/check.sh"
+
+[[artifacts]]
+path = "AGENTS.md"
+
+[[artifacts]]
+path = ".github/workflows/ci.yml"
+
+[[artifacts]]
+path = "scripts/build.sh"
+
+[[artifacts]]
+path = "scripts/check.sh"
+
+[[artifacts]]
+path = "data/input.txt"

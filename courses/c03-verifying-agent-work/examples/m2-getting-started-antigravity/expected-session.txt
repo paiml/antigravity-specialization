@@ -1,0 +1,4 @@
+MODE=plan
+READ_ONLY=true
+FILES_OBSERVED=explore-workspace.sh,expected-session.txt,verify.sh,example.toml,README.md
+SUMMARY=Inspected workspace without modifying any files.

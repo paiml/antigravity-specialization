@@ -1,0 +1,29 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "The Verification Ladder"
+summary     = "four rungs from existence check to semantic involution and planted-defect rejection"
+description = "Demonstrates why weak checks miss real bugs. A 90-degree rotation produces the same 2x3 shape as a matrix transpose, passing Rung 1 (non-empty) and Rung 2 (dimensions) while failing Rung 3 (round-trip involution and top-left invariant). verify.sh runs the ladder on both the true transpose and the wrong rotation."
+run         = "bash verify.sh"
+verify      = "bash verify.sh"
+requires    = "Requires bash and standard POSIX utilities (awk, diff, mktemp)."
+
+[[files]]
+path = "fixtures/matrix-3x2.txt"
+note = "3x2 asymmetric input matrix"
+
+[[files]]
+path = "transpose-matrix.sh"
+note = "correct implementation (transpose)"
+
+[[files]]
+path = "wrong-rotate.sh"
+note = "plausible wrong implementation (90-degree rotation, same 2x3 shape)"
+
+[[files]]
+path = "ladder.sh"
+note = "the three-rung verifier (existence, shape, semantic invariant)"
+
+[[files]]
+path = "verify.sh"
+note = "proves the ladder passes transpose and catches rotation and empty output"

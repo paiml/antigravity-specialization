@@ -1,0 +1,25 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "What is generative AI?"
+summary     = "verifying artifact invariants against stochastic output drift"
+description = "Generative models predict probable next tokens rather than compiling deterministic rules, so plausible outputs can drift in keys, line counts, or checksum formats. check-samples.sh enforces a strict contract on candidate artifacts and rejects stochastic drift."
+run         = "./check-samples.sh"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX/GNU text utilities (awk, grep, wc)."
+
+[[files]]
+path = "check-samples.sh"
+note = "deterministic invariant checker for candidate artifacts"
+
+[[files]]
+path = "samples/candidate-valid.txt"
+note = "compliant structured artifact"
+
+[[files]]
+path = "samples/candidate-drifted.txt"
+note = "plausible-looking stochastic drift that fails invariants"
+
+[[files]]
+path = "verify.sh"
+note = "proves valid passes and empty or drifted artifacts fail"

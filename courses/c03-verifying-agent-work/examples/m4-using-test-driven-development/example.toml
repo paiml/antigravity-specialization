@@ -1,0 +1,25 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Using Test-Driven Development"
+summary     = "enforcing Red-Green TDD so an agent proves its test suite can fail before passing"
+description = "Demonstrates TDD as an agent verification loop. test_slugify.sh tests a title slugifier across six cases including punctuation, collapsed dashes, and empty-input refusal. verify.sh runs the test suite against slugify_red.sh (must fail, proving the tests are not vacuous) and slugify_green.sh (must pass), plus empty and wrong stubs."
+run         = "bash verify.sh"
+verify      = "bash verify.sh"
+requires    = "Requires bash and standard POSIX utilities (tr, sed, mktemp)."
+
+[[files]]
+path = "test_slugify.sh"
+note = "six-case TDD specification suite"
+
+[[files]]
+path = "slugify_red.sh"
+note = "initial broken implementation that must fail the suite (RED)"
+
+[[files]]
+path = "slugify_green.sh"
+note = "complete implementation passing all six cases (GREEN)"
+
+[[files]]
+path = "verify.sh"
+note = "proves RED fails, GREEN passes, and empty or wrong stubs fail"

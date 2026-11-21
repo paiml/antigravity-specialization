@@ -1,0 +1,29 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Components of a job"
+summary     = "job dependencies, timeouts, environment variables, and step failure propagation"
+description = "Breaks down the anatomy of a GitHub Actions job (runs-on, timeout-minutes, env, needs, steps) and runs a multi-job pipeline locally in dependency order so a failure in lint halts downstream test and package jobs."
+run         = "./run-job.sh .github/workflows/pipeline.yml"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX tools (awk, mktemp). Runs offline."
+
+[[files]]
+path = ".github/workflows/pipeline.yml"
+note = "multi-job workflow with lint, test, and package jobs"
+
+[[files]]
+path = "scripts/app.sh"
+note = "target script checked by lint and executed by test"
+
+[[files]]
+path = "inspect-jobs.sh"
+note = "validates job fields (runs-on, timeout-minutes, needs graph, steps)"
+
+[[files]]
+path = "run-job.sh"
+note = "executes the workflow jobs in dependency order in a clean temp workspace"
+
+[[files]]
+path = "verify.sh"
+note = "proves valid job graphs pass and missing timeouts or failing steps halt jobs"

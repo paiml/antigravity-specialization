@@ -1,0 +1,21 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "How agentic coding has evolved"
+summary     = "contrasting unverified single-shot output with a contract-verified step"
+description = "Demonstrates the shift from single-shot generation and exit-code-only checks to an explicit verification contract. Validates a service config against strict structural and value invariants, rejecting empty or malformed inputs."
+run         = "./evolve.sh"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX/GNU text utilities (awk, grep)."
+
+[[files]]
+path = "evolve.sh"
+note = "compares naive checks against contract-verified extraction"
+
+[[files]]
+path = "sample-config.env"
+note = "valid service configuration fixture"
+
+[[files]]
+path = "verify.sh"
+note = "verifies valid output and rejects empty or corrupted configs"

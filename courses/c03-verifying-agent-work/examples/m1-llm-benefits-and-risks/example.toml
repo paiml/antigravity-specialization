@@ -1,0 +1,29 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Benefits and risks of using LLMs"
+summary     = "auditing generated scripts for missing paths, placeholders, and masked errors"
+description = "LLMs accelerate scaffolding, yet frequently emit hallucinated file paths, unfinished TODO markers, or '|| true' error masking. audit-draft.sh audits shell drafts against these failure modes before execution."
+run         = "./audit-draft.sh fixtures/good-script.sh"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX/GNU text utilities (grep, sed)."
+
+[[files]]
+path = "audit-draft.sh"
+note = "audits generated bash scripts for common LLM risks"
+
+[[files]]
+path = "fixtures/target.txt"
+note = "existing input file referenced by good-script.sh"
+
+[[files]]
+path = "fixtures/good-script.sh"
+note = "compliant script with strict error handling and valid paths"
+
+[[files]]
+path = "fixtures/risky-script.sh"
+note = "plausible LLM draft with a hallucinated path, TODO, and masked failure"
+
+[[files]]
+path = "verify.sh"
+note = "verifies good passes and empty or risky drafts fail"

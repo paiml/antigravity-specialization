@@ -1,0 +1,25 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Mitigating Risks of LLMs"
+summary     = "enforcing sandbox, runtime, secret, and non-empty guardrails on agent output"
+description = "Pairs an Antigravity rule file with a deterministic bash guardrail gate that blocks empty deliverables, path traversal, disallowed runtimes, and leaked credential literals. verify.sh proves the gate passes on clean output and fails on each planted risk."
+run         = "bash verify.sh"
+verify      = "bash verify.sh"
+requires    = "Requires bash and standard POSIX utilities (grep, awk, mktemp)."
+
+[[files]]
+path = ".agents/rules/guardrails.md"
+note = "workspace rule binding the agent to the guardrail gate"
+
+[[files]]
+path = "guardrail-check.sh"
+note = "deterministic guardrail verifier"
+
+[[files]]
+path = "sample-agent-output/transform.sh"
+note = "clean sample deliverable"
+
+[[files]]
+path = "verify.sh"
+note = "proves clean passes and every planted risk fails"

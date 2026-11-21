@@ -1,0 +1,3 @@
+[example]
+title = "Clean Sample"
+run   = "bash run.sh"

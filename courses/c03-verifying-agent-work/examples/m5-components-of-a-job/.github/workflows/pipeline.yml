@@ -1,0 +1,42 @@
+name: Job Components Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  TARGET_ENV: ci
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check script syntax
+        run: bash -n ./scripts/app.sh
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      STRICT_MODE: "1"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run unit check
+        run: bash ./scripts/app.sh --test
+
+  package:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Build artifact
+        run: echo "packaged TARGET_ENV=${TARGET_ENV:-ci}"

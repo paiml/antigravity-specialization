@@ -1,0 +1,29 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Simplifying Rules with Automation"
+summary     = "replacing fragile prose checklists with a 6-line rule and one automated gate"
+description = "Long prose rules get forgotten under context pressure. This example replaces a multi-paragraph checklist with a minimal Antigravity rule that delegates enforcement to gate.sh. verify.sh proves the gate passes on a clean example and fails on an empty directory, broken syntax, planted TODOs, and incomplete manifests."
+run         = "bash verify.sh"
+verify      = "bash verify.sh"
+requires    = "Requires bash and standard POSIX utilities (awk, grep, mktemp)."
+
+[[files]]
+path = ".agents/rules/verify-with-gate.md"
+note = "minimal rule delegating checks to gate.sh"
+
+[[files]]
+path = "gate.sh"
+note = "deterministic automated gate replacing prose rules"
+
+[[files]]
+path = "sample-clean/example.toml"
+note = "clean sample manifest"
+
+[[files]]
+path = "sample-clean/run.sh"
+note = "clean sample script"
+
+[[files]]
+path = "verify.sh"
+note = "proves clean passes and vacuous, broken, or incomplete targets fail"

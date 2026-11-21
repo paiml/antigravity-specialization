@@ -1,0 +1,109 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[course]
+slug           = "c03-verifying-agent-work"
+number         = 3
+title          = "Verifying AI Agent Work with Google Antigravity"
+tagline        = "Worked examples from the third course of the specialization"
+description    = "The code for this course's examples, with the commands to run them. Each example directory is self-contained."
+specialization = "antigravity"
+
+[[examples]]
+dir     = "examples/m1-agentic-coding-evolution"
+title   = "How agentic coding has evolved"
+summary = "contrasting unverified single-shot output with a contract-verified step"
+
+[[examples]]
+dir     = "examples/m1-what-is-generative-ai"
+title   = "What is generative AI?"
+summary = "verifying artifact invariants against stochastic output drift"
+
+[[examples]]
+dir     = "examples/m1-llm-benefits-and-risks"
+title   = "Benefits and risks of using LLMs"
+summary = "auditing generated scripts for missing paths, placeholders, and masked errors"
+
+[[examples]]
+dir     = "examples/m2-getting-started-antigravity"
+title   = "Getting started with Antigravity"
+summary = "read-only workspace inspection using agy -p with --mode plan"
+
+[[examples]]
+dir     = "examples/m2-antigravity-artifacts"
+title   = "Antigravity artifacts for granular control"
+summary = "enforcing plan, task, and walkthrough artifact contracts"
+
+[[examples]]
+dir     = "examples/m2-create-first-agent"
+title   = "Create your first agent"
+summary = "authoring and validating a verification-first Antigravity agent"
+
+[[examples]]
+dir     = "examples/m3-mitigating-risks-of-llms"
+title   = "Mitigating Risks of LLMs"
+summary = "enforcing sandbox, runtime, secret, and non-empty guardrails on agent output"
+
+[[examples]]
+dir     = "examples/m3-the-verification-ladder"
+title   = "The Verification Ladder"
+summary = "four rungs from existence check to semantic involution and planted-defect rejection"
+
+[[examples]]
+dir     = "examples/m3-which-languages-suit-agentic-coding"
+title   = "Which Languages Suit Agentic Coding?"
+summary = "contrasting fail-fast strictness against silent permissive execution and scoring language gates"
+
+[[examples]]
+dir     = "examples/m3-when-agents-fail"
+title   = "When Agents Fail"
+summary = "auditing four common silent failure modes in completed agent runs"
+
+[[examples]]
+dir     = "examples/m4-simplifying-rules-with-automation"
+title   = "Simplifying Rules with Automation"
+summary = "replacing fragile prose checklists with a 6-line rule and one automated gate"
+
+[[examples]]
+dir     = "examples/m4-using-test-driven-development"
+title   = "Using Test-Driven Development"
+summary = "enforcing Red-Green TDD so an agent proves its test suite can fail before passing"
+
+[[examples]]
+dir     = "examples/m4-using-advanced-verification-with-pmat"
+title   = "Using Advanced Verification with PMAT"
+summary = "enforcing strict zero-violation and anti-vacuity gates on pmat quality-gate output"
+
+[[examples]]
+dir     = "examples/m5-why-ci-is-the-referee"
+title   = "Why CI is the referee"
+summary = "an independent clean-room referee that catches a self-reporting agent's blind spots"
+
+[[examples]]
+dir     = "examples/m5-github-actions-intro"
+title   = "Introduction to GitHub Actions"
+summary = "a minimal GitHub Actions workflow and an offline YAML structure checker"
+
+[[examples]]
+dir     = "examples/m5-components-of-a-job"
+title   = "Components of a job"
+summary = "job dependencies, timeouts, environment variables, and step failure propagation"
+
+[[examples]]
+dir     = "examples/m5-dockerfile-linting"
+title   = "Setting up Dockerfile linting for pull requests"
+summary = "a pull-request CI gate that rejects unpinned base images, root containers, and bad RUN habits"
+
+[[examples]]
+dir     = "examples/m5-ci-verifying-agent-work"
+title   = "Using CI for verifying agent work"
+summary = "an agent-PR CI gate checking scope boundaries, hygiene, test integrity, and clean-room execution"
+
+[[examples]]
+dir     = "examples/m6-anatomy-of-a-verified-repo"
+title   = "Anatomy of a verified repository"
+summary = "a complete case-study repository tying manifest, AGENTS.md, deterministic scripts, and CI together"
+
+[[examples]]
+dir     = "examples/m6-antigravity-analysis"
+title   = "Antigravity analysis on an agentic repo"
+summary = "running agy --mode plan read-only against a repo and verifying citations against ground truth"

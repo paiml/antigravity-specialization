@@ -1,0 +1,41 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Why CI is the referee"
+summary     = "an independent clean-room referee that catches a self-reporting agent's blind spots"
+description = "An agent grading its own work in a dirty local directory can trust vacuous checks, empty artifacts, or swallowed exit codes. The referee copies only declared manifest files into a clean temp directory and rejects empty outputs, skipped checks, and unverified claims."
+run         = "./referee.sh submission-good"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX tools (awk, grep, mktemp). No Python or JavaScript."
+
+[[files]]
+path = "referee.sh"
+note = "clean-room CI referee script (supports --self-test)"
+
+[[files]]
+path = "verify.sh"
+note = "verifies good passes and bad/empty fail"
+
+[[files]]
+path = "submission-good/manifest.txt"
+note = "declared files for the passing submission"
+
+[[files]]
+path = "submission-good/check.sh"
+note = "real check that inspects report.txt"
+
+[[files]]
+path = "submission-good/report.txt"
+note = "non-empty output artifact"
+
+[[files]]
+path = "submission-bad/manifest.txt"
+note = "declared files for the deceptive submission"
+
+[[files]]
+path = "submission-bad/check.sh"
+note = "vacuous check that prints PASS and exits 0 over an empty report"
+
+[[files]]
+path = "submission-bad/report.txt"
+note = "empty artifact (0 bytes)"

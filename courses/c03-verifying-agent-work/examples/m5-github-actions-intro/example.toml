@@ -1,0 +1,25 @@
+# Generated README is built from this file. Edit it, not README.md.
+
+[example]
+title       = "Introduction to GitHub Actions"
+summary     = "a minimal GitHub Actions workflow and an offline YAML structure checker"
+description = "A GitHub Actions workflow declares when CI runs (on), what permissions it holds (least privilege), and what jobs execute. check-workflow.sh validates the workflow structure, pinned action versions, and referenced scripts locally without needing GitHub."
+run         = "./check-workflow.sh .github/workflows/verify.yml"
+verify      = "./verify.sh"
+requires    = "Requires bash and standard POSIX tools (awk, grep, mktemp). Runs offline."
+
+[[files]]
+path = ".github/workflows/verify.yml"
+note = "minimal GitHub Actions workflow with pinned actions and read-only permissions"
+
+[[files]]
+path = "scripts/smoke.sh"
+note = "deterministic smoke check invoked by the workflow"
+
+[[files]]
+path = "check-workflow.sh"
+note = "offline bash+awk validator for workflow structure and pinned actions"
+
+[[files]]
+path = "verify.sh"
+note = "verifies the workflow passes and malformed/empty workflows fail"
