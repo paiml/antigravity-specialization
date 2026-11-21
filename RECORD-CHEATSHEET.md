@@ -12,13 +12,13 @@
 
 | chapter | recordable yes/no | proof | blocker |
 |---|---|---|---|
-| `c01/complex-image-processing` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `FAIL`; `READ courses/c01-the-antigravity-platform/examples/complex-image-processing/example.toml:7-8`, `remove_star.sh:15` | `BLOCKED: install ImageMagick on the recording host` (`convert`/`magick` missing on `kfocus`) |
+| `c01/complex-image-processing` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c01-the-antigravity-platform/examples/complex-image-processing/example.toml:7-8`, `remove_star.sh:15` | none |
 | `c02/grill-me-first` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/grill-me-first/example.toml:7-8`, `grill.sh:22` | Live interactive `agy -i` session required (`NOT VERIFIED` headless) |
 | `c02/explore-and-plan` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/explore-and-plan/example.toml:7-8`, `explore.sh:16`, `plan.sh:15` | Live `agy -p ... --mode plan` session required (`NOT VERIFIED` headless) |
-| `c02/transpose-image` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `FAIL`; `READ courses/c02-antigravity-internals/examples/transpose-image/example.toml:7-8`, `transpose.sh:27-36` | `BLOCKED: install ImageMagick on the recording host` (`convert`/`magick` missing on `kfocus`) |
-| `c02/image-pipeline` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `FAIL`; `READ courses/c02-antigravity-internals/examples/image-pipeline/example.toml:7-8`, `verify.sh:18-29` | `BLOCKED: install ImageMagick on the recording host` (`convert`/`magick` missing on `kfocus`) |
+| `c02/transpose-image` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/transpose-image/example.toml:7-8`, `transpose.sh:27-36` | none |
+| `c02/image-pipeline` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/image-pipeline/example.toml:7-8`, `verify.sh:18-29` | none |
 | `c02/image-pipeline-skill` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/image-pipeline-skill/example.toml:7-8` | Live `agy` + ImageMagick required (`NOT VERIFIED` headless; ImageMagick also missing on `kfocus`) |
-| `c02/batch-runner` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `FAIL`; `READ courses/c02-antigravity-internals/examples/batch-runner/example.toml:7-8`, `scripts/record-ready.sh:153-163` | `BLOCKED: install ImageMagick on the recording host` (`convert`/`magick` missing on `kfocus`) |
+| `c02/batch-runner` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/batch-runner/example.toml:7-8`, `scripts/record-ready.sh:153-163` | none |
 | `c02/pmat-review-agent` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`./verify.sh`); `READ courses/c02-antigravity-internals/examples/pmat-review-agent/example.toml:7`, `verify.sh:1-48` | None for `./verify.sh` (live `agy agents` install step is `NOT VERIFIED`) |
 | `c03` | no | `READ specialization.toml:13-17` | `c03` is absent from the repository |
 | `c04/m1` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`gate.sh m1`); `READ c04-falsify-the-agent/scripts/gate.sh:15-101`, `c04-falsify-the-agent/m1/contracts/test-floor-v1.yaml:1-36` | None |
@@ -44,7 +44,7 @@
    ```bash
    bash scripts/record-ready.sh --self-test
    ```
-4. Run the recording-readiness sweep across all chapters (`c01`, `c02`, and `c04/m1..m6`) (`RAN` on `kfocus` at `antigravity-specialization@c29d8a2`: `c04/m1..m6` `PASS`, `c02/pmat-review-agent` `PASS`; `c01/complex-image-processing`, `c02/transpose-image`, `c02/image-pipeline`, `c02/batch-runner` `FAIL` because ImageMagick `convert`/`magick` is missing on `kfocus` (`BLOCKED: install ImageMagick on the recording host`); `c02/grill-me-first`, `c02/explore-and-plan`, `c02/image-pipeline-skill` `SKIP(live)` (`NOT VERIFIED`); `READ scripts/record-ready.sh:5,243-318`):
+4. Run the recording-readiness sweep across all chapters (`c01`, `c02`, and `c04/m1..m6`) (`RAN` on `kfocus` 2026-11-21 at `antigravity-specialization@c29d8a2`, ImageMagick 7.1.2: `c01/complex-image-processing`, `c02/transpose-image`, `c02/image-pipeline`, `c02/batch-runner`, `c02/pmat-review-agent`, and `c04/m1..m6` `PASS` (`SWEEP-1700Z.txt`); `c02/grill-me-first`, `c02/explore-and-plan`, `c02/image-pipeline-skill` `SKIP(live)` (`NOT VERIFIED`); `READ scripts/record-ready.sh:5,243-318`):
    ```bash
    bash scripts/record-ready.sh
    ```
@@ -59,7 +59,7 @@
    ```bash
    cd courses/c01-the-antigravity-platform/examples/complex-image-processing
    ```
-2. Remove the star and its shadow from `pyramid-star.png` (`RAN` on `kfocus` at `c29d8a2`: `FAIL` — `convert`/`magick` missing on `kfocus`, `BLOCKED: install ImageMagick on the recording host`; `READ courses/c01-the-antigravity-platform/examples/complex-image-processing/example.toml:7-8`, `README.md:8`, `remove_star.sh:15`):
+2. Remove the star and its shadow from `pyramid-star.png` (`RAN` on `kfocus` at `c29d8a2` 2026-11-21: `PASS`, ImageMagick 7.1.2):
    ```bash
    ./remove_star.sh pyramid-star.png out.png
    ```
@@ -100,7 +100,7 @@
    ```bash
    cd courses/c02-antigravity-internals/examples/transpose-image
    ```
-2. Transpose `nostar.png` across the top-left/bottom-right diagonal (`RAN` on `kfocus` at `c29d8a2`: `FAIL` — `convert`/`magick` missing on `kfocus`, `BLOCKED: install ImageMagick on the recording host`; `READ courses/c02-antigravity-internals/examples/transpose-image/example.toml:7-8`, `README.md:8`, `transpose.sh:27-36`):
+2. Transpose `nostar.png` across the top-left/bottom-right diagonal (`RAN` on `kfocus` at `c29d8a2` 2026-11-21: `PASS`, ImageMagick 7.1.2):
    ```bash
    ./transpose.sh nostar.png out.png
    ```
@@ -111,7 +111,7 @@
    ```bash
    cd courses/c02-antigravity-internals/examples/image-pipeline
    ```
-2. Run both stages (`remove_star.sh` + `transpose.sh`) and verify shape, involution, and non-rotation (`RAN` on `kfocus` at `c29d8a2` via `scripts/record-ready.sh:145`: `FAIL` — `convert`/`magick` missing on `kfocus`, `BLOCKED: install ImageMagick on the recording host`; `READ courses/c02-antigravity-internals/examples/image-pipeline/example.toml:7-8`, `README.md:8`, `verify.sh:18-29`):
+2. Run both stages (`remove_star.sh` + `transpose.sh`) and verify shape, involution, and non-rotation (`RAN` on `kfocus` at `c29d8a2` 2026-11-21 via `scripts/record-ready.sh`: `PASS`, ImageMagick 7.1.2):
    ```bash
    ./pipeline.sh pyramid-star.png out.png && ./verify.sh
    ```
@@ -129,15 +129,15 @@
 
 ### Chapter `c02/batch-runner` — Batch the pipeline
 
-1. Enter the example directory (`NOT VERIFIED` — `scripts/record-ready.sh:159-162` exited `FAIL` before entering the cargo subshell because `convert`/`magick` is missing on `kfocus`; `READ courses/c02-antigravity-internals/course.toml:41`):
+1. Enter the example directory (`RAN` via `scripts/record-ready.sh:169` on `kfocus` (2026-11-21, `c29d8a2`): `PASS` — covered by whole-demo PASS in sweep; step not separately timed; `READ courses/c02-antigravity-internals/course.toml:41`):
    ```bash
    cd courses/c02-antigravity-internals/examples/batch-runner
    ```
-2. Run the unit tests over template substitution (`NOT VERIFIED` — `scripts/record-ready.sh:159-170` exited `FAIL` before `cargo test -p batch-runner` because `convert`/`magick` is missing on `kfocus`, `BLOCKED: install ImageMagick on the recording host`; `READ courses/c02-antigravity-internals/examples/batch-runner/README.md:13`, `Cargo.toml:2`):
+2. Run the unit tests over template substitution (`RAN` via `scripts/record-ready.sh:170` on `kfocus` (2026-11-21, `c29d8a2`): `PASS` — covered by whole-demo PASS in sweep; step not separately timed; `READ courses/c02-antigravity-internals/examples/batch-runner/README.md:13`, `Cargo.toml:2`):
    ```bash
    cargo test -p batch-runner
    ```
-3. Run the parallel batch runner over `images/` (`RAN` via `scripts/record-ready.sh:152-181` on `kfocus` at `c29d8a2`: `FAIL` — `convert`/`magick` missing on `kfocus`, `BLOCKED: install ImageMagick on the recording host`; `READ courses/c02-antigravity-internals/examples/batch-runner/example.toml:7-8`, `Cargo.toml:2`, `README.md:8,11`, where `magick` substitutes for `convert` on ImageMagick 7):
+3. Run the parallel batch runner over `images/` (`RAN` via `scripts/record-ready.sh:152-181` on `kfocus` (2026-11-21, `c29d8a2`, ImageMagick 7.1.2): `PASS` — covered by whole-demo PASS in sweep; step not separately timed; `READ courses/c02-antigravity-internals/examples/batch-runner/example.toml:7-8`, `Cargo.toml:2`, `README.md:8,11`, where `magick` substitutes for `convert` on ImageMagick 7):
    ```bash
    cargo run --bin batch-runner -- --dir images --cmd 'convert {} -transpose +repage {}.t.png'
    ```
