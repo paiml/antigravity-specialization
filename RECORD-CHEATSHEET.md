@@ -13,8 +13,8 @@
 | chapter | recordable yes/no | proof | blocker |
 |---|---|---|---|
 | `c01/complex-image-processing` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c01-the-antigravity-platform/examples/complex-image-processing/example.toml:7-8`, `remove_star.sh:15` | none |
-| `c02/grill-me-first` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/grill-me-first/example.toml:7-8`, `grill.sh:22` | Live interactive `agy -i` session required (`NOT VERIFIED` headless) |
-| `c02/explore-and-plan` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `RAN` live 2026-11-21 twice (`agy -p ... --mode plan`) returned only a preamble sentence and no answer (`LIVE-explore-and-plan-2026-11-21.txt`, `NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/explore-and-plan/example.toml:7-8`, `explore.sh:16`, `plan.sh:15` | `NOT VERIFIED`, plan mode headless appears to deny tools (live run 2026-11-21 twice returned only a preamble sentence and no answer); owner `rmedia-cop` |
+| `c02/grill-me-first` | live | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)`; `READ courses/c02-antigravity-internals/examples/grill-me-first/example.toml:7-8`, `grill.sh:22` | LIVE AT RECORDING per Noah ruling 2026-11-21; not a blocker; Noah confirms the prompt on camera (live interactive `agy -i` session required) |
+| `c02/explore-and-plan` | live | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)`; `RAN` live 2026-11-21 twice (`agy -p ... --mode plan`) returned only a preamble sentence and no answer (`LIVE-explore-and-plan-2026-11-21.txt`); `READ courses/c02-antigravity-internals/examples/explore-and-plan/example.toml:7-8`, `explore.sh:16`, `plan.sh:15` | LIVE AT RECORDING per Noah ruling 2026-11-21; not a blocker; Noah confirms the prompt on camera (earlier headless explore run returned only a preamble sentence and no answer; plan mode headless appears to deny tools) |
 | `c02/transpose-image` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/transpose-image/example.toml:7-8`, `transpose.sh:27-36` | none |
 | `c02/image-pipeline` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/image-pipeline/example.toml:7-8`, `verify.sh:18-29` | none |
 | `c02/image-pipeline-skill` | yes | `RAN` live 2026-11-21 via `agy -p 'use the image-pipeline skill on pyramid-star.png'` (model `gemini-4-hydrogen-high`): output "Transposed 502x460 -> 460x502", `verify.sh` "OK -- 3 checks passed" (`LIVE-image-pipeline-skill-2026-11-21.txt`); `kfocus` `scripts/record-ready.sh`: `SKIP(live)`; `READ courses/c02-antigravity-internals/examples/image-pipeline-skill/example.toml:7-8` | none |
@@ -27,6 +27,23 @@
 | `c04/m4` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`gate.sh m4`); `READ c04-falsify-the-agent/scripts/gate.sh:15-101`, `c04-falsify-the-agent/m4/contracts/gate-floor-v1.yaml:1-30`, `referee-v1.yaml:1-30` | None |
 | `c04/m5` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`gate.sh m5`); `READ c04-falsify-the-agent/scripts/gate.sh:15-101`, `c04-falsify-the-agent/m5/contracts/record-ui-v1.yaml:1-36` | None (`m5/scripts/e2e.sh` is optional and `NOT VERIFIED`) |
 | `c04/m6` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`gate.sh m6`); `READ c04-falsify-the-agent/scripts/gate.sh:15-101`, `c04-falsify-the-agent/m6/contracts/discount-v1.yaml:1-36` | None |
+
+---
+
+## Live-at-recording prompts (exact; Noah confirms on camera)
+
+- grill-me-first (`grill.sh:22`, interactive):
+  ```bash
+  agy -i "/grill-me add a transpose step to remove_star.sh"
+  ```
+- explore-and-plan rung 1 (`explore.sh:16`):
+  ```bash
+  agy -p 'Explain what this repository is for, how the courses and examples are laid out, and what enforces that layout. Do not change anything.' --mode plan
+  ```
+- explore-and-plan rung 2 (`plan.sh:15`):
+  ```bash
+  agy -p 'Plan adding a transpose step to remove_star.sh, using only ImageMagick and bash, no Python. Name every ImageMagick operator that could plausibly be meant by transpose, say how they differ, and say how I would tell them apart after the fact. Do not write any files.' --mode plan
+  ```
 
 ---
 
