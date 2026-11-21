@@ -1,0 +1,84 @@
+name: c02-antigravity-internals-demos-v1
+version: 1.0.0
+scope: courses/c02-antigravity-internals/examples/*/example.toml
+status: active
+metadata:
+  version: "1.0.0"
+  created: "2026-11-21"
+  author: "PAIML Engineering"
+  kind: pattern
+  description: "courses/c02-antigravity-internals demo gate: every example has a [example].run command in example.toml, live agy examples are SKIP(live) not PASS, and zero examples refuses."
+  references:
+    - "courses/c02-antigravity-internals/Makefile"
+    - "courses/c02-antigravity-internals/RECEIPTS.md"
+    - "courses/c02-antigravity-internals/examples/*/example.toml"
+  tags:
+    - demos
+    - gate
+    - coverage
+
+entity:
+  type: pv-contract
+
+shape:
+  targetClass: ont:Contract
+  properties:
+    - {path: ont:id, minCount: 1, maxCount: 1, datatype: xsd:string}
+    - {path: ont:kind, minCount: 1, maxCount: 1, datatype: xsd:string}
+    - {path: ont:status, minCount: 1, maxCount: 1, datatype: xsd:string}
+
+equations:
+  demos_gate:
+    formula: "gate(D) = (|D| ≥ 1) ∧ (∀ d ∈ D: has_run(d) ∧ (live(d) ⇒ state(d) = SKIP_LIVE) ∧ (¬live(d) ⇒ state(d) = PASS))"
+    domain: "D: the set of examples/*/ directories under courses/c02-antigravity-internals"
+    codomain: "gate ∈ {true, false}"
+    preconditions:
+      - "|D| ≥ 1"
+      - "∀ d ∈ D: exists(d/example.toml)"
+    postconditions:
+      - "EVERY_HAS_RUN: ∀ d ∈ D: non_empty([example].run(d/example.toml))"
+      - "LIVE_IS_SKIP: ∀ d ∈ D: live(d) ⇒ state(d) = SKIP_LIVE ∧ state(d) ≠ PASS"
+      - "ZERO_EXAMPLES_REFUSED: |D| = 0 ⇒ exit ≠ 0"
+    invariants:
+      - "every example directory has example.toml with a non-empty [example].run command"
+      - "live agy examples are reported as SKIP(live) and never counted as PASS"
+      - "zero examples/*/ directories fails the anti-vacuity floor with non-zero exit"
+
+proof_obligations:
+  - type: invariant
+    property: "Every example has a run command"
+    formal: "∀ d ∈ D: ¬has_run(d) ⇒ state(d) = FAIL"
+    applies_to: demos_gate
+  - type: invariant
+    property: "Live examples are SKIP not PASS"
+    formal: "∀ d ∈ D: live(d) ⇒ state(d) = SKIP_LIVE ∧ ¬(state(d) = PASS)"
+    applies_to: demos_gate
+  - type: invariant
+    property: "Zero examples refuses"
+    formal: "|D| = 0 ⇒ ¬gate(D)"
+    applies_to: demos_gate
+
+falsification_tests:
+  - id: FALSIFY-C02-001
+    rule: EVERY_HAS_RUN
+    prediction: "An example directory missing example.toml or [example].run is reported FAIL and exits non-zero"
+    test: "make -C courses/c02-antigravity-internals test"
+    if_fails: "an example without a runnable command passes silently"
+  - id: FALSIFY-C02-002
+    rule: LIVE_IS_SKIP
+    prediction: "Examples invoking agy (grill-me-first, explore-and-plan, image-pipeline-skill) appear as SKIP(live) and are excluded from PASS count"
+    test: "make -C courses/c02-antigravity-internals coverage"
+    if_fails: "live agy examples are counted as PASS without running"
+  - id: FALSIFY-C02-003
+    rule: ZERO_EXAMPLES_REFUSED
+    prediction: "Zero examples/*/ directories trips the anti-vacuity floor and exits 1"
+    test: "make -C courses/c02-antigravity-internals gate"
+    if_fails: "an empty examples/ directory passes vacuously"
+
+qa_gate:
+  id: F-C02-001
+  name: "c02-antigravity-internals demos"
+  description: "Chapter 2 example.toml and RECEIPTS.md demo invariants"
+  checks:
+    - "demos_gate"
+  pass_criteria: "All non-live examples PASS, live agy examples report SKIP(live), zero examples refuses, and pv gates pass"
