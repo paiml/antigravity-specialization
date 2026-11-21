@@ -1,0 +1,1 @@
+I'll start by surveying the repository structure, top-level documentation, build configuration, and CI/validation scripts to understand the project's purpose and how its courses and examples are organized and enforced.

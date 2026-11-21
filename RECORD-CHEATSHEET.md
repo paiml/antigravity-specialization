@@ -14,10 +14,10 @@
 |---|---|---|---|
 | `c01/complex-image-processing` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c01-the-antigravity-platform/examples/complex-image-processing/example.toml:7-8`, `remove_star.sh:15` | none |
 | `c02/grill-me-first` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/grill-me-first/example.toml:7-8`, `grill.sh:22` | Live interactive `agy -i` session required (`NOT VERIFIED` headless) |
-| `c02/explore-and-plan` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/explore-and-plan/example.toml:7-8`, `explore.sh:16`, `plan.sh:15` | Live `agy -p ... --mode plan` session required (`NOT VERIFIED` headless) |
+| `c02/explore-and-plan` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `RAN` live 2026-11-21 twice (`agy -p ... --mode plan`) returned only a preamble sentence and no answer (`LIVE-explore-and-plan-2026-11-21.txt`, `NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/explore-and-plan/example.toml:7-8`, `explore.sh:16`, `plan.sh:15` | `NOT VERIFIED`, plan mode headless appears to deny tools (live run 2026-11-21 twice returned only a preamble sentence and no answer); owner `rmedia-cop` |
 | `c02/transpose-image` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/transpose-image/example.toml:7-8`, `transpose.sh:27-36` | none |
 | `c02/image-pipeline` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/image-pipeline/example.toml:7-8`, `verify.sh:18-29` | none |
-| `c02/image-pipeline-skill` | no | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `SKIP(live)` (`NOT VERIFIED`); `READ courses/c02-antigravity-internals/examples/image-pipeline-skill/example.toml:7-8` | Live `agy` + ImageMagick required (`NOT VERIFIED` headless; ImageMagick also missing on `kfocus`) |
+| `c02/image-pipeline-skill` | yes | `RAN` live 2026-11-21 via `agy -p 'use the image-pipeline skill on pyramid-star.png'` (model `gemini-4-hydrogen-high`): output "Transposed 502x460 -> 460x502", `verify.sh` "OK -- 3 checks passed" (`LIVE-image-pipeline-skill-2026-11-21.txt`); `kfocus` `scripts/record-ready.sh`: `SKIP(live)`; `READ courses/c02-antigravity-internals/examples/image-pipeline-skill/example.toml:7-8` | none |
 | `c02/batch-runner` | yes | `RAN` on `kfocus` 2026-11-21 (`c29d8a2`, `scripts/record-ready.sh`, ImageMagick 7.1.2): `PASS`; `READ courses/c02-antigravity-internals/examples/batch-runner/example.toml:7-8`, `scripts/record-ready.sh:153-163` | none |
 | `c02/pmat-review-agent` | yes | `RAN` on `kfocus` (`c29d8a2`, `scripts/record-ready.sh`): `PASS` (`./verify.sh`); `READ courses/c02-antigravity-internals/examples/pmat-review-agent/example.toml:7`, `verify.sh:1-48` | None for `./verify.sh` (live `agy agents` install step is `NOT VERIFIED`) |
 | `c03` | no | `READ specialization.toml:13-17` | `c03` is absent from the repository |
@@ -122,7 +122,7 @@
    ```bash
    cd courses/c02-antigravity-internals/examples/image-pipeline-skill
    ```
-2. Invoke the project-local `image-pipeline` skill via `agy` (`NOT VERIFIED` — `RAN` in `scripts/record-ready.sh` on `kfocus` at `c29d8a2` as `SKIP(live)`, live `agy` + ImageMagick required; `READ courses/c02-antigravity-internals/examples/image-pipeline-skill/example.toml:7-8`, `README.md:8`):
+2. Invoke the project-local `image-pipeline` skill via `agy` (`RAN` live 2026-11-21 via `agy -p 'use the image-pipeline skill on pyramid-star.png'` with model `gemini-4-hydrogen-high`: output "Transposed 502x460 -> 460x502", `verify.sh` "OK -- 3 checks passed" per `LIVE-image-pipeline-skill-2026-11-21.txt`; `kfocus` `scripts/record-ready.sh` at `c29d8a2` was `SKIP(live)`; `READ courses/c02-antigravity-internals/examples/image-pipeline-skill/example.toml:7-8`, `README.md:8`):
    ```bash
    agy -p 'use the image-pipeline skill on pyramid-star.png'
    ```
