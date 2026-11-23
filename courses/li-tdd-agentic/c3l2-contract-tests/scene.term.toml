@@ -1,0 +1,66 @@
+# scene.term.toml: terminal scene for tdd-agentic-c3l2 (TRM 4.1). The command below is the lesson's own run.sh; see captures/.
+schema_version = 1
+
+[contract]
+name = "tdd-agentic-c3l2"
+description = "Lesson c3l2 (c3l2-contract-tests), run for real from its own run.sh. No agent turn is used."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/c2-home"
+PATH = "/home/noah/.cargo/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 2; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:./run.sh", "enter"]
+
+[[step]]
+wait_for = "LESSON-STATUS"
+timeout_ms = 300000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/demo-tdd-agentic-antigravity"
+commit = "1fa7d9da42dd662b46724975c5d46749769ef234"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "d385c773e7c869edcc18cc6f511514c61fc39e813229fe50c1c114dd41a8250a"

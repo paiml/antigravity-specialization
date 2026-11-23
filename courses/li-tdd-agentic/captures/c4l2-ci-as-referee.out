@@ -1,0 +1,22 @@
+# captured 2026-11-17T09:25:01Z with agy agy 1.5.10
+
+== the workflow CI uses ==
+name: ci
+on: { pull_request: {}, push: { branches: [main] } }
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tests (examples and properties)
+        run: make test
+
+== the command it runs, run locally ==
+make: Entering directory '<repo>/.run/work-ci-jERSSg'
+examples: passed=14 failed=0
+properties: inputs=66 failures=0
+make: Leaving directory '<repo>/.run/work-ci-jERSSg'
+NOT RUN: the hosted workflow (no remote exists)
+
+LESSON-STATUS: RUNS
+# exit code: 0

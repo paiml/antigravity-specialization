@@ -1,0 +1,13 @@
+# captured 2026-11-17T09:25:06Z with agy agy 1.5.10
+
+== change 1: an implementation task; tests untouched, source changed ==
+task: impl; src changed: 1; tests changed: 0
+review-diff ok
+
+== change 2: an implementation task that edited the tests: must be flagged ==
+task: impl; src changed: 0; tests changed: 1
+REVIEW: the tests changed during an implementation task; read the test edit first
+flagged, as intended
+
+LESSON-STATUS: RUNS
+# exit code: 0

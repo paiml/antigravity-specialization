@@ -1,0 +1,15 @@
+# captured 2026-11-17T09:24:54Z with agy agy 1.5.10
+
+== stage narrow ==
+examples: passed=9 failed=0
+FAIL shape: 'X:1&-' -> 'x:1'
+properties: inputs=66 failures=40
+=> property broken
+
+== stage n-green ==
+examples: passed=9 failed=0
+properties: inputs=66 failures=0
+=> properties hold
+
+LESSON-STATUS: RUNS
+# exit code: 0

@@ -1,0 +1,19 @@
+# R1 lowercase
+-|Hello World|hello-world
+-|ABC|abc
+-|Zebra ZONE|zebra-zone
+# R2 separator runs
+-|a,  b!!c|a-b-c
+-|Tom & Jerry's|tom-jerry-s
+-|Route 66|route-66
+# R3 trim
+-|  --Hi--  |hi
+# R4 empty
+-||
+-|!!!|
+# R5 maximum length
+5|Hello World|hello
+6|Hello World|hello
+11|Hello World|hello-world
+3|a-b-c|a-b
+2|a-b-c|a

@@ -1,0 +1,15 @@
+# Example cases in a tiny YAML subset: one block per case, double-quoted strings, no escapes.
+cases:
+  - id: R1-lower
+    in: "Hello World"
+    out: "hello-world"
+  - id: R2-runs
+    in: "a,  b!!c"
+    out: "a-b-c"
+  - id: R3-trim
+    in: "  --Hi--  "
+    out: "hi"
+  - id: R5-cut
+    max: 6
+    in: "Hello World"
+    out: "hello"

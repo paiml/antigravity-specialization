@@ -1,0 +1,13 @@
+# captured 2026-11-17T09:24:57Z with agy agy 1.5.10
+
+== agents did not run (BLOCKED-quota); the same suite on three REFERENCE candidates (hand-written, NOT agent output) ==
+candidate n-green:
+GREEN ok: tests pass, tests untouched
+candidate n-refactor:
+GREEN ok: tests pass, tests untouched
+candidate wrong:
+FAIL: tests are red
+2 of 3 candidates pass
+
+LESSON-STATUS: BLOCKED-quota
+# exit code: 0

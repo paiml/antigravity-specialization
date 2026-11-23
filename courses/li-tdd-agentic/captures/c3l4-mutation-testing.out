@@ -1,0 +1,25 @@
+# captured 2026-11-17T09:24:56Z with agy agy 1.5.10
+
+== weak suite: base examples only ==
+mutant ge: killed
+mutant no-lead-trim: killed
+mutant no-trail-trim: killed
+mutant no-collapse: killed
+mutant upper-gap: killed
+mutant off-by-one: SURVIVED
+mutant no-cut-trim: SURVIVED
+killed 5 of 7
+=> survivors found: the weak suite misses bugs
+
+== full suite: base plus R5 examples ==
+mutant ge: killed
+mutant no-lead-trim: killed
+mutant no-trail-trim: killed
+mutant no-collapse: killed
+mutant upper-gap: killed
+mutant off-by-one: killed
+mutant no-cut-trim: killed
+killed 7 of 7
+
+LESSON-STATUS: RUNS
+# exit code: 0

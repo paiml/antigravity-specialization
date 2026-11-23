@@ -1,0 +1,18 @@
+# captured 2026-11-17T09:24:35Z with agy agy 1.5.10
+
+== stage stub ==
+FAIL n=- input='!!!' want='' got='TODO'
+examples: passed=0 failed=9
+FAIL: no tests ran
+=> RED
+
+== stage green ==
+examples: passed=9 failed=0
+=> GREEN
+
+== stage n-refactor ==
+examples: passed=14 failed=0
+=> GREEN
+
+LESSON-STATUS: RUNS
+# exit code: 0

@@ -1,0 +1,19 @@
+# captured 2026-11-17T09:25:02Z with agy agy 1.5.10
+
+== if the tests are already green the task does nothing ==
+green: nothing to do
+
+== when they are red the task asks the agent to fix src, and verifies ==
+
+== agent step: agy --mode accept-edits --print ==
+error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h40m28s.
+AGY_ERROR: {"short_error":"RESOURCE_EXHAUSTED (code 429): Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h40m28s.","status":"RESOURCE_EXHAUSTED","error_code":429,"code_kind":"http","retryable":true,"error_id":"212cc0e2-cfba-47f0-ad9e-e02376c58c4c-1"}
+AGENT-STEP: BLOCKED-quota
+
+== reference check (hand-written solution, NOT agent output) ==
+GREEN ok: tests pass, tests untouched
+
+cron line (not installed): 17 * * * * cd /path/to/project && make test || agy --print --mode accept-edits "$(cat prompts/keep-green.md)"
+
+LESSON-STATUS: BLOCKED-quota
+# exit code: 0

@@ -1,0 +1,20 @@
+# captured 2026-11-17T09:24:35Z with agy agy 1.5.10
+
+== the agent's answer looks right on the obvious input ==
+hello-world
+
+== the tests say otherwise ==
+FAIL n=- input='a,  b!!c' want='a-b-c' got='a---b--c'
+FAIL n=- input='Tom & Jerry's' want='tom-jerry-s' got='tom---jerry-s'
+FAIL n=- input='  --Hi--  ' want='hi' got='----hi----'
+FAIL n=- input='!!!' want='' got='---'
+FAIL n=5 input='Hello World' want='hello' got='-n'
+FAIL n=6 input='Hello World' want='hello' got='-n'
+FAIL n=11 input='Hello World' want='hello-world' got='-n'
+FAIL n=3 input='a-b-c' want='a-b' got='-n'
+FAIL n=2 input='a-b-c' want='a' got='-n'
+examples: passed=5 failed=9
+tests caught it (exit non-zero), as intended
+
+LESSON-STATUS: RUNS
+# exit code: 0

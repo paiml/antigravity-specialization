@@ -1,0 +1,18 @@
+# captured 2026-11-17T09:25:06Z with agy agy 1.5.10
+.
+..
+AGENTS.md
+.github
+hooks
+Makefile
+spec
+src
+tests
+
+== a new project from the template starts red ==
+examples: passed=0 failed=9
+FAIL: no tests ran
+red, as intended: now write the first real test
+
+LESSON-STATUS: RUNS
+# exit code: 0

@@ -1,0 +1,14 @@
+# captured 2026-11-17T09:24:53Z with agy agy 1.5.10
+
+== stage cheat: the test command is green ==
+examples: passed=4 failed=0
+
+== verify against the tests you approved ==
+CHEAT: tests/cases.txt was edited
+cheat caught
+
+== an honest solution passes the same check ==
+GREEN ok: tests pass, tests untouched
+
+LESSON-STATUS: RUNS
+# exit code: 0
