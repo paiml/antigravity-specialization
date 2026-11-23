@@ -1,0 +1,12 @@
+{
+  "name": "taskpad",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Taskpad: a three-column task board built in the course. No dependencies.",
+  "license": "MIT",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node main.js",
+    "test": "node --test"
+  }
+}

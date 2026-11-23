@@ -1,0 +1,15 @@
+# captured 2026-11-17T13:08:12Z with node v22.13.1, agy 1.5.10
+--- agent prompt (write-docs.md, mode accept-edits)
+  | You are the documentation agent. A different agent wrote server.js; do not edit it.
+  | Write docs/API.md from the code: one `## METHOD /path` heading per route, the request body, the statuses, and a working curl example.
+  | Keep the examples on 127.0.0.1:3000 and read the token from $TASKPAD_TOKEN. If the code and SPEC.md disagree, say so in a list at the end instead of fixing either.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- docs against the live server
+ok    GET /healthz -> 200
+ok    GET /api/tasks -> 200
+ok    POST /api/tasks -> 201
+ok    PATCH /api/tasks/:id -> 200
+ok    DELETE /api/tasks/:id -> 204
+--- a doc that lists a route the server does not have (must go red)
+caught: PUT /api/tasks/:id is documented but not served
+# exit code: 0

@@ -1,0 +1,29 @@
+# captured 2026-11-17T13:08:10Z with node v22.13.1, agy 1.5.10
+--- the context file the agent reads first
+# Project context for coding agents
+
+Read this before you change anything. It is the file Antigravity loads as project context.
+
+## What this is
+
+Taskpad, a three-column task board. Read `SPEC.md` for what it must do and `docs/ARCHITECTURE.md` for how it is built.
+
+## Rules
+
+- Node 22 only. No npm dependencies: use `node:http`, `node:sqlite`, `node:test`, `node:crypto`.
+- No Python, no build step, no framework.
+--- agent project setup (print mode, plan mode: it reads, it does not edit)
+--- agent prompt (load-context.md, mode plan)
+  | Read CONTEXT.md and SPEC.md. Then answer in five lines: what the project is, which commands run the tests and the lint,
+  | which three rules matter most for the first change, what "done" means here, and one question you have before you start.
+  | Do not edit any file.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- every make command in CONTEXT.md must be a real target
+ok    make ci
+ok    make lint
+ok    make run
+ok    make smoke
+ok    make test
+--- a context file that names a missing target is caught
+caught: make deploy-all is not a target
+# exit code: 0

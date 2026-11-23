@@ -1,0 +1,159 @@
+# scene.term.toml: terminal scene for c3l6-e2e-run. Every command typed below is a command from run.sh (agent steps omitted: agy quota).
+schema_version = 1
+
+[contract]
+name = "fsa-c3l6-e2e-run"
+description = "Every control exercised over HTTP, with the result read back from the database."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/c3-home"
+PATH = "/tmp/c3-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 2; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:. ../lib/common.sh", "enter"]
+
+[[step]]
+send = ["text:need_node", "enter"]
+
+[[step]]
+send = ["text:new_workdir", "enter"]
+
+[[step]]
+send = ["text:copy_ms ch3-done \"$WORK/app\"", "enter"]
+
+[[step]]
+send = ["text:cd \"$WORK/app\" || exit 1", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:say \"the end-to-end test\"", "enter"]
+
+[[step]]
+send = ["text:node --test --test-force-exit test/e2e.test.js 2>&1 | grep -E '^# (tests|pass|fail)' | sed 's/^/  /'", "enter"]
+
+[[step]]
+wait_for = "# fail 0"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-2"
+
+[[step]]
+send = ["text:start_app \"$WORK/app\" demo-token || exit 1", "enter"]
+
+[[step]]
+send = ["text:json='content-type: application/json'", "enter"]
+
+[[step]]
+send = ["text:auth='Authorization: Bearer demo-token'", "enter"]
+
+[[step]]
+send = ["text:say \"every control, over HTTP\"", "enter"]
+
+[[step]]
+send = ["text:expect_code \"page loads\" 200 \"$APP_URL/\"", "enter"]
+
+[[step]]
+send = ["text:expect_code \"add task (Add button)\" 201 -X POST \"$APP_URL/api/tasks\" -H \"$json\" -H \"$auth\" -d '{\"title\":\"e2e card\"}'", "enter"]
+
+[[step]]
+send = ["text:expect_code \"move right to doing\" 200 -X PATCH \"$APP_URL/api/tasks/1\" -H \"$json\" -H \"$auth\" -d '{\"status\":\"doing\"}'", "enter"]
+
+[[step]]
+send = ["text:expect_code \"move right to done\" 200 -X PATCH \"$APP_URL/api/tasks/1\" -H \"$json\" -H \"$auth\" -d '{\"status\":\"done\"}'", "enter"]
+
+[[step]]
+send = ["text:expect_code \"move left to doing\" 200 -X PATCH \"$APP_URL/api/tasks/1\" -H \"$json\" -H \"$auth\" -d '{\"status\":\"doing\"}'", "enter"]
+
+[[step]]
+send = ["text:expect_code \"empty title refused\" 400 -X POST \"$APP_URL/api/tasks\" -H \"$json\" -H \"$auth\" -d '{\"title\":\"\"}'", "enter"]
+
+[[step]]
+send = ["text:expect_code \"wrong token refused\" 401 -X DELETE \"$APP_URL/api/tasks/1\" -H 'Authorization: Bearer nope'", "enter"]
+
+[[step]]
+wait_for = "wrong token refused (401)"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-3"
+
+[[step]]
+send = ["text:say \"read back from the database file (not from the API)\"", "enter"]
+
+[[step]]
+send = ["text:row=$(sql \"$WORK/app/data/taskpad.db\" \"select title || ' | ' || status from tasks where id=1\")", "enter"]
+
+[[step]]
+send = ["text:echo \"  $row\"", "enter"]
+
+[[step]]
+wait_for = "e2e card | doing"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:expect_code \"delete (Delete button)\" 204 -X DELETE \"$APP_URL/api/tasks/1\" -H \"$auth\"", "enter"]
+
+[[step]]
+send = ["text:n=$(sql \"$WORK/app/data/taskpad.db\" \"select count(*) from tasks\")", "enter"]
+
+[[step]]
+send = ["text:echo \"  rows left: $n\"", "enter"]
+
+[[step]]
+wait_for = "rows left: 0"
+timeout_ms = 120000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/fullstack-antigravity-agents"
+commit = "3c76d28feef54d1ede9990f257ffb55cebe92ca3"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "683d2b0c9f72ebd8a7a7e4ca312a564e40303ae650f8183c93f63449b80b0294"

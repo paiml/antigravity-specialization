@@ -1,0 +1,116 @@
+# scene.term.toml: terminal scene for c4l6-conclusion. Every command typed below is a command from run.sh (agent steps omitted: agy quota).
+schema_version = 1
+
+[contract]
+name = "fsa-c4l6-conclusion"
+description = "Build a scratch repo from the four milestones, one tag each."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/c3-home"
+PATH = "/tmp/c3-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 2; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:. ../lib/common.sh", "enter"]
+
+[[step]]
+send = ["text:need_node", "enter"]
+
+[[step]]
+send = ["text:new_workdir", "enter"]
+
+[[step]]
+send = ["text:g() { git -c core.hooksPath=/dev/null -c user.name=demo -c user.email=demo \"$@\"; }", "enter"]
+
+[[step]]
+send = ["text:mkdir -p \"$WORK/repo\"", "enter"]
+
+[[step]]
+send = ["text:cd \"$WORK/repo\" || exit 1", "enter"]
+
+[[step]]
+send = ["text:g init -q -b main", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:for ms in ch1-done ch2-done ch3-done v1.0.0; do find . -mindepth 1 -maxdepth 1 -not -name .git -exec rm -rf -- {} +; copy_ms \"$ms\" \"$WORK/repo\"; summary=$(node --test --test-force-exit 2>&1 | grep -E '^# (pass|fail)' | tr '\\n' ' '); echo \"$ms: $summary\"; g add -A; g commit -q -m \"$ms\"; g tag \"$ms\"; done", "enter"]
+
+[[step]]
+wait_for = "v1.0.0: # pass 19 # fail 0"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-2"
+
+[[step]]
+send = ["text:say \"the history\"", "enter"]
+
+[[step]]
+send = ["text:g log --oneline --decorate | sed 's/^/  /'", "enter"]
+
+[[step]]
+wait_for = "(tag: ch1-done)"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-3"
+
+[[step]]
+send = ["text:say \"NEXT STEPS: add a second board, due dates or a real login; each starts with a line in SPEC.md and a failing test\"", "enter"]
+
+[[step]]
+wait_for = "--- NEXT STEPS"
+timeout_ms = 120000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/fullstack-antigravity-agents"
+commit = "3c76d28feef54d1ede9990f257ffb55cebe92ca3"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "183402da2b8800eaf2b0a306a3b3c4df99cf9e63a7d6f5c041de5b0351698d78"

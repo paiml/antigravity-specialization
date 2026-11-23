@@ -1,0 +1,25 @@
+# captured 2026-11-17T13:08:17Z with node v22.13.1, agy 1.5.10
+--- the end-to-end test
+  # tests 4
+  # pass 4
+  # fail 0
+--- every control, over HTTP
+ok    page loads (200)
+ok    add task (Add button) (201)
+ok    move right to doing (200)
+ok    move right to done (200)
+ok    move left to doing (200)
+ok    empty title refused (400)
+ok    wrong token refused (401)
+--- read back from the database file (not from the API)
+  e2e card | doing
+ok    delete (Delete button) (204)
+  rows left: 0
+--- agent prompt (drive-every-control.md, mode auto)
+  | Use the browser on the app I give you. Drive every control once and read the result back after each one:
+  | type the token, add a task, press move right twice, move left once, press Delete, submit an empty title, submit a wrong token.
+  | After each action state what the page shows and what GET /api/tasks returns. Finish with a table: control, expected, seen, pass or fail.
+  | Do not edit any file.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- BROWSER STEP (scripted, not run): the agent drives every control at http://127.0.0.1:39625; a probar run is the missing receipt
+# exit code: 0

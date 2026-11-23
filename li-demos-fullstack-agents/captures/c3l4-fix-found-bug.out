@@ -1,0 +1,33 @@
+# captured 2026-11-17T13:08:16Z with node v22.13.1, agy 1.5.10
+--- RED: the board test names the failure
+  not ok 2 - groupByStatus puts every task in its own column
+  # tests 3
+  # pass 2
+  # fail 1
+--- agent prompt (fix-column.md, mode accept-edits)
+  | The browser agent reported that a task moved to Done appears under Doing, although the API returns status "done".
+  | First write a failing test in test/board.test.js that reproduces it with one "doing" task and one "done" task. Run it and show it red.
+  | Then fix groupByStatus in public/board.js with the smallest change. Run `make ci` and paste the result.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- fix: restore the original line (the diff is shown)
+  --- public/board.js	2026-11-17 14:08:16.465227162 +0100
+  +++ public/board.js.orig	2026-11-17 14:08:16.464227144 +0100
+  @@ -13,7 +13,7 @@
+   
+     function groupByStatus(tasks) {
+       const groups = { todo: [], doing: [], done: [] };
+  -    for (const t of tasks) groups[STATUSES.find((s) => s.startsWith(t.status.slice(0, 2)))].push(t);
+  +    for (const t of tasks) groups[t.status].push(t);
+       return groups;
+     }
+   
+--- GREEN: the whole suite, including the page driven against the real server
+  # tests 19
+  # pass 19
+  # fail 0
+--- make ci
+  # skipped 0
+  # todo 0
+  # duration_ms 114.926934
+--- BROWSER STEP (scripted, not run): reload http://127.0.0.1:40499, add a task, move it to Done, and read the Done count
+# exit code: 0

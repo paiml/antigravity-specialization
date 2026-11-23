@@ -1,0 +1,31 @@
+# captured 2026-11-17T13:08:37Z with node v22.13.1, agy 1.5.10
+--- agent prompt (deploy-script.md, mode plan)
+  | Write scripts/deploy.sh VERSION. It copies a fixed list of files (not tests, not node_modules, not data) to releases/VERSION on the host, points a `current`
+  | link at it, restarts the app and probes /healthz. Run commands locally when DEPLOY_HOST=local and over ssh otherwise. The token must never appear on a command line:
+  | write it to a file with mode 600 and have the start script read it. Record the previous release so it can be rolled back. Do not run it against any real host.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- deploy v1 to /tmp/tmp.pV6y1oP9Tk/srv on port 40213
+  deploy: version v1 to local:/tmp/tmp.pV6y1oP9Tk/srv (previous: none)
+  probe OK after 2 try(ies): {"status":"ok"}
+  deploy OK: v1 is live
+--- what it left behind
+  current
+  data
+  releases
+  taskpad.log
+  taskpad.pid
+  token
+  current -> releases/v1
+  token file mode: 600
+--- the token is not on any command line
+ok    not in ps output
+--- the live page (curl stands in for the browser)
+{"status":"ok"}
+  page 200
+--- deploy v2 over it; previous is recorded
+  deploy: version v2 to local:/tmp/tmp.pV6y1oP9Tk/srv (previous: releases/v1)
+  probe OK after 2 try(ies): {"status":"ok"}
+  deploy OK: v2 is live
+  current -> releases/v2, previous -> releases/v1
+--- SSH STEP (scripted, not run): DEPLOY_HOST=user@host DEPLOY_DIR=/srv/taskpad TASKPAD_TOKEN=... scripts/deploy.sh v1
+# exit code: 0

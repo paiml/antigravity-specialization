@@ -1,0 +1,26 @@
+# captured 2026-11-17T13:08:38Z with node v22.13.1, agy 1.5.10
+--- deploy v1
+  deploy: version v1 to local:/tmp/tmp.6sRIz5TFlP/srv (previous: none)
+  probe OK after 2 try(ies): {"status":"ok"}
+  deploy OK: v1 is live
+--- deploy a broken v2 from a second copy (main.js has a syntax error)
+  deploy: version v2 to local:/tmp/tmp.6sRIz5TFlP/srv (previous: releases/v1)
+  probe FAILED after 8 tries: http://127.0.0.1:37137/healthz
+  deploy FAILED: probe did not pass, rolling back
+  rollback: current -> releases/v1
+  probe OK after 2 try(ies): {"status":"ok"}
+deploy exit code: 1
+--- after the automatic rollback
+  current -> releases/v1
+{"status":"ok"}
+--- the log shows why v2 failed
+  SyntaxError: Unexpected identifier 'is'
+--- manual rollback with nothing recorded must refuse
+  rollback: no previous release recorded
+refused, as it must
+--- agent prompt (rollback-plan.md, mode plan)
+  | Read scripts/deploy.sh, scripts/probe.sh and scripts/rollback.sh. Write a rollback plan of at most ten lines: what triggers it, the exact command, how to confirm it worked,
+  | and which data is not rolled back (the database). Then list two ways a probe on /healthz can pass while the app is broken, and what extra check would catch each.
+  | Do not edit any file.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+# exit code: 0

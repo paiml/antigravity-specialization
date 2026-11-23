@@ -1,0 +1,12 @@
+# captured 2026-11-17T13:08:43Z with node v22.13.1, agy 1.5.10
+ch1-done: # pass 2 # fail 0 
+ch2-done: # pass 12 # fail 0 
+ch3-done: # pass 19 # fail 0 
+v1.0.0: # pass 19 # fail 0 
+--- the history
+  3259a3d (HEAD -> main, tag: v1.0.0) v1.0.0
+  977d2ad (tag: ch3-done) ch3-done
+  0adcbfc (tag: ch2-done) ch2-done
+  3926f62 (tag: ch1-done) ch1-done
+--- NEXT STEPS: add a second board, due dates or a real login; each starts with a line in SPEC.md and a failing test
+# exit code: 0

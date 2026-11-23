@@ -1,0 +1,43 @@
+# captured 2026-11-17T13:08:36Z with node v22.13.1, agy 1.5.10
+--- the workflow
+name: ci
+on:
+  pull_request: {}
+  push:
+    branches: [main]
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Lint and test
+        run: make ci
+      - name: Smoke test
+        run: make smoke
+--- agent prompt (workflow.md, mode accept-edits)
+  | Write .github/workflows/ci.yml. It runs on pull requests and on pushes to main, in one job named gate with a timeout.
+  | Steps: check out, set up Node from .nvmrc, run `make ci`, run `make smoke`. It must call the same make targets I run locally, so there is one definition of "green".
+  | Do not use continue-on-error and do not add `|| true` to any command.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- what it must contain
+ok    pull_request
+ok    branches: \[main\]
+ok    node-version-file: .nvmrc
+ok    make ci
+ok    make smoke
+ok    timeout-minutes
+ok    no continue-on-error, no '|| true'
+--- run what the workflow runs
+  # cancelled 0
+  # skipped 0
+  # todo 0
+  # duration_ms 129.389199
+  smoke OK
+--- a failing test must turn it red
+make ci went red, as it must
+--- BRANCH PROTECTION (scripted, not run): make the job named gate a required check on main
+# exit code: 0

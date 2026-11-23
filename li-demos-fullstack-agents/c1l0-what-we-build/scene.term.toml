@@ -1,0 +1,147 @@
+# scene.term.toml: terminal scene for c1l0-what-we-build. Every command typed below is a command from run.sh (agent steps omitted: agy quota).
+schema_version = 1
+
+[contract]
+name = "fsa-c1l0-what-we-build"
+description = "Start the finished Taskpad and look at it from the outside."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/c3-home"
+PATH = "/tmp/c3-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 2; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:. ../lib/common.sh", "enter"]
+
+[[step]]
+send = ["text:need_node", "enter"]
+
+[[step]]
+send = ["text:new_workdir", "enter"]
+
+[[step]]
+send = ["text:copy_ms v1.0.0 \"$WORK/app\"", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:say \"the finished repo\"", "enter"]
+
+[[step]]
+send = ["text:(cd \"$WORK/app\" && ls)", "enter"]
+
+[[step]]
+wait_for = "testlib"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-2"
+
+[[step]]
+send = ["text:say \"start it on a scratch port with a throwaway token\"", "enter"]
+
+[[step]]
+send = ["text:start_app \"$WORK/app\" demo-token", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-3"
+
+[[step]]
+send = ["text:say \"health, then the empty board's API\"", "enter"]
+
+[[step]]
+send = ["text:curl -fsS \"$APP_URL/healthz\"", "enter"]
+
+[[step]]
+send = ["text:echo", "enter"]
+
+[[step]]
+send = ["text:curl -fsS \"$APP_URL/api/tasks\"", "enter"]
+
+[[step]]
+send = ["text:echo", "enter"]
+
+[[step]]
+wait_for = "{\"status\":\"ok\"}"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-4"
+
+[[step]]
+send = ["text:say \"the page is plain HTML\"", "enter"]
+
+[[step]]
+send = ["text:curl -fsS \"$APP_URL/\" | head -n 8", "enter"]
+
+[[step]]
+wait_for = "<title>Taskpad</title>"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-5"
+
+[[step]]
+send = ["text:say \"BROWSER STEP (scripted, not run): open $APP_URL in a browser and type the token demo-token\"", "enter"]
+
+[[step]]
+wait_for = "--- BROWSER STEP"
+timeout_ms = 120000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/fullstack-antigravity-agents"
+commit = "3c76d28feef54d1ede9990f257ffb55cebe92ca3"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "ffc72182cd27e37fb674144370dabdfcf381b6cac522d8c99beac907b9d61ad1"

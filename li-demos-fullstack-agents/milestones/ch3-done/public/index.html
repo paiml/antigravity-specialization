@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taskpad</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Taskpad</h1>
+  </header>
+  <main>
+    <form id="task-form" novalidate>
+      <div class="field">
+        <label for="title">New task title</label>
+        <input id="title" name="title" type="text" maxlength="200" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="token">Access token (kept for this tab only)</label>
+        <input id="token" name="token" type="password" autocomplete="off">
+      </div>
+      <button type="submit">Add task</button>
+    </form>
+    <p id="message" role="alert"></p>
+    <div class="board">
+      <section aria-labelledby="h-todo">
+        <h2 id="h-todo">To do <span id="count-todo" class="count">0</span></h2>
+        <ul id="col-todo"></ul>
+      </section>
+      <section aria-labelledby="h-doing">
+        <h2 id="h-doing">Doing <span id="count-doing" class="count">0</span></h2>
+        <ul id="col-doing"></ul>
+      </section>
+      <section aria-labelledby="h-done">
+        <h2 id="h-done">Done <span id="count-done" class="count">0</span></h2>
+        <ul id="col-done"></ul>
+      </section>
+    </div>
+  </main>
+  <script src="/board.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

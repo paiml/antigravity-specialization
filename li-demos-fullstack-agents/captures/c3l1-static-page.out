@@ -1,0 +1,25 @@
+# captured 2026-11-17T13:08:14Z with node v22.13.1, agy 1.5.10
+--- agent prompt (build-page.md, mode accept-edits)
+  | Build the page for Taskpad in public/: index.html, style.css, board.js (pure logic: title check, grouping by status, neighbour column) and app.js.
+  | Rules from CONTEXT.md apply: no framework, no innerHTML, build nodes and set textContent. The page has a labelled add form with a title field and a
+  | password-type token field kept in sessionStorage, three columns with counts, and move and delete buttons on every card with an aria-label.
+  | Write the tests first: test/board.test.js for the logic and test/e2e.test.js that runs app.js against the real server with a fake DOM.
+  | Run `make ci` and paste the result.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- the page files and their content types
+  200 text/html; charset=utf-8  /
+  200 text/javascript; charset=utf-8  /board.js
+  200 text/javascript; charset=utf-8  /app.js
+  200 text/css; charset=utf-8  /style.css
+--- the page script uses textContent, not innerHTML
+ok    no innerHTML in public/app.js
+--- board logic tests and the page-against-real-server test
+  # tests 7
+  # pass 7
+  # fail 0
+--- put three tasks on the board through the API
+  1 todo write the spec
+  2 todo build the API
+  3 todo ship it
+--- BROWSER STEP (scripted, not run): open http://127.0.0.1:37325 and type the token demo-token
+# exit code: 0
