@@ -1,0 +1,106 @@
+# scene.term.toml: terminal scene for rg-1-1-1-risk-register (TRM 4.1). Every command below was run for real; see captures/.
+schema_version = 1
+
+[contract]
+name = "rg-1-1-1-risk-register"
+description = "A four-line risk register in plain text, one line per risk tested in the course."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/rg-home"
+PATH = "/tmp/rg-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 24; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:cd", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-2"
+
+[[step]]
+send = ["text:mkdir -p responsible-ai && cd responsible-ai", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-3"
+
+[[step]]
+send = ["text:for r in wrong-answer unfair-answer hijacked-answer leaked-data; do echo \"todo $r you -\"; done > risks.md", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-4"
+
+[[step]]
+send = ["text:cat risks.md", "enter"]
+
+[[step]]
+wait_for = "leaked-data you -"
+timeout_ms = 54000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-5"
+
+[[step]]
+send = ["text:wc -l risks.md", "enter"]
+
+[[step]]
+wait_for = "4 risks.md"
+timeout_ms = 54000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/demo-responsible-genai"
+commit = "1a0240f6fad26469722fdfd1ba929b598e37dd4a"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "3f4e00ecc555c6d61164de070de6dedec0c16ad661399b17c195a983bff53564"

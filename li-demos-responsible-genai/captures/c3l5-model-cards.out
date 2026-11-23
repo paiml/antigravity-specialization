@@ -1,0 +1,20 @@
+# captured 2026-11-17T09:13:34Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+  Architecture:
+    Family: qwen2
+    Hidden Size: 1536
+    Intermediate Size: 8960
+    Vocab Size: 151936
+    Max Position: 32768
+    RoPE Theta: 1000000
+  Model Type: transformer_lm_q4k
+
+  Provenance:
+    license: (missing)
+    data_source: (missing)
+    data_license: (missing)
+
+CHECK license: MISSING -> read the upstream model card before any real use
+CHECK data_source: MISSING -> read the upstream model card before any real use
+CHECK data_license: MISSING -> read the upstream model card before any real use
+# exit code: 0

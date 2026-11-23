@@ -1,0 +1,44 @@
+# captured 2026-11-17T09:12:41Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+--- memory (MiB)
+               total        used        free      shared  buff/cache   available
+Mem:          128298       67241       14096         631       46960       55838
+--- the model we serve, size on disk
+1.04 GiB  ~/.cache/pacha/models/qwen-1.5b-q4k.apr
+--- apr serve plan (header-only, no weights loaded)
+
+━━━ Inference Plan: qwen-1.5b-q4k (Q4_K) on NVIDIA GeForce RTX 4090 ━━━
+
+MODEL
+  Parameters:               1.78B
+  Quantization:              Q4_K
+  Format:                     APR
+  File size:              1064 MB
+
+VRAM BUDGET
+  Model weights (Q4_K):      847 MB
+  KV cache (batch=1, 4096 seq): 112 MB
+  Activations:                24 MB
+  CUDA overhead:             512 MB
+  ──────────────────────────────────────
+  Total:               1495 MB / 24564 MB  (6.1%)
+  Max batch size:       206
+
+ROOFLINE ANALYSIS
+  Memory bandwidth:        1008 GB/s
+  Bandwidth ceiling:       1218 tok/s
+  Bottleneck:          MEMORY-BOUND
+
+THROUGHPUT ESTIMATE
+  Single decode:       ~1218 tok/s
+
+CONTRACTS
+  ✓ BUDGET-001: VRAM fits (1495 MB < 23336 MB (95% of 24564 MB))
+  ✓ BUDGET-002: Model contiguous (847 MB)
+  ✓ BUDGET-003: KV cache fits at batch=1 (1495 MB at batch=1)
+
+VERDICT: READY
+
+Next: apr serve run ~/.cache/pacha/models/qwen-1.5b-q4k.apr --gpu --batch
+
+# exit code: 0

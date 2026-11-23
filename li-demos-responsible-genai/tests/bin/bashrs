@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Test stand-in for bashrs lint: BASHRS_RC sets the exit code (default 0).
+exit "${BASHRS_RC:-0}"

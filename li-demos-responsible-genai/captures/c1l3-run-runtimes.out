@@ -1,0 +1,68 @@
+# captured 2026-11-17T17:38:08Z with apr 0.74.0 (3795072634)
+# model: qwen2.5-0.5b-instruct-q5_0.gguf (apr, llama.cpp); qwen2.5-coder:0.5b (Ollama)
+$ apr run ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf What is a hash function? Answer in two sentences. --chat -n 32 --no-gpu --offline
+=== APR Run (OFFLINE MODE) ===
+Network access disabled. Only local/cached models allowed.
+
+Source: ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf
+
+Output:
+A hash function is a mathematical function that takes an input (or message) and produces a fixed-length output (or hash value) that is unique to that input
+
+Completed in 35.64s (cached)
+$ apr run ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf What is a hash function? Answer in two sentences. --chat -n 128 --no-gpu --offline
+=== APR Run (OFFLINE MODE) ===
+Network access disabled. Only local/cached models allowed.
+
+Source: ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf
+
+Output:
+A hash function is a mathematical function that takes an input (or message) and produces a fixed-length output (or hash value) that is unique to that input. This output is often used to verify the integrity of data, to generate a unique identifier for a record, or to ensure data is not tampered with.
+
+Completed in 47.31s (cached)
+$ llama-cli -m ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf -p What is a hash function? Answer in two sentences. -n 128 -st --no-display-prompt
+
+
+Loading model... |-\|/-\|/ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b12471-8f647f1fd
+model      : ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf
+ftype      : Q4_K - Medium
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is a hash function? Answer in two sentences.
+A hash function is a mathematical function that takes an input (data or message) and returns a fixed-length output (hash value) that can be used to quickly identify the input. This allows for efficient data storage and retrieval.
+
+[ Prompt: 1073.0 t/s | Generation: 569.5 t/s ]
+
+
+Exiting...
+$ ollama run qwen2.5-coder:0.5b What is a hash function? Answer in two sentences. --verbose
+⠙ ⠙ ⠸ ⠸ ⠴ ⠦ ⠦ ⠇ ⠏ ⠏ ⠋ ⠹ ⠸ ⠸ ⠴ ⠦ ⠧ A hash function is a mathematical function that takes an input and produces a fixed-size, unique output.
+
+total duration:       1.76910724s
+load duration:        1.616414284s
+prompt eval count:    40 token(s)
+prompt eval duration: 108.535ms
+prompt eval rate:     368.54 tokens/s
+eval count:           21 token(s)
+eval duration:        41.938ms
+eval rate:            500.74 tokens/s
+# exit code: 0

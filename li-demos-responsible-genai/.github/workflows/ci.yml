@@ -1,0 +1,25 @@
+name: ci
+on: { pull_request: {}, merge_group: {}, push: { branches: [main] } }
+concurrency: { group: "ci-${{ github.ref }}", cancel-in-progress: true }
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bashrs (pinned)
+        run: cargo install bashrs --version 7.4.3 --locked
+      - name: Gate (no Python, bashrs lint, offline tests, leak patterns, shell coverage)
+        run: make gate
+  secrets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Gitleaks scan
+        run: |
+          v=8.21.2
+          curl -fsSL -o "$RUNNER_TEMP/gl.tgz" "https://github.com/gitleaks/gitleaks/releases/download/v$v/gitleaks_${v}_linux_x64.tar.gz"
+          tar -xzf "$RUNNER_TEMP/gl.tgz" -C "$RUNNER_TEMP" gitleaks
+          "$RUNNER_TEMP/gitleaks" detect --source . --config .gitleaks.toml --no-banner

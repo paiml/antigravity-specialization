@@ -1,0 +1,34 @@
+# captured 2026-11-17T09:12:37Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+apr 0.74.0 (3795072634)
+--- cached models (first 8 lines)
+=== Cached Models ===
+
+NAME                                     SIZE         FORMAT       PATH
+--------------------------------------------------------------------------------------------------------
+57e6e922118ea840                         86.7 MB      SafeTensors  ~/.cache/pacha/models/57e6e922118ea840.safetensors (orphan)
+0f871ccc9f449008                         256.6 MB     SafeTensors  ~/.cache/pacha/models/0f871ccc9f449008.safetensors (orphan)
+82d958b7758e68ed                         3.7 GB       GGUF         ~/.cache/pacha/models/82d958b7758e68ed.gguf (orphan)
+7bcabb852fedb36b                         7.5 GB       GGUF         ~/.cache/pacha/models/7bcabb852fedb36b.gguf (orphan)
+--- apr pull --dry-run resolves a short name, no network I/O
+=== APR Pull ===
+
+Model:    qwen2.5-coder-1.5b
+Resolved: hf://Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF
+Revision: main (RefName)
+Offline:  false
+Mode:     dry-run (no network I/O)
+--- inspect the model we will use
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ~/.cache/pacha/models/qwen-1.5b-q4k.apr
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+╭─────────────┬─────────────────────╮
+│      Format │ APR v2              │
+│     Version │ 2.0                 │
+│        Size │ 1.04 GiB            │
+│     Tensors │ 339                 │
+│    Checksum │ ✓ VALID             │
+│ Data Offset │ 0x3A6B00 (3.65 MiB) │
+╰─────────────┴─────────────────────╯
+# exit code: 0

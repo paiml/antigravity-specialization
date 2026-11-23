@@ -1,0 +1,14 @@
+# captured 2026-11-17T09:12:40Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+--- GET /health
+{
+  "status": "ok",
+  "version": "0.74.0",
+  "compute_mode": "cpu",
+  "model_loaded": true
+}
+--- GET /v1/models
+{"id":"default","owned_by":"realizar"}
+--- POST /v1/chat/completions
+{"reply":"Hello!","usage":{"prompt_tokens":14,"completion_tokens":2,"total_tokens":16}}
+# exit code: 0

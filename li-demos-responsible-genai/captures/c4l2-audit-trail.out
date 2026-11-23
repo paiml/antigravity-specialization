@@ -1,0 +1,14 @@
+# captured 2026-11-17T09:13:48Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+Q: What is the capital of Spain?
+A: The capital of Spain is Madrid.
+human: approved
+Q: Is the Earth flat?
+A: No, the Earth is not flat.
+human: rejected
+=== verify
+OK 2 lines
+=== rewrite line 1 in a copy, verify again
+BROKEN at line 2
+tampering detected
+# exit code: 0

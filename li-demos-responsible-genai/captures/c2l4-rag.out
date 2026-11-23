@@ -1,0 +1,8 @@
+# captured 2026-11-17T09:12:55Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+score 2  expenses.txt
+score 6  leave-policy.txt
+score 0  security.txt
+--- using leave-policy.txt
+15 days
+# exit code: 0

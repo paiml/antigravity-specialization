@@ -1,0 +1,8 @@
+# captured 2026-11-17T09:13:43Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+you> My name is Dana.
+bot> Hello, Dana! How can I assist you today?
+you> What is my name?
+bot> Your name is Dana.
+(messages kept in history after the system prompt: 4)
+# exit code: 0

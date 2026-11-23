@@ -1,0 +1,20 @@
+# captured 2026-11-17T17:36:49Z with apr 0.74.0 (3795072634)
+# model: qwen2.5-0.5b-instruct-q5_0.gguf (apr, llama.cpp); qwen2.5-coder:0.5b (Ollama)
+$ ollama ps
+NAME    ID    SIZE    PROCESSOR    CONTEXT    RUNNER    UNTIL 
+$ curl -s -X POST http://127.0.0.1:8080/v1/chat/completions -H "Content-Type: application/json" -d '{"model":"default","messages":[{"role":"user","content":"Hello!"}],"max_tokens":50}' | jq -r '.choices[0].message.content'
+Hello! How can I assist you today?
+$ same body against http://127.0.0.1:8081
+Hello! How may I assist you today?
+$ curl -s http://127.0.0.1:11434/api/chat -d <model + messages + stream false> | jq -r .message.content
+Hello! How can I assist you today?
+$ same body as the first, Ollama model name, against http://127.0.0.1:11434
+Hello! How can I assist you today?
+$ the same call with a broken bracket
+HTTP/1.1 400 Bad Request
+{"error":"Invalid request body. Expected a JSON object matching this endpoint's schema."}
+$ ss -ltn | grep -E "8080|8081|11434"
+LISTEN 0      128        127.0.0.1:8080       0.0.0.0:*          
+LISTEN 0      512        127.0.0.1:8081       0.0.0.0:*          
+LISTEN 0      4096       127.0.0.1:11434      0.0.0.0:*          
+# exit code: 0

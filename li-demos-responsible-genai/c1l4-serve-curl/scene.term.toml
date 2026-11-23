@@ -1,0 +1,187 @@
+# scene.term.toml: terminal scene for rg-1-1-4-serve-curl (TRM 4.1). Every command below was run for real; see captures/.
+schema_version = 1
+
+[contract]
+name = "rg-1-1-4-serve-curl"
+description = "Serve the model three ways on localhost and call each with curl."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/rg-home"
+PATH = "/tmp/rg-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 11; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:apr serve run ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf --port 8080 --no-gpu --offline > /dev/null 2>&1 &", "enter"]
+
+[[step]]
+wait_for = "[1]"
+timeout_ms = 41000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-2"
+
+[[step]]
+send = ["text:llama-server -m ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf --host 127.0.0.1 --port 8081 > /dev/null 2>&1 &", "enter"]
+
+[[step]]
+wait_for = "[2]"
+timeout_ms = 41000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-3"
+
+[[step]]
+send = ["text:for p in 8080 8081; do until curl -s 127.0.0.1:$p/health > /dev/null; do sleep 1; done; echo \"up: $p\"; done", "enter"]
+
+[[step]]
+wait_for = "up: 8081"
+timeout_ms = 300000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-4"
+
+[[step]]
+send = ["text:ollama ps", "enter"]
+
+[[step]]
+wait_for = "PROCESSOR"
+timeout_ms = 41000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-5"
+
+[[step]]
+send = ["text:curl -s http://127.0.0.1:8080/v1/chat/completions -H 'Content-Type: application/json' -d '{\"model\":\"default\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}],\"max_tokens\":50}' | jq -r '.choices[0].message.content'", "enter"]
+
+[[step]]
+wait_for = "assist"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-6"
+
+[[step]]
+send = ["text:curl -s http://127.0.0.1:8081/v1/chat/completions -H 'Content-Type: application/json' -d '{\"model\":\"default\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}],\"max_tokens\":50}' | jq -r '.choices[0].message.content'", "enter"]
+
+[[step]]
+wait_for = "assist"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-7"
+
+[[step]]
+send = ["text:curl -s http://127.0.0.1:11434/api/chat -d '{\"model\":\"qwen2.5-coder:0.5b\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}],\"stream\":false}' | jq -r '.message.content'", "enter"]
+
+[[step]]
+wait_for = "assist"
+timeout_ms = 120000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-8"
+
+[[step]]
+send = ["text:curl -s -i -X POST http://127.0.0.1:8080/v1/chat/completions -H 'Content-Type: application/json' -d '{\"model\":\"default\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"]}' | head -n 1", "enter"]
+
+[[step]]
+wait_for = "400 Bad Request"
+timeout_ms = 41000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-9"
+
+[[step]]
+send = ["text:ss -ltn | grep -E '8080|8081|11434'", "enter"]
+
+[[step]]
+wait_for = ":11434"
+timeout_ms = 41000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-10"
+
+[[step]]
+send = ["text:kill %1 %2; sleep 2; jobs", "enter"]
+
+[[step]]
+wait_for = "Terminated"
+timeout_ms = 41000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/demo-responsible-genai"
+commit = "1a0240f6fad26469722fdfd1ba929b598e37dd4a"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "d7bae68d2c14010c9f2b02d140b2a41013f17c7ca64f2c546daaec65b60b9e1f"
+
+[[source.shown]]
+path = "runtimes.sh"
+sha256 = "d60f98ce42212e9d640f187eb13f8de51a92a22f1e39dfb0a5355f57c3a49630"

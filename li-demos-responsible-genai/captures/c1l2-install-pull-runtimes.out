@@ -1,0 +1,52 @@
+# captured 2026-11-17T17:35:21Z with apr 0.74.0 (3795072634)
+# model: qwen2.5-0.5b-instruct-q5_0.gguf (apr, llama.cpp); qwen2.5-coder:0.5b (Ollama)
+$ apr --version
+apr 0.74.0 (3795072634)
+$ llama-cli --version
+version: 1.0.0-dev (build 12471, commit 8f647f1fd)
+built with GNU 11.4.0 for Linux x86_64
+$ ollama --version
+ollama version is 0.40.16
+$ apr pull --dry-run hf://Qwen/Qwen2.5-Coder-0.5B-Instruct
+=== APR Pull ===
+
+Model:    hf://Qwen/Qwen2.5-Coder-0.5B-Instruct
+Resolved: hf://Qwen/Qwen2.5-Coder-0.5B-Instruct
+Revision: main (RefName)
+Offline:  false
+Mode:     dry-run (no network I/O)
+$ ollama ps
+NAME    ID    SIZE    PROCESSOR    CONTEXT    RUNNER    UNTIL 
+$ apr list
+=== Cached Models ===
+
+NAME                                     SIZE         FORMAT       PATH
+--------------------------------------------------------------------------------------------------------
+8de7eb9c0c789ccb                         468.6 MB     GGUF         ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf (orphan)
+
+Total: 1 models (0 tracked + 1 orphans), 468.6 MB used
+$ llama-cli --cache-list
+number of models in cache: 0
+$ ollama show qwen2.5-coder:0.5b
+  Model
+    architecture        qwen2          
+    parameters          494.03M        
+    context length      32768          
+    embedding length    896            
+    quantization        Q4_K_M         
+    template source     go_template    
+
+  Capabilities
+    completion    
+    tools         
+    insert        
+
+  System
+    You are Qwen, created by Alibaba Cloud. You are a helpful assistant.    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+# exit code: 0

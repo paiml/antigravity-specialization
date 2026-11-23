@@ -1,0 +1,11 @@
+# captured 2026-11-17T09:13:43Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+PASS  a LICENSE file exists
+PASS  a README states what the model may not be used for
+PASS  secrets are scanned in CI (gitleaks config present)
+PASS  prompts are redacted before logging (redact defined)
+PASS  model output is validated before use (jq -e in the JSON lesson)
+PASS  decisions are logged to an audit trail (audit_append defined)
+PASS  an evaluation set exists with a ship gate
+checklist passed
+# exit code: 0

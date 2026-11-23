@@ -1,0 +1,92 @@
+# scene.term.toml: terminal scene for rg-2-1-4-rag (TRM 4.1). Every command below was run for real; see captures/.
+schema_version = 1
+
+[contract]
+name = "rg-2-1-4-rag"
+description = "Keyword retrieval from your own files."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/rg-home"
+PATH = "/tmp/rg-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 69; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:../scripts/serve.sh", "enter"]
+
+[[step]]
+wait_for = "server up"
+timeout_ms = 180000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-2"
+
+[[step]]
+send = ["text:./run.sh", "enter"]
+
+[[step]]
+wait_for = "15 days"
+timeout_ms = 400000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-3"
+
+[[step]]
+send = ["text:../scripts/stop.sh", "enter"]
+
+[[step]]
+wait_for = "stopped"
+timeout_ms = 99000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/demo-responsible-genai"
+commit = "1a0240f6fad26469722fdfd1ba929b598e37dd4a"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "c06b9cd8572ae67e4d03593f313e8f7f6af85d6381df376fecde15294d6d8044"

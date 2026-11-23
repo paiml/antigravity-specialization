@@ -1,0 +1,135 @@
+# scene.term.toml: terminal scene for rg-1-1-5-compare (TRM 4.1). Every command below was run for real; see captures/.
+schema_version = 1
+
+[contract]
+name = "rg-1-1-5-compare"
+description = "Compare the three runtimes on one prompt: speed lines, file formats and licence."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/rg-home"
+PATH = "/tmp/rg-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 17; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:apr run ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf 'What is a hash function? Answer in two sentences.' --chat -n 128 --no-gpu --offline --benchmark", "enter"]
+
+[[step]]
+wait_for = "latency:"
+timeout_ms = 400000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-2"
+
+[[step]]
+send = ["text:llama-cli -m ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf -p 'What is a hash function? Answer in two sentences.' -n 128 -st --no-display-prompt", "enter"]
+
+[[step]]
+wait_for = "Generation:"
+timeout_ms = 300000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-3"
+
+[[step]]
+send = ["text:ollama run qwen2.5-coder:0.5b 'What is a hash function? Answer in two sentences.' --verbose", "enter"]
+
+[[step]]
+wait_for = "eval rate:"
+timeout_ms = 300000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-4"
+
+[[step]]
+send = ["text:apr list", "enter"]
+
+[[step]]
+wait_for = "MB used"
+timeout_ms = 47000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-5"
+
+[[step]]
+send = ["text:llama-cli --cache-list", "enter"]
+
+[[step]]
+wait_for = "models in cache"
+timeout_ms = 47000
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-6"
+
+[[step]]
+send = ["text:ollama show qwen2.5-coder:0.5b --license | head -3", "enter"]
+
+[[step]]
+wait_for = "January 2004"
+timeout_ms = 47000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/demo-responsible-genai"
+commit = "1a0240f6fad26469722fdfd1ba929b598e37dd4a"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "6665dfb4e7940d87acc72e45c14036b9540e8ac58f74b27179ad67b32d9136e3"
+
+[[source.shown]]
+path = "runtimes.sh"
+sha256 = "e204bcddd30406ccda46bbcf144461d9227c4746ce1ea1c86179529de97e566d"
