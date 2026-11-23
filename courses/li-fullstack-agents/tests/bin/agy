@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Test stand-in for the agy CLI. AGY_STUB_RC sets the exit code (default 0). With a non-zero code it prints a quota-style error.
+if [ "${AGY_STUB_RC:-0}" -ne 0 ]; then
+  echo "error: stub quota reached"
+  exit "$AGY_STUB_RC"
+fi
+echo "stub agent reply"

@@ -1,0 +1,33 @@
+# captured 2026-11-17T13:08:10Z with node v22.13.1, agy 1.5.10
+--- the finished repo
+CONTEXT.md
+db.js
+DECISIONS.md
+Dockerfile
+docs
+main.js
+Makefile
+migrations
+package.json
+public
+RELEASE-CHECKLIST.md
+scripts
+server.js
+SPEC.md
+test
+testlib
+--- start it on a scratch port with a throwaway token
+--- health, then the empty board's API
+{"status":"ok"}
+[]
+--- the page is plain HTML
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taskpad</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+--- BROWSER STEP (scripted, not run): open http://127.0.0.1:39197 in a browser and type the token demo-token
+# exit code: 0

@@ -1,0 +1,6 @@
+# Extends the default gitleaks rules. No rule is disabled and nothing is allowlisted:
+# this repo holds no secrets, only the throwaway tokens "dev-token", "test-token" and "demo-token".
+title = "demo-repo gitleaks config"
+
+[extend]
+useDefault = true

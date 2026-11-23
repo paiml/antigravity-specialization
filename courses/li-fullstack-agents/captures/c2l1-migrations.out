@@ -1,0 +1,39 @@
+# captured 2026-11-17T13:08:11Z with node v22.13.1, agy 1.5.10
+--- agent prompt (migrations.md, mode accept-edits)
+  | Add db.js and two migrations. 001_create_tasks.sql creates `tasks` with id, title (1 to 120 characters, enforced by a CHECK),
+  | status (todo, doing or done, enforced by a CHECK, default todo) and created_at. 002_add_updated_at.sql adds updated_at and fills it for old rows.
+  | db.js applies migrations/*.sql in name order, records each in schema_migrations, and applies nothing twice.
+  | Never edit 001 after it has run: change the schema with a new numbered file. Show me the schema with `sqlite3 FILE .schema`.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- the migration files
+== migrations/001_create_tasks.sql
+CREATE TABLE tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL CHECK (length(title) BETWEEN 1 AND 120),
+  status TEXT NOT NULL DEFAULT 'todo' CHECK (status IN ('todo', 'doing', 'done')),
+  created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+);
+== migrations/002_add_updated_at.sql
+ALTER TABLE tasks ADD COLUMN updated_at TEXT;
+UPDATE tasks SET updated_at = created_at;
+--- apply them (expect an ExperimentalWarning from node:sqlite)
+  (node:2146180) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  (Use `node --trace-warnings ...` to show where the warning was created)
+--- schema read back with the sqlite3 shell
+CREATE TABLE schema_migrations (name TEXT PRIMARY KEY);
+CREATE TABLE tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL CHECK (length(title) BETWEEN 1 AND 120),
+  status TEXT NOT NULL DEFAULT 'todo' CHECK (status IN ('todo', 'doing', 'done')),
+  created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+, updated_at TEXT);
+CREATE TABLE sqlite_sequence(name,seq);
+--- migrations recorded
+001_create_tasks.sql
+002_add_updated_at.sql
+--- constraints: an empty title and an unknown status must both be refused
+Error: stepping, CHECK constraint failed: length(title) BETWEEN 1 AND 120 (19)
+Error: stepping, CHECK constraint failed: status IN ('todo', 'doing', 'done') (19)
+--- a second run applies nothing new
+rows in schema_migrations: 2
+# exit code: 0

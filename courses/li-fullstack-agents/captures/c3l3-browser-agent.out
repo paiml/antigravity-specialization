@@ -1,0 +1,33 @@
+# captured 2026-11-17T13:08:15Z with node v22.13.1, agy 1.5.10
+--- seed the bug (the diff is shown)
+  --- public/board.js.orig	2026-11-17 14:08:15.996218719 +0100
+  +++ public/board.js	2026-11-17 14:08:15.997218737 +0100
+  @@ -13,7 +13,7 @@
+   
+     function groupByStatus(tasks) {
+       const groups = { todo: [], doing: [], done: [] };
+  -    for (const t of tasks) groups[t.status].push(t);
+  +    for (const t of tasks) groups[STATUSES.find((s) => s.startsWith(t.status.slice(0, 2)))].push(t);
+       return groups;
+     }
+   
+--- two tasks: one doing, one done
+--- what the API says (correct)
+  in progress -> doing
+  finished -> done
+--- what the page would draw from that data (the seeded grouping)
+  todo: 
+  doing: in progress, finished
+  done: 
+--- the existing board test sees it too
+  # tests 3
+  # pass 2
+  # fail 1
+--- agent prompt (browser-agent.md, mode auto)
+  | Use the browser to check the running app at the address I give you. Do not read the source first.
+  | Type the token I give you into the token field. Add a task called "browser check". Move it to Doing, then to Done, then delete it.
+  | After each step say what the three columns and their counts show. If anything looks wrong, say exactly what you saw, which step it was, and stop.
+  | Do not edit any file in this session.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- BROWSER STEP (scripted, not run): the agent opens http://127.0.0.1:44333 and reports what the Done column shows
+# exit code: 0

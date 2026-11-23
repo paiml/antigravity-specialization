@@ -1,0 +1,16 @@
+# captured 2026-11-17T13:08:42Z with node v22.13.1, agy 1.5.10
+--- a clean clone, not the working copy
+--- checklist
+ok    make ci is green
+ok    make smoke prints smoke OK
+ok    production without a token exits 1: refusing to start: TASKPAD_TOKEN is required when NODE_ENV=production
+ok    no bearer token outside code, tests and docs
+ok    docs/API.md lists every route
+checklist items in the file: 9
+--- agent prompt (risk-review.md, mode plan)
+  | You are the reviewer, not the author. Read RELEASE-CHECKLIST.md, SPEC.md and the code. List the three biggest risks to a first release, each with
+  | the evidence (file and line), how likely it is, and the smallest mitigation. Say which checklist item would NOT have caught each one.
+  | Do not edit any file and do not say the release is fine unless you checked.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- LIVE PAGE (scripted, not run): open the deployed address, add a task, reload, confirm it stays
+# exit code: 0

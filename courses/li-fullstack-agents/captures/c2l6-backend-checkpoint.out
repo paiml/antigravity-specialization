@@ -1,0 +1,20 @@
+# captured 2026-11-17T13:08:14Z with node v22.13.1, agy 1.5.10
+--- unit and API tests
+  # tests 12
+  # pass 12
+  # fail 0
+--- the whole API from curl
+ok    health (200)
+ok    list is empty and open (200)
+ok    create without a token is refused (401)
+ok    create (201)
+ok    empty title is refused (400)
+ok    move to doing (200)
+ok    bad status is refused (400)
+ok    filter by status (200)
+ok    unknown id (404)
+ok    delete (204)
+smoke OK
+--- tag the milestone in a scratch repository
+  cb9792f (HEAD -> main, tag: ch2-done) ch2: migrations, API, auth, docs
+# exit code: 0

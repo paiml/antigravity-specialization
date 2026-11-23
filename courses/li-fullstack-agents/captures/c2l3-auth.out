@@ -1,0 +1,19 @@
+# captured 2026-11-17T13:08:12Z with node v22.13.1, agy 1.5.10
+--- writes need the token
+ok    POST without a token (401)
+ok    POST with a wrong token (401)
+ok    POST with the right token (201)
+{"id":1,"title":"a","status":"todo","created_at":"2026-11-17T13:08:12.714Z","updated_at":"2026-11-17T13:08:12.714Z"}
+--- reads are open
+ok    GET without a token (200)
+--- production without a token must refuse to start
+  refusing to start: TASKPAD_TOKEN is required when NODE_ENV=production
+exit code: 1
+--- the token must never be in the log
+ok    no token in 7 log lines
+--- agent prompt (review-auth.md, mode plan)
+  | Review the bearer token check in server.js and main.js. Answer yes or no with the line number for each:
+  | is the comparison constant time, is the token ever written to a log or an error body, does production refuse to start without one,
+  | does a missing header and a wrong token give the same answer. Do not edit any file.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+# exit code: 0

@@ -1,0 +1,27 @@
+# captured 2026-11-17T13:08:15Z with node v22.13.1, agy 1.5.10
+--- agent prompt (validation.md, mode accept-edits)
+  | Add validation to the add-task form. The page checks the title with the same rule as the server (trimmed, 1 to 120 characters) and shows
+  | a plain message in the element with role="alert" before it sends anything. A 401 shows "Not authorised: check the token." The server still checks everything:
+  | the page is a courtesy, not a defence. Add a test for each message. Do not use alert().
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- the page's rule (public/board.js)
+    len 0 -> {"error":"Enter a title."}
+    len 3 -> {"error":"Enter a title."}
+    len 2 -> {"value":"ok"}
+    len 121 -> {"error":"The title is longer than 120 characters."}
+--- the server's rule, sent directly so the page cannot help it
+ok    empty title (400)
+{"error":"title must be 1 to 120 characters"}
+ok    spaces only (400)
+ok    121 characters (400)
+ok    a number as the title (400)
+ok    120 characters is fine (201)
+--- the page and the server accept and refuse the same lengths
+ok    length 0: both refuse
+ok    length 1: both accept
+ok    length 119: both accept
+ok    length 120: both accept
+ok    length 121: both refuse
+ok    length 200: both refuse
+--- BROWSER STEP (scripted, not run): http://127.0.0.1:36385, submit an empty title, then a wrong token, and read the message
+# exit code: 0

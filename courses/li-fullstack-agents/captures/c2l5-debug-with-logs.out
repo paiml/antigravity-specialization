@@ -1,0 +1,44 @@
+# captured 2026-11-17T13:08:13Z with node v22.13.1, agy 1.5.10
+--- seed the mistake (the diff is shown)
+  --- server.js.orig	2026-11-17 14:08:13.300170178 +0100
+  +++ server.js	2026-11-17 14:08:13.302170214 +0100
+  @@ -18,7 +18,7 @@
+     if (typeof raw !== 'string') return { error: 'title must be a string' };
+     const value = raw.trim();
+     if (value.length < 1 || value.length > 120) return { error: 'title must be 1 to 120 characters' };
+  -  return { value };
+  +  return { value: raw };
+   }
+   
+   // tokenOk: constant-time compare of sha256 digests, so length does not leak either.
+--- RED: the tests notice
+  # tests 9
+  # pass 7
+  # fail 2
+--- reproduce it by hand and read the log
+{"id":1,"title":"  padded  ","status":"todo","created_at":"2026-11-17T13:08:13.722Z","updated_at":"2026-11-17T13:08:13.722Z"}
+log line:
+  {"method":"POST","path":"/api/tasks","status":201,"ms":4}
+--- agent prompt (find-bug.md, mode plan)
+  | A test in test/api.test.js is failing and a POST with the title "  padded  " comes back with the spaces still in it.
+  | Do not guess. Read the failing test output and the request log line, name the exact line in server.js that is wrong, and say why the length check passed.
+  | Then show the one-line fix. Do not change any test.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- fix: restore the original line
+  --- server.js	2026-11-17 14:08:13.302170214 +0100
+  +++ server.js.orig	2026-11-17 14:08:13.300170178 +0100
+  @@ -18,7 +18,7 @@
+     if (typeof raw !== 'string') return { error: 'title must be a string' };
+     const value = raw.trim();
+     if (value.length < 1 || value.length > 120) return { error: 'title must be 1 to 120 characters' };
+  -  return { value: raw };
+  +  return { value };
+   }
+   
+   // tokenOk: constant-time compare of sha256 digests, so length does not leak either.
+--- GREEN
+  # tests 9
+  # pass 9
+  # fail 0
+green
+# exit code: 0

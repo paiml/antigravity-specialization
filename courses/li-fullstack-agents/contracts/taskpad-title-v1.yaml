@@ -1,0 +1,41 @@
+metadata:
+  version: 1.0.0
+  kind: pattern
+  created: '2026-11-17'
+  author: Pragmatic AI Labs
+  description: Taskpad title rule - a task title is trimmed and must be 1 to 120 characters
+  references:
+  - milestones/v1.0.0/SPEC.md
+equations:
+  validate_title:
+    formula: validate(t) = ok(trim(t)) if 1 <= len(trim(t)) <= 120, else error
+    domain: t is a string
+    codomain: ok(s) with 1 <= len(s) <= 120, or error
+    invariants:
+    - the stored title equals trim(t), never t itself
+    - an all-space title is rejected
+    - a title of 121 characters after trimming is rejected
+    preconditions:
+    - t is a string (a non-string is rejected before this rule)
+proof_obligations:
+- id: TITLE-INV-001
+  type: invariant
+  property: Stored title is trimmed
+  formal: stored(t) = trim(t)
+  applies_to: all
+- id: TITLE-INV-002
+  type: invariant
+  property: Length bounds
+  formal: 1 <= len(stored(t)) <= 120
+  applies_to: all
+falsification_tests:
+- id: TITLE-FALSIFY-001
+  rule: Stored title is trimmed
+  prediction: a title sent with surrounding spaces is stored with the spaces
+  test: node --test in milestones/v1.0.0 (test/api.test.js), and lesson c2l5-debug-with-logs, which seeds exactly this bug
+  if_fails: the handler checks the trimmed value but stores the raw one
+- id: TITLE-FALSIFY-002
+  rule: Length bounds
+  prediction: a 121 character title is accepted
+  test: node --test in milestones/v1.0.0 (test/api.test.js)
+  if_fails: the upper bound is off by one or missing

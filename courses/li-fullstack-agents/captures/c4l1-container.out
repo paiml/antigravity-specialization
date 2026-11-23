@@ -1,0 +1,35 @@
+# captured 2026-11-17T13:08:18Z with node v22.13.1, agy 1.5.10
+--- the Dockerfile
+FROM node:22-slim
+ENV NODE_ENV=production PORT=3000 HOST=0.0.0.0 DB_PATH=/data/taskpad.db
+WORKDIR /app
+COPY package.json main.js server.js db.js ./
+COPY migrations ./migrations
+COPY public ./public
+RUN mkdir -p /data && chown -R node:node /data
+USER node
+VOLUME ["/data"]
+EXPOSE 3000
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:3000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+CMD ["node", "main.js"]
+--- agent prompt (dockerfile.md, mode accept-edits)
+  | Write a Dockerfile and a .dockerignore for Taskpad. Base image node:22-slim. Copy only what the app needs at run time (no tests, no docs, no scripts).
+  | Run as the non-root `node` user. Keep the database in a /data volume. Set NODE_ENV=production so the server refuses to start without a token.
+  | Add a HEALTHCHECK that calls /healthz with node (the slim image has no curl). Build it, run it with a volume, write a task, restart the container,
+  | and show the task is still there.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- build
+built taskpad-demo-2153907
+--- health
+{"status":"ok"}
+container health status: healthy
+--- write, restart the container, read it back (the volume keeps the data)
+  [{"id":1,"title":"survives a restart","status":"todo","created_at":"2026-11-17T13:08:24.203Z","updated_at":"2026-11-17T13:08:24.203Z"}]
+ok    the task is still there
+--- production mode without a token refuses to start
+  refusing to start: TASKPAD_TOKEN is required when NODE_ENV=production
+exit code: 1
+--- the image runs as a non-root user
+  user: node
+# exit code: 0

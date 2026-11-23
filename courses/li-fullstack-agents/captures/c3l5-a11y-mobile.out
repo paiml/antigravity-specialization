@@ -1,0 +1,29 @@
+# captured 2026-11-17T13:08:17Z with node v22.13.1, agy 1.5.10
+--- structure
+ok    html has a lang attribute
+ok    viewport meta is set
+ok    input #title has a label
+ok    input #token has a label
+ok    the message area is a live region (role=alert)
+ok    sections are named by their headings
+ok    card buttons get aria-label from app.js
+ok    a visible focus style exists
+ok    buttons are at least 2.75rem (44 px) tall
+ok    one column under 40rem
+--- contrast ratio (WCAG: 4.5 to 1 for body text), computed from the CSS variables
+  ok    text on bg: 13.34 to 1
+  ok    text on surface: 14.68 to 1
+  ok    muted on surface: 7.56 to 1
+  ok    muted on bg: 6.87 to 1
+  ok    on-accent on accent: 5.13 to 1
+  ok    error on surface: 7.33 to 1
+  ok    error on bg: 6.66 to 1
+--- a pair that fails is caught (light grey on white)
+  grey on white: 2.32 to 1
+--- agent prompt (a11y-review.md, mode plan)
+  | Review public/index.html, public/style.css and public/app.js for keyboard use, screen readers and a 390 px wide screen.
+  | List problems as: file, line, what a user would hit, the smallest fix. Check focus order, focus visibility, accessible names for the card buttons,
+  | the message region, touch target size, and any text under 4.5 to 1 contrast. Do not edit any file; I will decide what to fix.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- BROWSER STEP (scripted, not run): Tab through the page, then resize to 390 px wide and check there is no sideways scroll
+# exit code: 0

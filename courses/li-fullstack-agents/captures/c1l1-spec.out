@@ -1,0 +1,28 @@
+# captured 2026-11-17T13:08:10Z with node v22.13.1, agy 1.5.10
+--- agent prompt (draft-spec.md, mode plan)
+  | Write SPEC.md for a small app called Taskpad: a shared task board with three columns (todo, doing, done).
+  | 
+  | Use these sections in this order: Goal, Users and scope, Requirements, Acceptance, Non-goals.
+  | Number the requirements. Each one states one behaviour a test can check, with the exact status codes.
+  | Cover: a health endpoint, listing and filtering tasks, creating a task (title trimmed, 1 to 120 characters),
+  | changing and deleting a task, a shared bearer token for writes, a production start check, the database path,
+  | and the page (columns, add form, move and delete buttons, keyboard, 390 px width, contrast).
+  | Acceptance must name `make ci` and a smoke test. Non-goals: no framework, no build step, no npm dependencies.
+  | Do not write any code yet.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- spec lint on the committed spec
+ok    section: Goal
+ok    section: Users and scope
+ok    section: Requirements
+ok    section: Acceptance
+ok    section: Non-goals
+numbered requirements: 10
+--- the same lint on a spec with its Acceptance section removed (must go red)
+ok    section: Goal
+ok    section: Users and scope
+ok    section: Requirements
+FAIL  missing section: Acceptance
+ok    section: Non-goals
+numbered requirements: 10
+lint went red on the broken spec, as it must
+# exit code: 0

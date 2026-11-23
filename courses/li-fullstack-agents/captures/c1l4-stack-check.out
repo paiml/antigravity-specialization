@@ -1,0 +1,21 @@
+# captured 2026-11-17T13:08:11Z with node v22.13.1, agy 1.5.10
+--- versions
+node: v22.13.1
+.nvmrc: 22
+--- node:sqlite is built in (expect an ExperimentalWarning on stderr)
+  sqlite answer: 42
+  (node:2144996) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+  (Use `node --trace-warnings ...` to show where the warning was created)
+--- no dependencies
+ok    package.json has no dependencies block
+--- decision log: every entry names options, a choice, a reason and a cost
+decisions: 5
+ok    'Options' appears in every entry (5)
+ok    'Chosen' appears in every entry (5)
+ok    'Why' appears in every entry (5)
+ok    'Cost' appears in every entry (5)
+--- agent prompt (stack-review.md, mode plan)
+  | Read DECISIONS.md. Challenge each decision once: name the strongest argument against it and say whether it changes the choice.
+  | Then add any decision that is missing, in the same format (Options, Chosen, Why, Cost). Do not change any code.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+# exit code: 0

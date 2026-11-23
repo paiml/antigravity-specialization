@@ -1,0 +1,70 @@
+# scene.term.toml: terminal scene for c1l1-spec. The agent step runs through scripts/agy-replay.sh: a replay of a reference reply, NOT live agent output (agy quota).
+schema_version = 1
+
+[contract]
+name = "fsa-c1l1-spec"
+description = "Lint the chapter 1 spec, then lint a broken copy and watch it go red. The agent reply is a labelled replay."
+
+[session]
+command = ["bash", "--norc", "--noprofile", "-i"]
+cwd = "."
+cols = 110
+rows = 34
+host = "none"
+term = "xterm-256color"
+
+[session.env]
+PS1 = "$ "
+HOME = "/tmp/c3-home"
+PATH = "/tmp/c3-home/bin:/usr/bin:/bin"
+TZ = "UTC"
+LC_ALL = "C.UTF-8"
+LANG = "C.UTF-8"
+AGY_BIN = "../scripts/agy-replay.sh"
+PROMPT_COMMAND = 'l=$_; if [ -n "$P" ] && [ "$l" != clear ]; then sleep 2; fi; P=1'
+
+[[step]]
+wait_for = "$"
+timeout_ms = 10000
+
+[[step]]
+mark = "intro"
+
+[[step]]
+send = ["text:export AGY_BIN=$(realpath \"$AGY_BIN\")", "enter"]
+
+[[step]]
+send = ["text:clear", "enter"]
+
+[[step]]
+mark = "step-1"
+
+[[step]]
+send = ["text:./run.sh", "enter"]
+
+[[step]]
+wait_for = "lint went red on the broken spec, as it must"
+timeout_ms = 120000
+
+[[step]]
+mark = "end"
+
+[render]
+fps = 12
+cell_width = 9
+cell_height = 18
+font_family = "JetBrains Mono"
+theme = "rmedia-dark"
+
+[scan]
+extra_deny = []
+
+[source]
+repo = "paiml/fullstack-antigravity-agents"
+commit = "5dad508a55f221eb727cc672c85734a8a278b2c7"
+command = ["bash", "--norc", "--noprofile", "-i"]
+workdir = "."
+
+[[source.shown]]
+path = "run.sh"
+sha256 = "7b98fa8d1f3e7b830474669692580b6e05eb6729ca844c6bfb25840a1bf0b3bf"

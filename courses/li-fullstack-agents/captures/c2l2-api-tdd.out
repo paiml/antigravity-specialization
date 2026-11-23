@@ -1,0 +1,17 @@
+# captured 2026-11-17T13:08:11Z with node v22.13.1, agy 1.5.10
+--- RED: the API tests against a server that only knows /healthz
+  # tests 9
+  # pass 2
+  # fail 7
+red, as it must be
+--- agent prompt (make-green.md, mode accept-edits)
+  | The tests in test/api.test.js are red. Read them first and say, in one line each, what behaviour they require.
+  | Then change server.js, and only server.js, until `node --test test/api.test.js` passes. Do not edit a test to make it pass.
+  | Paste the test summary when you are done.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- GREEN: the real server.js back in place
+  # tests 9
+  # pass 9
+  # fail 0
+green
+# exit code: 0

@@ -1,0 +1,21 @@
+# captured 2026-11-17T13:08:10Z with node v22.13.1, agy 1.5.10
+--- agent prompt (draft-architecture.md, mode plan)
+  | Read SPEC.md and CONTEXT.md. Write docs/ARCHITECTURE.md: a small diagram, a table of files with one job each,
+  | the request flow, and a failure modes list. Use only the files that CONTEXT.md allows.
+  | After the draft, list three assumptions you made that I should check. Do not write code.
+AGY-BLOCKED: error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h22m17s. (not retried in this session)
+--- review 1: every file named in the Files table exists in the finished app
+ok    main.js
+ok    server.js
+ok    db.js
+ok    migrations/
+ok    public/board.js
+ok    public/app.js
+ok    public/index.html
+ok    test/
+ok    scripts/
+--- review 2: the failure modes section has at least three bullets
+failure modes listed: 4
+--- review 3: a draft that invents a file is caught
+caught: cache.js is described but missing
+# exit code: 0

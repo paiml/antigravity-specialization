@@ -1,0 +1,6 @@
+.run/
+out/
+data/
+node_modules/
+*.db
+*.log
