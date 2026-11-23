@@ -1,0 +1,13 @@
+# captured 2026-11-17T09:12:43Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+=== 1. user only
+A firewall is a security system that acts as a barrier between a trusted network and an untrusted network. It monitors and controls network traffic, filtering out unauthorized access and preventing malicious attacks. The firewall can be configured to allow or block specific types of traffic, such as HTTP, HTTPS, and SSH, based on the user's needs and the security policies of the organization. It can also be used to
+
+=== 2. with a system prompt
+A firewall is a network security device that acts as a barrier between a trusted internal network and an untrusted external network. It filters and controls network traffic based on predefined rules and policies, preventing unauthorized access, malware, and other threats from entering the internal network.
+
+Firewalls can be implemented at various levels of the network, including the perimeter, internal network, and application layer. They can be hardware or
+
+=== 3. with a constraint
+A firewall is a network security device that controls incoming and outgoing network traffic based on predefined rules.
+# exit code: 0

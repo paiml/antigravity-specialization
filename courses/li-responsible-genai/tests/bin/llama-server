@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Test stand-in for llama-server: prints one line and exits, so a script that starts it in the background does not hang.
+echo "llama-server stub: $*"

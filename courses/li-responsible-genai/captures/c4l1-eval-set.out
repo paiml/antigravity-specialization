@@ -1,0 +1,10 @@
+# captured 2026-11-17T09:13:37Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+PASS  q=What is the capital of France?  expect=Paris  got=Paris
+PASS  q=What is 7 times 8?  expect=56  got=56
+PASS  q=What color do you get by mixing blue and yellow?  expect=green  got=Green
+FAIL  q=How many days are in a leap year?  expect=366  got=29 days
+PASS  q=What is the chemical symbol for gold?  expect=Au  got=Au
+score: 4/5 = 80% (gate: 60%)
+gate passed
+# exit code: 0

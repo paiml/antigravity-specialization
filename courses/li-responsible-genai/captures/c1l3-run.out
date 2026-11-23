@@ -1,0 +1,15 @@
+# captured 2026-11-17T09:12:37Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+=== APR Run (OFFLINE MODE) ===
+Network access disabled. Only local/cached models allowed.
+
+Source: ~/.cache/pacha/models/qwen-1.5b-q4k.apr
+Loaded embedded BPE tokenizer: 151936 vocab, 151387 merges, 25 special tokens
+OwnedQuantizedModel::from_apr: 28 layers loaded in 1613.3ms
+Loaded embedded BPE tokenizer: 151936 vocab, 151387 merges, 25 special tokens
+
+Output:
+2 + 2 equals 4.
+
+Completed in 3.17s (cached)
+# exit code: 0

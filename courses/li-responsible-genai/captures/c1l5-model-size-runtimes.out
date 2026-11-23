@@ -1,0 +1,97 @@
+# captured 2026-11-17T17:37:09Z with apr 0.74.0 (3795072634)
+# model: qwen2.5-0.5b-instruct-q5_0.gguf (apr, llama.cpp); qwen2.5-coder:0.5b (Ollama)
+$ apr run ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf What is a hash function? Answer in two sentences. --chat -n 128 --no-gpu --offline --benchmark
+=== APR Run (OFFLINE MODE) ===
+Network access disabled. Only local/cached models allowed.
+
+Source: ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf
+Generated 64 tokens in 42314.0ms (1.5 tok/s)
+
+=== Benchmark Results ===
+tok/s: 1.5
+tokens: 64
+latency: 43452.01ms
+model: ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf
+
+$ llama-cli -m ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf -p What is a hash function? Answer in two sentences. -n 128 -st --no-display-prompt
+
+
+Loading model... |-\|/-\|/ 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b12471-8f647f1fd
+model      : ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf
+ftype      : Q4_K - Medium
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> What is a hash function? Answer in two sentences.
+A hash function is a mathematical function that maps any input of a certain size to a fixed-size output, making it uniquely identifiable for any given input. It is used to convert data into a fixed-length representation or key, which can be used to check or verify the data's identity.
+
+[ Prompt: 1119.3 t/s | Generation: 617.0 t/s ]
+
+
+Exiting...
+$ ollama run qwen2.5-coder:0.5b What is a hash function? Answer in two sentences. --verbose
+⠋ ⠙ ⠸ ⠼ ⠴ ⠴ ⠦ ⠇ ⠏ ⠏ ⠙ ⠙ ⠹ ⠼ ⠴ ⠴ A hash function is a mathematical function that maps data into a fixed-size value, typically using an algorithm to distribute the data evenly among a set of potential keys.
+
+total duration:       1.743401978s
+load duration:        1.584656083s
+prompt eval count:    40 token(s)
+prompt eval duration: 85.244ms
+prompt eval rate:     469.24 tokens/s
+eval count:           33 token(s)
+eval duration:        64.209ms
+eval rate:            513.95 tokens/s
+$ apr list
+=== Cached Models ===
+
+NAME                                     SIZE         FORMAT       PATH
+--------------------------------------------------------------------------------------------------------
+8de7eb9c0c789ccb                         468.6 MB     GGUF         ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf (orphan)
+
+Total: 1 models (0 tracked + 1 orphans), 468.6 MB used
+$ llama-cli --cache-list
+number of models in cache: 0
+$ ollama show qwen2.5-coder:0.5b
+  Model
+    architecture        qwen2          
+    parameters          494.03M        
+    context length      32768          
+    embedding length    896            
+    quantization        Q4_K_M         
+    template source     go_template    
+
+  Capabilities
+    completion    
+    tools         
+    insert        
+
+  System
+    You are Qwen, created by Alibaba Cloud. You are a helpful assistant.    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+$ ollama show qwen2.5-coder:0.5b --license | head -3
+
+                                 Apache License
+                           Version 2.0, January 2004
+# exit code: 0

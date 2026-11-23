@@ -1,0 +1,6 @@
+# captured 2026-11-17T09:13:00Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+run 1: 28 tokens in 1.24 s = 22.5 tok/s
+run 2: 28 tokens in 1.04 s = 27.0 tok/s
+run 3: 28 tokens in 0.99 s = 28.2 tok/s
+# exit code: 0

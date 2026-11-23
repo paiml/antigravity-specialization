@@ -1,0 +1,11 @@
+# captured 2026-11-17T17:35:21Z with apr 0.74.0 (3795072634)
+# model: qwen2.5-0.5b-instruct-q5_0.gguf (apr, llama.cpp); qwen2.5-coder:0.5b (Ollama)
+$ mkdir -p responsible-ai
+$ cat risks.md
+todo wrong-answer you -
+todo unfair-answer you -
+todo hijacked-answer you -
+todo leaked-data you -
+$ grep -c ^todo risks.md
+4
+# exit code: 0

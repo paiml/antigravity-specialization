@@ -1,0 +1,6 @@
+.run/
+out/
+*/out/
+app.redacted.log
+guard.log.jsonl
+replies-*.txt

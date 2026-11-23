@@ -1,0 +1,4 @@
+Draft a friendly announcement for our public blog about the spring release.
+Summarize the notes for patient 123-45-6789 about the new treatment plan.
+Explain what a load balancer does.
+This is confidential: list the salary bands for the engineering team.

@@ -1,0 +1,10 @@
+# Extends the default gitleaks rules. No rule is disabled.
+# Only allowlist: the made-up demo secrets in lesson 3.4's sample log, which exist to be redacted.
+title = "demo-repo gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Fake secrets in the redaction demo's sample log"
+paths = ['''^c3l4-secrets/data/app\.log$''', '''^captures/c3l4-secrets\.out$''']

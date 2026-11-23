@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Test stand-in for llama-cli: canned output, no model. Put tests/bin first on PATH.
+case "${1:-}" in
+  --version) echo "version: 0.0.0-test (stub)" ;;
+  --cache-list) echo "number of models in cache: 0" ;;
+  -m) echo "> stub prompt"; echo "stub llama reply" ;;
+  *) echo "llama-cli stub: unknown command $*" >&2; exit 2 ;;
+esac

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Test stand-in for ollama: canned output, no service. Put tests/bin first on PATH.
+case "${1:-}" in
+  --version) echo "ollama version is 0.0.0-test" ;;
+  ps) echo "NAME ID SIZE PROCESSOR" ;;
+  show)
+    if [ "${3:-}" = "--license" ]; then echo "Apache License"; else echo "  architecture stub"; fi
+    ;;
+  run) echo "stub ollama reply" ;;
+  *) echo "ollama stub: unknown command $*" >&2; exit 2 ;;
+esac

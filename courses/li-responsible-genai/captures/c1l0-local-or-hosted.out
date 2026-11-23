@@ -1,0 +1,20 @@
+# captured 2026-11-17T17:35:00Z with apr 0.74.0 (3795072634)
+# model: qwen2.5-0.5b-instruct-q5_0.gguf (apr, llama.cpp); qwen2.5-coder:0.5b (Ollama)
+$ apr --version
+apr 0.74.0 (3795072634)
+$ llama-cli --version
+version: 1.0.0-dev (build 12471, commit 8f647f1fd)
+built with GNU 11.4.0 for Linux x86_64
+$ ollama --version
+ollama version is 0.40.16
+$ apr run ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf What is 2+2? --chat -n 24 --no-gpu --offline
+=== APR Run (OFFLINE MODE) ===
+Network access disabled. Only local/cached models allowed.
+
+Source: ~/.cache/pacha/models/8de7eb9c0c789ccb.gguf
+
+Output:
+2+2 equals 4.
+
+Completed in 20.88s (cached)
+# exit code: 0

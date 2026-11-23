@@ -1,0 +1,5 @@
+{"q":"What is the capital of France?","expect":"Paris"}
+{"q":"What is 7 times 8?","expect":"56"}
+{"q":"What color do you get by mixing blue and yellow?","expect":"green"}
+{"q":"How many days are in a leap year?","expect":"366"}
+{"q":"What is the chemical symbol for gold?","expect":"Au"}

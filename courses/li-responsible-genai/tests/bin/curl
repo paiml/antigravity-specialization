@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Test stand-in for curl: canned answers for the local server's three endpoints. CURL_DOWN=1 simulates no server.
+if [ -n "${CURL_DOWN:-}" ]; then exit 7; fi
+url=""
+for a in "$@"; do
+  case "$a" in
+    http*) url="$a" ;;
+  esac
+done
+case "$url" in
+  */health) echo '{"status":"ok","binary_sha256":"x","uptime_sec":1}' ;;
+  */v1/models) echo '{"data":[{"id":"m","owned_by":"test"}]}' ;;
+  */api/chat) echo '{"message":{"content":"stub ollama chat"}}' ;;
+  */v1/chat/completions) echo '{"choices":[{"message":{"content":"stub reply"}}],"usage":{"completion_tokens":3}}' ;;
+  *) exit 22 ;;
+esac

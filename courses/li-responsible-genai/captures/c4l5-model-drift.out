@@ -1,0 +1,37 @@
+# captured 2026-11-17T09:16:05Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+model A: qwen-1.5b-q4k.apr
+model B: 8de7eb9c0c789ccb.gguf
+SAME  q=What is the capital of France? Answer in one word.
+        A=Paris
+        B=Paris
+SAME  q=What is 12 times 12? Answer with the number only.
+        A=144
+        B=144
+SAME  q=Name the chemical symbol for gold. Answer with the symbol only.
+        A=Au
+        B=Au
+DRIFT  q=Is the Pacific Ocean larger than the Atlantic Ocean? Answer yes or no.
+        A=Yes.
+        B=No, the Pacific Ocean is not larger than the Atlantic Ocean. The Pacific Ocean is significantly larger than the Atlantic Ocean in
+DRIFT  q=How many days are in a leap year? Answer with the number only.
+        A=366
+        B=366 days
+SAME  q=Who wrote the play Romeo and Juliet? Answer with the name only.
+        A=William Shakespeare
+        B=William Shakespeare
+--- diff of answers (A vs B) ---
+--- A: qwen-1.5b-q4k.apr
++++ B: 8de7eb9c0c789ccb.gguf
+@@ -1,6 +1,6 @@
+ Paris
+ 144
+ Au
+-Yes.
+-366
++No, the Pacific Ocean is not larger than the Atlantic Ocean. The Pacific Ocean is significantly larger than the Atlantic Ocean in
++366 days
+ William Shakespeare
+agreement: 4/6 probes unchanged; drifted: 2
+re-check done: review each DRIFT line before you switch models
+# exit code: 0

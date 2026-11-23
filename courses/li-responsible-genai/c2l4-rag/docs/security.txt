@@ -1,0 +1,2 @@
+Security policy. Passwords must be at least 14 characters. Laptops use full disk encryption.
+Report lost devices to the help desk within 24 hours.

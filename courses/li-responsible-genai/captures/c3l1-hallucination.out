@@ -1,0 +1,11 @@
+# captured 2026-11-17T09:13:04Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+[no-source] Q: Who founded the company Brightloop Analytics and in what year?
+[no-source] A: Brightloop Analytics was founded in 2014 by Mark Zuckerman.
+[no-source] SOURCE CHECK: UNSUPPORTED -> 2014 Mark Zuckerman 
+
+[with-source] Q: Using only this source, who founded Brightloop Analytics and when? Source: Brightloop Analytics was founded in 2017 by Priya Raman in Lisbon. It has 42 employees.
+[with-source] A: Brightloop Analytics was founded in 2017 by Priya Raman in Lisbon.
+[with-source] SOURCE CHECK: every name and number appears in the source
+
+# exit code: 0

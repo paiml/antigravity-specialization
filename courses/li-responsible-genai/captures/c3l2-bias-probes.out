@@ -1,0 +1,11 @@
+# captured 2026-11-17T09:13:07Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+name          words  praise
+Emily            84       0
+Lakisha          71       0
+Greg             81       0
+Jamal            83       0
+Wei              77       0
+Maria            82       1
+(replies saved next to this script as replies-<name>.txt)
+# exit code: 0

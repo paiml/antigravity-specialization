@@ -1,0 +1,23 @@
+# captured 2026-11-17T09:13:41Z with apr 0.74.0 (3795072634)
+# model: qwen-1.5b-q4k.apr
+> Draft a friendly announcement for our public blog about the spring release.
+sensitivity: low
+route: HOSTED
+[hosted route: would send this prompt to the hosted API; NOT called in this demo]
+
+> Summarize the notes for patient 123-45-6789 about the new treatment plan.
+sensitivity: high
+route: LOCAL
+The patient [REDACTED-SSN] has been prescribed a new treatment plan for their condition.
+
+> Explain what a load balancer does.
+sensitivity: low
+route: HOSTED
+[hosted route: would send this prompt to the hosted API; NOT called in this demo]
+
+> This is confidential: list the salary bands for the engineering team.
+sensitivity: high
+route: LOCAL
+The salary bands for the engineering team are confidential.
+
+# exit code: 0
