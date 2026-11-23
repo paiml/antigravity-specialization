@@ -1,0 +1,16 @@
+# captured 2026-11-17T09:24:54Z with agy agy 1.5.10
+
+== spec-lint on a project that has the R5 tests ==
+spec-lint: 5 rules, 0 problems
+
+== spec-lint on a project with no tests yet: must fail ==
+NO TEST TAG: R1
+NO TEST TAG: R2
+NO TEST TAG: R3
+NO TEST TAG: R4
+NO TEST TAG: R5
+spec-lint: 5 rules, 5 problems
+rejected, as intended
+
+LESSON-STATUS: RUNS
+# exit code: 0

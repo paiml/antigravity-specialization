@@ -1,0 +1,31 @@
+# captured 2026-11-17T09:24:35Z with agy agy 1.5.10
+
+== pinned agy version ==
+agy version 1.5.10 (pinned 1.5.10): ok
+
+== agy models (first 3) ==
+Fetching available models...
+gemini-4-carbon-medium	Gemini 4 Carbon (Medium)
+gemini-4-carbon-high	Gemini 4 Carbon (High)
+gemini-4-carbon-low	Gemini 4 Carbon (Low)
+
+== agy agents ==
+firestore-rules-author
+flutter_a11y_agent
+security_reviewer
+
+== the project the agent will work on ==
+<repo>/project:
+AGENTS.md
+hooks
+Makefile
+spec
+src
+tests
+
+<repo>/project/spec:
+slugify.md
+UI STEP (not run here): open <repo>/project in Antigravity
+
+LESSON-STATUS: RUNS
+# exit code: 0

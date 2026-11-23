@@ -1,0 +1,1 @@
+Read AGENTS.md and spec/slugify.md. Rule R5 (maximum length, the -n option) is not implemented yet. Add failing test cases for R5 to tests/cases.txt, run `make test`, and show that they fail. Do not edit src/.

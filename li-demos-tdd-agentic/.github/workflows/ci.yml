@@ -1,0 +1,13 @@
+name: ci
+on: { pull_request: {}, push: { branches: [main] } }
+concurrency: { group: "ci-${{ github.ref }}", cancel-in-progress: true }
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bashrs (pinned)
+        run: cargo install bashrs --version 7.4.3 --locked
+      - name: Gate (no Python, bashrs lint, key scan, offline tests)
+        run: make gate

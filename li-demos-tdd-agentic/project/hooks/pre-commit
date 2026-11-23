@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Refuse a commit while the tests are red.
+exec bash tests/run.sh

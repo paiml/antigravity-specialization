@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# A stand-in for agy used ONLY by the offline tests. It is not agy and its output is never captured as course output.
+# FAKE_AGY_MODE: solve (copy FAKE_AGY_STAGE over the --add-dir directory), quota, auth, fail, wrong-version.
+set -uo pipefail
+root="$(cd "$(dirname "$0")/.." && pwd)"
+case "${1-}" in
+  --version)
+    if [ "${FAKE_AGY_MODE-}" = wrong-version ]; then echo "0.0.1"; else echo "1.5.10"; fi
+    exit 0
+    ;;
+  models)
+    echo "Fetching available models..."
+    echo "fake-model-one	Fake Model One"
+    exit 0
+    ;;
+  agents)
+    echo "fake_agent"
+    exit 0
+    ;;
+esac
+dir=""
+while [ "$#" -gt 0 ]; do
+  if [ "$1" = "--add-dir" ]; then dir="$2"; fi
+  shift
+done
+case "${FAKE_AGY_MODE-solve}" in
+  quota)
+    echo 'error: Individual quota reached.'
+    echo 'AGY_ERROR: {"status":"RESOURCE_EXHAUSTED"}'
+    ;;
+  auth)
+    echo 'error: not logged in'
+    ;;
+  fail)
+    echo 'boom'
+    exit 3
+    ;;
+  *)
+    . "$root/lib/common.sh"
+    stage_into "$dir" "${FAKE_AGY_STAGE:-n-green}"
+    echo "1. Add failing tests in tests/cases.txt"
+    echo "2. Change src/slugify.sh"
+    ;;
+esac

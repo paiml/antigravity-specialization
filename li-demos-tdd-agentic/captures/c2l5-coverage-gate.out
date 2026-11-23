@@ -1,0 +1,11 @@
+# captured 2026-11-17T09:24:53Z with agy agy 1.5.10
+
+== base tests only (no -n cases) ==
+base tests: 7 10 70 missed: 6 7 12
+
+== all tests (with R5 cases) ==
+all tests: 10 10 100
+GATE: 100 percent, pass
+
+LESSON-STATUS: RUNS
+# exit code: 0

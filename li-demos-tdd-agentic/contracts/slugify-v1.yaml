@@ -1,0 +1,41 @@
+metadata:
+  version: 1.0.0
+  kind: pattern
+  created: '2026-11-17'
+  author: Pragmatic AI Labs
+  description: slugify - turn text into a URL slug
+  references:
+  - spec/slugify.md
+equations:
+  slugify:
+    formula: slug(t) = trim_dash(collapse_non_alnum(lower(t)))
+    domain: t is any ASCII string
+    codomain: slug(t) matches ^[a-z0-9]+(-[a-z0-9]+)*$ or is empty
+    invariants:
+    - slug(t) contains only a-z, 0-9 and single dashes
+    - slug(t) neither starts nor ends with a dash
+    - slug(slug(t)) = slug(t) (idempotent)
+    preconditions:
+    - t is ASCII text
+proof_obligations:
+- id: SLUG-INV-001
+  type: invariant
+  property: Output alphabet
+  formal: slug(t) matches ^[a-z0-9]+(-[a-z0-9]+)*$ or is empty
+  applies_to: all
+- id: SLUG-INV-002
+  type: invariant
+  property: Idempotence
+  formal: slug(slug(t)) = slug(t)
+  applies_to: all
+falsification_tests:
+- id: SLUG-FALSIFY-001
+  rule: Output alphabet
+  prediction: a separator other than space or punctuation (for example slash) stays in the slug
+  test: bash tests/property.sh against stages/narrow
+  if_fails: the implementation only knows some separators
+- id: SLUG-FALSIFY-002
+  rule: Idempotence
+  prediction: slugifying a slug changes it (for example a missing trim leaves a dash that a second pass removes)
+  test: bash tests/property.sh (the idempotence check)
+  if_fails: the implementation is not a fixed point on its own output

@@ -1,0 +1,1 @@
+Read AGENTS.md and spec/slugify.md. Write test cases in tests/cases.txt, one tagged group per rule (a line "# R1", "# R2", and so on, then the cases). Do not touch src/. Show me the cases for review; do not implement anything.

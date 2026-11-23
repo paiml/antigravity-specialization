@@ -1,0 +1,17 @@
+# captured 2026-11-17T09:24:41Z with agy agy 1.5.10
+
+== agent step: agy --mode accept-edits --print ==
+error: Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h40m50s.
+AGY_ERROR: {"short_error":"RESOURCE_EXHAUSTED (code 429): Individual quota reached. Please upgrade your subscription to increase your limits. Resets in 94h40m50s.","status":"RESOURCE_EXHAUSTED","error_code":429,"code_kind":"http","retryable":true,"error_id":"f5da963e-0591-4f57-9274-f3561380e389-1"}
+AGENT-STEP: BLOCKED-quota
+
+== plan-check on a sample good plan (hand-written) ==
+plan-check: test step line 4, source step line 5, problems 0
+
+== plan-check on a sample bad plan (hand-written): must be rejected ==
+PLAN PROBLEM: no test step before the first source step
+PLAN PROBLEM: touches a path outside the project
+plan-check: test step line 5, source step line 3, problems 1
+
+LESSON-STATUS: SCRIPTED-NOT-RUN
+# exit code: 0

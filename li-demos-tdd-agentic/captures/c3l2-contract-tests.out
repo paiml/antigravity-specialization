@@ -1,0 +1,11 @@
+# captured 2026-11-17T09:24:54Z with agy agy 1.5.10
+contract-test: 4 cases from slugify-cases.yaml
+examples: passed=4 failed=0
+
+== pv validate on the formal contract ==
+
+0 error(s), 0 warning(s)
+Contract is valid.
+
+LESSON-STATUS: RUNS
+# exit code: 0
